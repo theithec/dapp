@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/fullresultmainlayout"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <TableRow
+        android:id="@+id/fullresulttablebtns"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="right" >
+
+        <LinearLayout
+            android:id="@+id/btnswrapper"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/btnAddGame"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/btnAddGame" >
+            </Button>
+
+            <Button
+                android:id="@+id/btnAddBockForNextGame"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/btnAddBockForNextGame" >
+            </Button>
+
+            <Button
+                android:id="@+id/btnRMBockForNextGame"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/btnRmBockForNextGame" >
+            </Button>
+
+            <TextView
+                android:id="@+id/textviewBoeckeNextGame"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/textViewBoeckeNextGameText" >
+            </TextView>
+        </LinearLayout>
+    </TableRow>
+
+    <TableLayout
+        android:id="@+id/fullresulttablelayoutcontentwrapper"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:stretchColumns="1" >
+
+        <TableRow
+            android:id="@+id/fullresultheaderrow"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+        </TableRow>
+    </TableLayout>
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="vertical" >
+
+        <TableLayout
+            android:id="@+id/fullresulttablelayoutcontent"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:stretchColumns="1" >
+        </TableLayout>
+    </ScrollView>
+
+</LinearLayout>

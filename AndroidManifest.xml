@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="de.thtp.dapp"
+    android:versionCode="1"
+    android:versionName="1.0" >  
+
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="19" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name="de.thtp.dapp.MainActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name="de.thtp.dapp.DiagramActivity"></activity>
+        <activity android:name="de.thtp.dapp.DappPreferencesActivity"></activity>
+        <activity android:name="de.thtp.dapp.PlayerListActivity"></activity>
+        <activity android:name="de.thtp.dapp.SessionListActivity"></activity>
+        <activity android:name="de.thtp.dapp.SessionPlayersActivity"></activity>
+        <activity android:name="de.thtp.dapp.SessionResultActivity"></activity>
+        <activity android:name="de.thtp.dapp.GameResultAddGameActivity"></activity>
+        <activity android:name="de.thtp.dapp.GamePlayersAddGameActivity"></activity>
+        <activity android:name="de.thtp.dapp.GameResultEditGameActivity"></activity>
+        <activity android:name="de.thtp.dapp.GamePlayersEditGameActivity"></activity>
+    </application>
+
+</manifest>

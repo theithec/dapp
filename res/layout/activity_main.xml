@@ -1,0 +1,45 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+     >
+    <Button
+        android:id="@+id/btnContinueSession"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/continueSession" 
+        android:onClick="continueSession"
+        android:enabled="false"/>
+
+    <Button
+        android:id="@+id/btnStartNewSession"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/startNewSession" 
+        android:onClick="startNewSession"/>
+
+     <Button
+        android:id="@+id/btnSessionsCtrl"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/SessionsCtrl" 
+        android:onClick="SessionsCtrlClick"/>
+      <Button
+        android:id="@+id/btnPlayersCtrl"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/playersCtrl" 
+        android:onClick="playersCtrlClick"/>
+      
+      <Button
+        android:id="@+id/btnDappSettings"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/dappSettings" 
+        android:onClick="settingsClick"/>
+  
+      
+
+
+</LinearLayout>
