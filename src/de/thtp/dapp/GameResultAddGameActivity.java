@@ -26,14 +26,11 @@ public class GameResultAddGameActivity extends GameResultActivity {
 		super.initWithPlayers();
 		
 	}
-	
 
 	@Override
 	void pickPlayers() {
 		Intent intent  = new Intent(this,GamePlayersAddGameActivity.class);
 		startActivityForResult(intent, PICK_PLAYER_REQUEST);
 	}
-
-
 
 }

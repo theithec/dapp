@@ -193,7 +193,7 @@ public class SessionResultActivity extends DappSessionActivity {
 	void rowClick(int rid) {
 		tmp_rid = rid;
 		new DAppActionQuestion(this, new DAppAction(
-				"Spiel " + (tmp_rid + 1) + " bearbeiten?") {
+				getString(R.string.editGameById, tmp_rid)) {
 			@Override
 			void execute() {
 				editGame(tmp_rid);
@@ -205,7 +205,7 @@ public class SessionResultActivity extends DappSessionActivity {
 
 	protected void editGame(int gamePos) {
 		Intent intent = new Intent(this, GameResultEditGameActivity.class);
-		intent.putExtra(Const.K_GAME_POS, gamePos); //Session.getCurrentSession().get(gameID).;
+		intent.putExtra(Const.K_GAME_POS, gamePos);
 		startActivity(intent);
 		finish();
 		
@@ -235,7 +235,6 @@ public class SessionResultActivity extends DappSessionActivity {
 	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle item selection
 		switch (item.getItemId()) {
 		case MENU_DIA:
 			startActivity(new Intent(this, DiagramActivity.class));
@@ -261,8 +260,8 @@ public class SessionResultActivity extends DappSessionActivity {
 	
 	public void checkBockBtns() {
 		boolean hasBoecke = newBoeckeFromLastGame > 0;
-		textViewBoeckeNextGame.setText(hasBoecke ? "Neue Böcke: "
-				+ newBoeckeFromLastGame : "");
+		textViewBoeckeNextGame.setText(
+				hasBoecke ? getString(R.string.newBoeckeToAdd, newBoeckeFromLastGame) : "");
 		bockBtns[bockBtnsAddBtn]
 				.setEnabled(newBoeckeFromLastGame < DAppPrefs.MAX_BOECKE);
 		bockBtns[bockBtnsRMBtn].setEnabled(hasBoecke);

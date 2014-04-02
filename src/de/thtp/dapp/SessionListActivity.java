@@ -58,7 +58,7 @@ public class SessionListActivity extends DappListViewActivity {
 								Toast.LENGTH_LONG).show();
 						setListAdapter();
 					} else {
-						Toast.makeText(a, "can't delete current Session",
+						Toast.makeText(a, R.string.sessionCantDeleteCurrent,
 								Toast.LENGTH_LONG).show();
 					}
 					endclick();

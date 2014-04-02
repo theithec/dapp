@@ -9,6 +9,7 @@
     <string name="titleSessionOpen">Open Session</string>
     <string name="sessionNew">New Session</string>
     <string name="sessionName">Name</string>
+     <string name="sessionCantDeleteCurrent">Can\'t delete current session</string>
 
     <string name="app_name">Dapp</string>
     <string name="players">Players</string>
@@ -21,7 +22,6 @@
     <string name="btnAddBockForNextGame">+Bock</string>
     <string name="btnRmBockForNextGame">-Bock</string>
     <string name="menu_settings">menusettings</string>
-    <string name="textViewBoeckeNextGameText">Neue Böcke</string>
     <string name="SessionOpen">Open Session</string>
     <string name="SessionDelete">Delete Session</string>
     <string name="playerRename">Rename Player</string>
@@ -53,6 +53,8 @@
     <string name="addResult">Add Result</string>
     <string name="oneWinnerOnlyQ">Just one winner?</string>
     <string name="deletePlayerQ">Delete Player? This Sessions will be deletet also:\n</string>
+    <string name="editGameById">Edit Game %1$d?"</string>
+    <string name="newBoeckeToAdd">New Boecke: %1$d</string>
     <color name="bg1">#cecece</color>
 
 </resources>

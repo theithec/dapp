@@ -159,14 +159,6 @@ public abstract class GameResultActivity extends DappActivity implements
 		TextView textViewPoints = (TextView) findViewById(R.id.textviewPoints);
 		String textViewPointsText = "Punkte:";
 
-		/*
-		EditText boeckeEdit = editTexts[editTextsBoecke];
-		String bstr = boeckeEdit.getText().toString();
-		int bint = -1;
-		if (!bstr.equals("")) {
-			bint = Integer.parseInt(bstr);
-		}
-		*/
 		if (boeckeForThisGame > 0) {
 			int bp = pint;
 			for (int i = 0; i < boeckeForThisGame; i++) {
