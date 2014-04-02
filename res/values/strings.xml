@@ -36,8 +36,6 @@
 	    
      <string name="prefDialogTitleDealerPos">Dealer Position Difference</string>
      <string name="prefItemTitleDealerPos">Dealer Position Difference</string>
-     <string name="prefDialogTitleMissingPos">Missing Position Difference</string>
-     <string name="prefItemTitleMissingPos">Missing Position Difference</string>
     <string name="prefCategoryTitle">Settings</string>
     <string name="prefDialogTitleMaxPlayersize">Max. Players</string>
     <string name="prefItemTitleMaxPlayersize">Max. Number of players</string>

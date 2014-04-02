@@ -95,7 +95,6 @@ public class SessionPlayersActivity extends DappActivity {
 
 	public void addSessionPlayerName(View v) {
 		new PlayerNameAddDialog(this).show();
-		// allPlayers.add(v.toString());
 	}
 
 	public void startSessionWithPlayers(View v) {
@@ -127,8 +126,6 @@ public class SessionPlayersActivity extends DappActivity {
 		spinners.add(ps);
 		ps.update(allPlayers);
 		tr.addView(ps);
-		// tr.addView(playerActiveCheckBoxes[index] = new CheckBox(this));
-
 		return tr;
 	}
 

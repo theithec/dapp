@@ -1,9 +1,13 @@
 package de.thtp.dapp;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 public class DappPreferencesActivity extends PreferenceActivity implements
@@ -23,12 +27,22 @@ public class DappPreferencesActivity extends PreferenceActivity implements
 		Toast.makeText(this, "updated", Toast.LENGTH_LONG).show();
 	}
 
-/*
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.defaultmenu, menu);
 		return true;
 	}
-	*/
+	
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.mainmenu:
+			startActivity(new Intent(this, MainActivity.class));
+		default:
+			return super.onOptionsItemSelected(item);
+		}
+	}
 }

@@ -19,18 +19,10 @@ public class GameResultEditGameActivity extends GameResultActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		gamePos = data.getInt(Const.K_GAME_POS);
-		/*suggWinners = data.containsKey(Const.K_SUGG_WINNERS) ? dappData
-				.getCurrentSession().getPlayersbyIDs(
-						data.getIntegerArrayList(Const.K_SUGG_WINNERS))
-				: new PlayerList();
-	*/
-		
-
 	}
 
 	@Override
 	void initWithPlayers() {
-		//Log.d("dapp", "GAMEID: " + gameId);
 		game = Session.getGame(gamePos);
 		ResultList rl = Session.getResultList();
 		boeckeForThisGame = rl.get(gamePos).getBoecke();
@@ -45,25 +37,6 @@ public class GameResultEditGameActivity extends GameResultActivity {
 
 	}
 	
-
-	/*
-	 * @Override Intent getPickPlayerIntent(){ Intent i = new
-	 * Intent(this,SessionPlayersActivity.class); i.putExtra(Const.K_GAME_ID,
-	 * data.getInt(Const.K_GAME_ID)); return i; }
-	 */
-	/*
-	@Override
-	void putGameToData(PlayerList winners, int points, int boecke) {
-		GameList curr = dappData.getCurrentSession();
-		Game g = new Game(players, winners, points, boecke, curr.getActivePlayers().size() );
-		//dappData.get() = g;
-		curr.set(data.getInt(Const.K_GAME_ID), g);
-		//dappData.getCurrentSession().set(data.getInt(Const.K_GAME_ID), g);//updateCurrentSessionGame(data.getInt(Const.K_GAME_ID),
-		//		players, winners, points, boecke);
-
-	}
-*/
-	
 	@Override
 	void pickPlayers() {
 		Intent intent = new Intent(this, GamePlayersEditGameActivity.class);
@@ -73,7 +46,6 @@ public class GameResultEditGameActivity extends GameResultActivity {
 
 	@Override
 	void putGameToData(PlayerList winners, int points, int boecke) {
-		// TODO Auto-generated method stub
 		Session.editGame(gamePos, players, winners, points, boecke);
 		
 	}

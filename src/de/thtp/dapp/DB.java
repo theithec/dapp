@@ -318,11 +318,5 @@ public class DB extends SQLiteOpenHelper implements IDB {
 			wdb.delete("sessions_players", "session_id in "+sessionsWhere, null);
 			wdb.delete("players", "_id="+playerId, null);
 			wdb.close();
-			
-			//Cursor cur = wdb.query("sessions")
-			
 		}
-
-		
-
 }

@@ -1,8 +1,6 @@
 package de.thtp.dapp;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -136,7 +134,6 @@ public class SessionResultActivity extends DappSessionActivity {
 
 	
 	protected void startAddGameActivity() {
-		// Manager.getInstance().toGameResultActivity(this);
 		Intent intent = new Intent(this, GameResultAddGameActivity.class);
 		intent.putExtra(Const.K_BOECKE_FOR_THIS_GAME, boeckeForNextGame);
 		intent.putExtra(Const.K_SUGG_BOECKE, newBoeckeFromLastGame);
@@ -144,7 +141,6 @@ public class SessionResultActivity extends DappSessionActivity {
 		finish();
 
 	}
-	
 
 	private void setRowSizes(int playersLength, int maxBoecke) {
 		int columns = playersLength + 3;
@@ -182,25 +178,15 @@ public class SessionResultActivity extends DappSessionActivity {
 
 	void rowClick(int rid) {
 		tmp_rid = rid;
-		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		builder.setMessage("Spiel " + (tmp_rid + 1) + " bearbeiten?")
-				.setCancelable(false)
-				.setPositiveButton("Yes",
-						new DialogInterface.OnClickListener() {
-							@Override
-							public void onClick(DialogInterface dialog, int id) {
-								editGame(tmp_rid);
-
-							}
-						})
-				.setNegativeButton("No", new DialogInterface.OnClickListener() {
-					@Override
-					public void onClick(DialogInterface dialog, int id) {
-						dialog.cancel();
-					}
-				});
-		AlertDialog alert = builder.create();
-		alert.show();
+		new DAppActionQuestion(this, new DAppAction(
+				"Spiel " + (tmp_rid + 1) + " bearbeiten?") {
+			@Override
+			void execute() {
+				editGame(tmp_rid);
+			}
+		});
+		
+		
 	}
 
 	protected void editGame(int gamePos) {

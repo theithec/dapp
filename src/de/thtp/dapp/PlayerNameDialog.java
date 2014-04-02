@@ -39,14 +39,10 @@ class PlayerNameEditDialog extends PlayerNameDialog {
 
 				String name = input.getText().toString();
 				if (!Session.getKnownPlayers().getNames().contains(name)) {
-					//DappActivity.dappData.renamePlayer(playerId, name);
 					Session.renamePlayer(playerId, name);
 					dappActivity.finish();
 					dappActivity.startActivity(dappActivity.getIntent());
-				} else {
-					//tmpSpinner.setSelection(0);
-				}
-
+				} 
 			}
 		});
 	}

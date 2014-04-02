@@ -48,8 +48,6 @@ public abstract class GameResultActivity extends DappActivity implements
 		initialPoints = 0;
 		data = this.getIntent().getExtras();
 
-		//PlayerList activePlayers = dappData.getCurrentSession().getActivePlayers();
-				
 		PlayerList activePlayers = Session.getActivePlayers();
 		if (activePlayers.size() > DAppPrefs.MIN_PLAYERS) {
 			pickPlayers();
@@ -74,7 +72,6 @@ public abstract class GameResultActivity extends DappActivity implements
 		EditText et;
 		for (int i = 0; i < 2; i++) {
 			et = (EditText) findViewById(editIds[i]);
-			// et.setText(editVals[i]);
 			et.addTextChangedListener(new TextWatcher() {
 
 				@Override
@@ -196,11 +193,7 @@ public abstract class GameResultActivity extends DappActivity implements
 			startActivity(new Intent(this, SessionResultActivity.class));
 			finish();
 		}
-		//finish();
 	}
-
-
-
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode,

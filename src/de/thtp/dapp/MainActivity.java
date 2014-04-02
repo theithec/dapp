@@ -37,7 +37,6 @@ public class MainActivity extends DappActivity {
 				.isReady());
 		btnSessionsCtrl.setEnabled(Session.getSessionsCount()>0);
 		btnPlayersCtrl.setEnabled(Session.getKnownPlayers().size()>0);
-		//btnPlayersCtrl.setEnabled(Session.getKnownPlayers().size()>0);
 	}
 
 	@Override

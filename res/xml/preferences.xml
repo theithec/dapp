@@ -62,10 +62,10 @@
             android:title="@string/prefItemTitleSaveSessions" />
            
          <EditTextPreference
-            android:dialogTitle="@string/prefDialogTitleMissingPos"
-            android:key="missing_pos_diff_preference"
+            android:dialogTitle="@string/prefDialogTitleDealerPos"
+            android:key="dealer_pos_diff_preference"
             android:numeric="integer"
-            android:title="@string/prefItemTitleMissingPos" />
+            android:title="@string/prefItemTitleDealerPos" />
     </PreferenceCategory>
 
   

@@ -10,7 +10,6 @@ public class GameResultAddGameActivity extends GameResultActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 	}
-
 	
 	@Override
 	void putGameToData(PlayerList winners, int points, int boecke) {

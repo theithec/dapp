@@ -10,9 +10,7 @@ public class DAppPrefs {
 	public static int MAX_BOECKE = 3;
 	public static boolean COUNT_MINUS = true;
 	public static boolean CUT_BOECKE = true;
-	public static boolean SAVE_SESSIONS = true;
 	public static int DEALER_POS_DIFF = 0;
-	public static int MISSING_POS_DIFF = 0;
 
 	public static void updateDroikoSettings(SharedPreferences prefs) {
 		DAppPrefs.MAX_BOECKE = Integer.parseInt(prefs.getString(
@@ -28,12 +26,7 @@ public class DAppPrefs {
 		DAppPrefs.HIDE_INACTIVE_PLAYERS = prefs.getBoolean(
 				"hide_inactive_players_preference",
 				DAppPrefs.HIDE_INACTIVE_PLAYERS);
-		DAppPrefs.SAVE_SESSIONS = prefs.getBoolean("save_Sessions_preference",
-				DAppPrefs.SAVE_SESSIONS);
 		DAppPrefs.DEALER_POS_DIFF = Integer.parseInt(prefs.getString(
 				"dealer_pos_diff_preference", "" + DAppPrefs.DEALER_POS_DIFF));
-		DAppPrefs.MISSING_POS_DIFF = Integer
-				.parseInt(prefs.getString("missing_pos_diff_preference", ""
-						+ DAppPrefs.MISSING_POS_DIFF));
 	}
 }
