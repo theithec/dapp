@@ -3,10 +3,6 @@ package de.thtp.dapp.app;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-
-import de.thtp.dapp.DAppPrefs;
-
 
 public class Session {
 	
@@ -22,10 +18,10 @@ public class Session {
 		this.gameList = new GameList(name);
 	}  
 	
-	public static void start(String name, Map<String, Boolean> activeByNames){
+	public static void start(String name, List<String> names){
 		Session.instance = new Session( name);
-		idb.insertSession(name, activeByNames);
-		updatePlayers(activeByNames);
+		idb.insertSession(name, names);
+		updatePlayers(names);
 	}
 	
 	public static void load(int id, String name){
@@ -62,31 +58,13 @@ public class Session {
 		return instance!=null;
 	}
 	
-	public static PlayerList getActivePlayers() {
-		if (null==instance){
-			return EMPTY_PLAYERLIST;
-		}
-		PlayerList pl = new PlayerList();
-		for (Player p: instance.players){
-			if (p.isActive){
-				pl.add(p);
-			}
-		}
-		return pl;
-	}
+
 	
 	public static PlayerList getSessionPlayers() {
 		if (null==instance){
 			return EMPTY_PLAYERLIST;
 		}
 		return instance.players;
-	}
-	
-	public static PlayerList getVisibleSessionPlayers(){
-		if (DAppPrefs.HIDE_INACTIVE_PLAYERS){
-			return getActivePlayers();
-		}
-		return getSessionPlayers();
 	}
 	
 	public static int getSessionsCount() {
@@ -106,12 +84,10 @@ public class Session {
 		
 	}
 
-	public static void updatePlayers(Map<String, Boolean> activeByNames) {
+	public static void updatePlayers(List<String> names) {
 		instance.players = new PlayerList();
-		Set<String> keySet = activeByNames.keySet();
-		for(String pname: keySet){
-			boolean isActive = activeByNames.get(pname);
-			Player p =  idb.updateOrCreatePlayer(pname, isActive, instance);
+		for(String pname: names){
+			Player p =  idb.updateOrCreatePlayer(pname, instance);
 		}
 	}
 

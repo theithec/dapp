@@ -19,7 +19,7 @@ public abstract class GamePlayersActivity extends DappActivity implements
 		PlayerCheckBoxCheckable {
 	List<PlayerCheckBox> cbs;
 	Button btn;
-	PlayerList activePlayers;
+	PlayerList players;
 	Bundle data;
 
 	@Override
@@ -27,7 +27,7 @@ public abstract class GamePlayersActivity extends DappActivity implements
 
 		super.onCreate(savedInstanceState);
 		data = this.getIntent().getExtras();
-		activePlayers = Session.getActivePlayers();
+		players = Session.getSessionPlayers();
 		PlayerList suggPlayers = getSuggestedPlayers();
 		setTitle(getString(R.string.choosePlayers));
 		ScrollView sv = new ScrollView(this);
@@ -39,7 +39,7 @@ public abstract class GamePlayersActivity extends DappActivity implements
 		btn = new Button(this);
 		btn.setText(getString(R.string.btnContinueInsertGame));
 	
-		for (Player p : activePlayers) {
+		for (Player p : players) {
 			PlayerCheckBox cb = new PlayerCheckBox(this, p);
 			cb.setChecked(suggPlayers.contains(p));
 			cb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

@@ -49,11 +49,6 @@
             android:key="cut_boecke_preference"
             android:summary="@string/prefSummaryCutBoecke"
             android:title="@string/prefItemTitleCutBoecke" />
-        <CheckBoxPreference
-            android:defaultValue="true"
-            android:key="hide_inactive_players_preference"
-            android:summary="@string/prefSummaryHideInactive"
-            android:title="@string/prefItemTitleHideInactive" />
         
         <CheckBoxPreference
             android:defaultValue="true"

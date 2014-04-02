@@ -69,7 +69,6 @@ public class MainActivity extends DappActivity {
 			public void onClick(DialogInterface dialog, int whichButton) {
 				Session.clear();
 				i.putExtra(Const.K_SESSION_NAME, input.getText().toString());
-				//Session.startSession(sessionName, activeByNames)
 				startActivity(i);
 			}
 		});

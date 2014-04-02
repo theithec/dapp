@@ -11,14 +11,14 @@ public class Game {
 	public int points;
 	public int boeckeCreated;
 	
-	public int activePlayersSize;
+	public int currentPlayersSize;
 	public int id;
 	public Game(PlayerList players, PlayerList winners, int points, int boeckeCreated, int size) {
 		this.players = players;
 		this.winners = winners;
 		this.points = points;
 		this.boeckeCreated = boeckeCreated;
-		this.activePlayersSize = size;
+		this.currentPlayersSize = size;
 	}
 	
 	public Game(int id, PlayerList players, PlayerList winners, int points, int boeckeCreated, int size) {

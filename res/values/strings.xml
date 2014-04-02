@@ -47,8 +47,7 @@
     <string name="prefItemTitleMaxBoecke">Number of Böcke</string>
     <string name="prefItemTitleCutBoecke">Cut Böcke?</string>
     <string name="prefSummaryCutBoecke">Cut Böcke</string>
-    <string name="prefItemTitleHideInactive">Hide Inactive?</string>
-    <string name="prefSummaryHideInactive">Don\'t show inactive Players?</string>
+
     <string name="titleSessions">Sessions</string>
     <string name="titleSessionDelete">Delete Session</string>
     <string name="titleSessionOpen">Open Session</string>

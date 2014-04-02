@@ -10,7 +10,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ContextMenu.ContextMenuInfo;
-import android.widget.AdapterView;
 import android.widget.TextView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import de.thtp.dapp.app.Player;

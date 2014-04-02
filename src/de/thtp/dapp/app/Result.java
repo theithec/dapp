@@ -44,7 +44,7 @@ public class Result extends HashMap<Player, Integer> {
 		int newBoecke = g.boeckeCreated;
 		for (int b = 0; b < newBoecke; b++) {
 			int insIndex = gIndex + 1;
-			for (int m = 0; m < g.activePlayersSize; m++) {
+			for (int m = 0; m < g.currentPlayersSize; m++) {
 				while (boeckeForGames.size() <= insIndex) {
 					boeckeForGames.add(0);
 				}

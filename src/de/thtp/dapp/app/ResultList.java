@@ -14,8 +14,7 @@ public class ResultList extends ArrayList<Result> {
 	int highest;
 
 	public ResultList(GameList games) {// DApp dApp){
-		// this.dApp = dApp;
-		this.players = Session.getActivePlayers();
+		this.players = Session.getSessionPlayers();
 		boeckeForGames = new ArrayList<Integer>();
 		lowest = 0;
 		highest = 0;
@@ -66,7 +65,7 @@ public class ResultList extends ArrayList<Result> {
 
 	public int[][] valuesTable() {
 		int rowSize = size();
-		List<Player> visP = Session.getVisibleSessionPlayers();
+		List<Player> visP = Session.getSessionPlayers();
 		int visPSize = visP.size();
 		int colSize = visPSize + 2;
 		int[][] t = new int[rowSize][colSize];

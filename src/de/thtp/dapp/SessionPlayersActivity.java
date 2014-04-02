@@ -1,9 +1,7 @@
 package de.thtp.dapp;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -13,7 +11,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TableLayout;
@@ -24,7 +21,6 @@ import de.thtp.dapp.app.Session;
 
 public class SessionPlayersActivity extends DappActivity {
 
-	CheckBox[] playerActiveCheckBoxes;
 	EditText[] playerDiffEditTexts;
 	String sessionName;
 	List<PlayerNamesSpinner> spinners;
@@ -54,7 +50,7 @@ public class SessionPlayersActivity extends DappActivity {
 	}
 
 	private void loadPlayers() {
-		PlayerList players = Session.getActivePlayers();
+		PlayerList players = Session.getSessionPlayers();
 		for (int i = 0; i < players.size(); i++) {
 			PlayerNamesSpinner spinner = spinners.get(i);
 			int pos = ((ArrayAdapter<String>) spinner.getAdapter())
@@ -98,19 +94,19 @@ public class SessionPlayersActivity extends DappActivity {
 	}
 
 	public void startSessionWithPlayers(View v) {
-		Map<String, Boolean> activeByNames = new LinkedHashMap<String, Boolean>();
+		List<String> names = new ArrayList<String>();
 		for (PlayerNamesSpinner spinner : spinners) {
 			String name = spinner.getSelectedItem().toString();
 			if (!name.equals("-")) {
-				activeByNames.put(name, true);
+				names.add(name);
 			}
 		}
 		
 		if (!Session.isReady()){
 			Session.setIDB( new DB(this));
-			Session.start( sessionName, activeByNames);
+			Session.start( sessionName, names);
 		} else {
-			Session.updatePlayers(activeByNames);
+			Session.updatePlayers(names);
 		}
 		Intent i = new Intent(this, SessionResultActivity.class);
 		startActivity(i);

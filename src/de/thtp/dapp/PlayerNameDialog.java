@@ -14,7 +14,7 @@ public class PlayerNameDialog extends Builder {
 		this.dappActivity = dappActivity;
 		setTitle(title);
 		setMessage("Name");
-		final String val;
+		//final String val;
 		input = new EditText(dappActivity);
 		input.setText(name);
 		setView(input);

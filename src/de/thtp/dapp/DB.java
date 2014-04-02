@@ -2,6 +2,7 @@ package de.thtp.dapp;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
@@ -40,7 +41,7 @@ public class DB extends SQLiteOpenHelper implements IDB {
 			db.execSQL("CREATE TABLE games ( _id INTEGER PRIMARY KEY AUTOINCREMENT,"
 					+ "session_id INTEGER NOT NULL,"
 					+ "points INTEGER NOT NULL,"
-					+ "active_players_length INTEGER NOT NULL,"
+					+ "current_players_length INTEGER NOT NULL,"
 					+ "boecke_created INTEGER NOT NULL)");
 			db.execSQL("CREATE TABLE players ( _id INTEGER PRIMARY KEY AUTOINCREMENT,"
 					+ "name TEXT NOT NULL UNIQUE)");
@@ -49,7 +50,7 @@ public class DB extends SQLiteOpenHelper implements IDB {
 					+ "player_id INTEGER NOT NULL,"
 					+ "is_winner BOOLEAN)");
 			db.execSQL("CREATE TABLE sessions_players ( _id INTEGER PRIMARY KEY AUTOINCREMENT,"
-					+ "session_id INTEGER NOT NULL,player_id INTEGER NOT NULL, is_active BOOLEAN, diff INTEGER default 0,"
+					+ "session_id INTEGER NOT NULL,player_id INTEGER NOT NULL, diff INTEGER default 0,"
 					+ " UNIQUE(session_id, player_id) ON CONFLICT REPLACE)");
 		}
 
@@ -73,7 +74,7 @@ public class DB extends SQLiteOpenHelper implements IDB {
 		}
 		
 		@Override
-		public Player updateOrCreatePlayer(String name, boolean isActive, Session session) {
+		public Player updateOrCreatePlayer(String name, Session session) {
 			
 			int id = playerIdFromName(name);
 
@@ -90,9 +91,8 @@ public class DB extends SQLiteOpenHelper implements IDB {
 				cv.put("session_id", currentSessionID);
 				cv.put("player_id", id);
 				wdb = getWritableDatabase();
-				cv.put("is_active", isActive);
 				wdb.insertWithOnConflict("sessions_players", null, cv, SQLiteDatabase.CONFLICT_IGNORE);
-				found = new Player(id, name, isActive);
+				found = new Player(id, name);
 				session.players.add(found);
 				
 			}
@@ -101,7 +101,7 @@ public class DB extends SQLiteOpenHelper implements IDB {
 		}
 
 		@Override
-		public void insertSession(String sessionName, Map<String, Boolean> activeByNames) {
+		public void insertSession(String sessionName, List<String> names) {
 			SQLiteDatabase wdb = getWritableDatabase();
 			ContentValues cv = new ContentValues();
 			cv.put("name", sessionName);
@@ -111,14 +111,14 @@ public class DB extends SQLiteOpenHelper implements IDB {
 		}
 		
 		public int writeGame(Game g) {
-			int activePlayersLength = g.activePlayersSize; //_currSession.getActivePlayers().size();
+			int currentPlayersLength= g.currentPlayersSize; //_currSession.getActivePlayers().size();
 			int gameId;
 			SQLiteDatabase wdb = getWritableDatabase();
 			ContentValues cv = new ContentValues();
 			cv.put("session_id", currentSessionID);
 			cv.put("points", g.points);
 			cv.put("boecke_created", g.boeckeCreated);
-			cv.put("active_players_length", activePlayersLength);
+			cv.put("current_players_length", currentPlayersLength);
 			gameId = (int) wdb.insert("games", null, cv);
 
 			PlayerList players = g.players;
@@ -143,7 +143,7 @@ public class DB extends SQLiteOpenHelper implements IDB {
 			boolean any = cur.getCount() > 0;
 			PlayerList pl = new PlayerList();
 			while (any && cur.moveToNext()) {
-				Player p = new Player(cur.getInt(0), cur.getString(1), false);
+				Player p = new Player(cur.getInt(0), cur.getString(1));
 				pl.add(p);
 				
 			}
@@ -179,25 +179,30 @@ public class DB extends SQLiteOpenHelper implements IDB {
 					"_id=" + id, null, null, null, null);
 			cur.moveToFirst();
 			currentSessionID = id;
-			cur = rdb.query("sessions_players", new String[] { "player_id",
-					"is_active" }, "session_id=" + id, null, null, null, null);
-			
+			cur = rdb.query(
+				"sessions_players",
+				new String[] { "player_id" },
+				"session_id=" + id, 
+				null, null, null, null
+			);
 			
 			while (cur.moveToNext()) {
 				int pid = cur.getInt(0);
-				Cursor cur2 = rdb.query("players", new String[] {  "name" }, "_id="
+				Cursor cur2 = rdb.query("players", new String[] { "name" }, "_id="
 						+ pid, null, null, null, null);
 				cur2.moveToFirst();
-				Player p = new Player(pid, cur2.getString(0), true); //cur.getInt(1) == 1);
+				Player p = new Player(pid, cur2.getString(0)); 
 				players.add(p);
 			}
 			
 			
-			cur = rdb.query("games", new String[] { "_id", "points",
-					"boecke_created", "active_players_length" },
-					"session_id=" + id, null, null, null, null);
+			cur = rdb.query(
+				"games",
+				new String[] { "_id", "points",	"boecke_created", "current_players_length" },
+				"session_id=" + id,
+				null, null, null, null
+			);
 			boolean any = cur.getCount() > 0;
-
 			PlayerList gPlayers, winners;
 			Cursor cur2;
 			while (any && cur.moveToNext()) {
@@ -241,7 +246,7 @@ public class DB extends SQLiteOpenHelper implements IDB {
 			ContentValues cv = new ContentValues();
 			cv.put("points", game.points);
 			cv.put("boecke_created", game.boeckeCreated);
-			cv.put("active_players_length", game.activePlayersSize);
+			cv.put("current_players_length", game.currentPlayersSize);
 			wdb.update("games", cv, "_id="+game.id, null );
 			
 			wdb.delete("games_players", "game_id="+game.id, null);

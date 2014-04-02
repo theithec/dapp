@@ -5,7 +5,6 @@ import android.content.SharedPreferences;
 public class DAppPrefs {
 
 	public static int MIN_PLAYERS = 4;
-	public static boolean HIDE_INACTIVE_PLAYERS = true;
 	public static int MAX_PLAYERS = 7;
 	public static int MAX_BOECKE = 3;
 	public static boolean COUNT_MINUS = true;
@@ -23,9 +22,6 @@ public class DAppPrefs {
 				DAppPrefs.COUNT_MINUS);
 		DAppPrefs.CUT_BOECKE = prefs.getBoolean("cut_boecke_preference",
 				DAppPrefs.CUT_BOECKE);
-		DAppPrefs.HIDE_INACTIVE_PLAYERS = prefs.getBoolean(
-				"hide_inactive_players_preference",
-				DAppPrefs.HIDE_INACTIVE_PLAYERS);
 		DAppPrefs.DEALER_POS_DIFF = Integer.parseInt(prefs.getString(
 				"dealer_pos_diff_preference", "" + DAppPrefs.DEALER_POS_DIFF));
 	}

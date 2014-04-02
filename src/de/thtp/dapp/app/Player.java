@@ -4,13 +4,11 @@ package de.thtp.dapp.app;
 public class Player {
 	public int id;
 	public String name;
-	public boolean isActive;
 	public int diff;
-	public Player(int id, String name, boolean isActive){
+	public Player(int id, String name){
 		int diff = 0;
 		this.id = id;
 		this.name = name;
-		this.isActive = isActive;
 	}
 	
 	@Override
