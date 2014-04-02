@@ -28,21 +28,27 @@
                 android:id="@+id/btnAddBockForNextGame"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/btnAddBockForNextGame" >
+                android:text="@string/btnAddBockForNextGame"
+                android:visibility="invisible" >
+
             </Button>
 
             <Button
                 android:id="@+id/btnRMBockForNextGame"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/btnRmBockForNextGame" >
+                android:text="@string/btnRmBockForNextGame"
+                android:visibility="invisible" >
+
             </Button>
 
             <TextView
                 android:id="@+id/textviewBoeckeNextGame"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/textViewBoeckeNextGameText" >
+                android:text="@string/textViewBoeckeNextGameText"
+                android:visibility="invisible" >
+
             </TextView>
         </LinearLayout>
     </TableRow>

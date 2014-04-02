@@ -47,6 +47,8 @@ public abstract class GameResultActivity extends DappActivity implements
 		setTitle("Ergebnis eintragen");
 		initialPoints = 0;
 		data = this.getIntent().getExtras();
+		
+	
 
 		PlayerList activePlayers = Session.getActivePlayers();
 		if (activePlayers.size() > DAppPrefs.MIN_PLAYERS) {
@@ -127,6 +129,13 @@ public abstract class GameResultActivity extends DappActivity implements
 
 		editTexts[0].setText("" + initialPoints);
 		editTexts[1].setText("" + suggBoecke);
+		
+		if (DAppPrefs.MAX_BOECKE>0){
+			int[] ids = new int[]{R.id.editBoecke, R.id.bockPlusBtn, R.id.bockMinusBtn, R.id.lblBoecke};
+			for (int i:ids){
+				findViewById(i).setVisibility(View.VISIBLE);
+			}
+		}
 	}
 
 	@Override

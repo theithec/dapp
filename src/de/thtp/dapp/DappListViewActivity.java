@@ -3,12 +3,10 @@ package de.thtp.dapp;
 import java.util.ArrayList;
 import java.util.Map;
 
-
-
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -32,13 +30,21 @@ abstract public class DappListViewActivity extends DappActivity {
 		ArrayAdapter<String> aad = new ArrayAdapter<String>(this,
 				android.R.layout.simple_list_item_1, names);
 		lv.setAdapter(aad);
-		lv.setOnItemClickListener(new OnItemClickListener() {
+		/*
+		lv.setOnItemLongClickListener(new OnItemLongClickListener() {
 			@Override
-			public void onItemClick(AdapterView<?> parent, View view,
+			public boolean onItemLongClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				onListItemClick(parent, view, position, id);
+				onListItemLongClick(parent, view, position, id);
+				return super.onItemLongClick(parent, view, position, id);
 			}
 		});
+		*/
+		
+		registerForContextMenu(lv);
+		
+		
+		
 	}
 
 	protected void endclick() {
@@ -46,6 +52,6 @@ abstract public class DappListViewActivity extends DappActivity {
 		finish();
 	}
 
-	abstract protected void onListItemClick(AdapterView l, View v,
-			int position, long id);
+	//abstract protected boolean onListItemLongClick(AdapterView l, View v,
+	//		int position, long id);
 }

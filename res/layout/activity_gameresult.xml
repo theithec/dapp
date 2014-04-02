@@ -79,10 +79,12 @@
                 </TableRow>
 
                 <TextView
-                    android:id="@+id/textView3"
+                    android:id="@+id/lblBoecke"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/boecke" >
+                    android:text="@string/boecke"
+                    android:visibility="invisible" >
+
                 </TextView>
 
                 <TableRow
@@ -95,21 +97,27 @@
                         android:layout_width="80dp"
                         android:layout_height="wrap_content"
                         android:inputType="number"
-                        android:text="0" >
+                        android:text="0"
+                        android:visibility="invisible" >
+
                     </EditText>
 
                     <Button
                         android:id="@+id/bockPlusBtn"
                         android:layout_width="60dp"
                         android:layout_height="wrap_content"
-                        android:text="+" >
+                        android:text="+"
+                        android:visibility="invisible" >
+
                     </Button>
 
                     <Button
                         android:id="@+id/bockMinusBtn"
                         android:layout_width="60dp"
                         android:layout_height="wrap_content"
-                        android:text="-" >
+                        android:text="-"
+                        android:visibility="invisible" >
+
                     </Button>
                 </TableRow>
             </LinearLayout>

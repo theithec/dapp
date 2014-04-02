@@ -65,9 +65,9 @@ public class PlayerListActivity extends DappListViewActivity {
 		}
 	}
 
-	@Override
-	protected void onListItemClick(AdapterView l, View v, int position, long id) {
+	/*@Override
+	protected boolean onListItemLongClick(AdapterView l, View v, int position, long id) {
 		selectedPlayerName = ((TextView) v).getText().toString();
-		openOptionsMenu();
-	}
+		return true; //openOptionsMenu();
+	}*/
 }
