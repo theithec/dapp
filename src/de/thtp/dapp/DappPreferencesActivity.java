@@ -24,7 +24,7 @@ public class DappPreferencesActivity extends PreferenceActivity implements
 	@Override
 	public void onSharedPreferenceChanged(SharedPreferences prefs, String arg1) {
 		DAppPrefs.updateDroikoSettings(prefs);
-		Toast.makeText(this, "updated", Toast.LENGTH_LONG).show();
+		Toast.makeText(this, getText(R.string.settingsUpdated), Toast.LENGTH_LONG).show();
 	}
 
 

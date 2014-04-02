@@ -31,7 +31,7 @@ class PlayerNameEditDialog extends PlayerNameDialog {
 
 	public PlayerNameEditDialog(final DappActivity dappActivity,
 			final int playerId, String name) {
-		super(dappActivity, "Eddit Player", name);
+		super(dappActivity, "Edit Player", name);
 
 		setPositiveButton("Ok", new DialogInterface.OnClickListener() {
 			@Override

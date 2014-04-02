@@ -63,7 +63,7 @@ public class PlayerListActivity extends DappListViewActivity {
 			new DAppActionQuestion(
 					this,
 					new DAppAction(
-							"Wirklich löschen?\nFolgende Sessions werden auch gelöscht:" + foundSessions) {
+							getString(R.string.deletePlayerQ) + foundSessions) {
 						@Override
 						void execute() {
 							Session.deletePlayer(playerId);

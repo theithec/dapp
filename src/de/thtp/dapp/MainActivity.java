@@ -55,8 +55,8 @@ public class MainActivity extends DappActivity {
 		final Intent i = new Intent(this, SessionPlayersActivity.class);
 		AlertDialog.Builder alert = new AlertDialog.Builder(this);
 		
-		alert.setTitle("New Session");
-		alert.setMessage("Name");
+		alert.setTitle(R.string.sessionNew);
+		alert.setMessage(R.string.sessionName);
 		final EditText input = new EditText(this);
 		Date d = new Date();
 		input.setText(DateFormat.getDateFormat(this).format(d) + "-"

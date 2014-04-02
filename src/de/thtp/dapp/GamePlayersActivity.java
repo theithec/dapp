@@ -57,7 +57,6 @@ public abstract class GamePlayersActivity extends DappActivity implements
 			@Override
 			public void onClick(View v) {
 				Bundle data = new Bundle();
-			    data.putString("param_result", "Thanks Thanks");
 			    ArrayList<Integer> ids = new ArrayList<Integer>();
 			    for (PlayerCheckBox cb: cbs){
 			    	if (cb.isChecked()){

@@ -44,7 +44,7 @@ public abstract class GameResultActivity extends DappActivity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_gameresult);
-		setTitle("Ergebnis eintragen");
+		setTitle(getString(R.string.addResult));
 		initialPoints = 0;
 		data = this.getIntent().getExtras();
 		
@@ -191,7 +191,7 @@ public abstract class GameResultActivity extends DappActivity implements
 		if (winners.size() == 1) {
 			final GameResultActivity thiscpy = this;
 			new DAppActionQuestion(this, new DAppAction(
-					"Wirklich nur ein_e Gewinner_in?") {
+					getString(R.string.oneWinnerOnlyQ)) {
 				@Override
 				void execute() {
 					putGameToData(winners, points, boecke);

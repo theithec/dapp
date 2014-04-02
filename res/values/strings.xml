@@ -1,65 +1,58 @@
 <resources>
 
-    <string name="app_name">Dapp</string>
-    
-    <string name="players">Players</string>
-    <string name="choosePlayers">Choose Players</string>
-     <string name="btnContinueInsertGame">Continue</string>
-   
-    <string name="title_activity_main">DappActivity</string>
+    <string name="SessionsCtrl">Sessions</string>
     <string name="continueSession">continue</string>
     <string name="startNewSession">start new Session</string>
+    <string name="SessionResults">Results</string>
+    <string name="titleSessions">Sessions</string>
+    <string name="titleSessionDelete">Delete Session</string>
+    <string name="titleSessionOpen">Open Session</string>
+    <string name="sessionNew">New Session</string>
+    <string name="sessionName">Name</string>
+
+    <string name="app_name">Dapp</string>
+    <string name="players">Players</string>
+    <string name="choosePlayers">Choose Players</string>
+    <string name="btnContinueInsertGame">Continue</string>
+    <string name="title_activity_main">DappActivity</string>
     <string name="dappSettings">settings</string>
-	<string name="playersCtrl">Players</string>
-	<string name="SessionsCtrl">Sessions</string>
-    
-     <string name="btnAddGame">Add Game</string>
-     <string name="btnAddBockForNextGame">+Bock</string>
-     <string name="btnRmBockForNextGame">-Bock</string>
-     <string name="menu_settings">menusettings</string>
-	 <string name="SessionResults">Table</string>
-	 <string name="textViewBoeckeNextGameText">Neue Böcke</string>
-	 
-	 <string name="SessionOpen">Open Session</string>
-	 <string name="SessionDelete">Delete Session</string>
-	 
-	  <string name="playerRename">Rename Player</string>
-	  <string name="playerDelete">Delete Player</string>
-	 
-	 <string name="winners">Winner</string>
-	 <string name="points">Points</string>
-	 <string name="boecke">Böcke</string>
-	 <string name="addGame">Add Game</string>
-	  <string name="ok">OK</string>
-	    <string name="cancel">Cancel</string>
-	    
-	    
-     <string name="prefDialogTitleDealerPos">Dealer Position Difference</string>
-     <string name="prefItemTitleDealerPos">Dealer Position Difference</string>
+    <string name="playersCtrl">Players</string>
+    <string name="btnAddGame">Add Game</string>
+    <string name="btnAddBockForNextGame">+Bock</string>
+    <string name="btnRmBockForNextGame">-Bock</string>
+    <string name="menu_settings">menusettings</string>
+    <string name="textViewBoeckeNextGameText">Neue Böcke</string>
+    <string name="SessionOpen">Open Session</string>
+    <string name="SessionDelete">Delete Session</string>
+    <string name="playerRename">Rename Player</string>
+    <string name="playerDelete">Delete Player</string>
+    <string name="winners">Winner</string>
+    <string name="points">Points</string>
+    <string name="boecke">Böcke</string>
+    <string name="addGame">Add Game</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="prefDialogTitleDealerPos">Dealer Position Difference</string>
+    <string name="prefItemTitleDealerPos">Dealer Position Difference</string>
     <string name="prefCategoryTitle">Settings</string>
     <string name="prefDialogTitleMaxPlayersize">Max. Players</string>
     <string name="prefItemTitleMaxPlayersize">Max. Number of players</string>
     <string name="prefDialogTitleMinPlayersize">Min. Players</string>
-     <string name="prefItemTitleMinPlayersize">Min. Number of players</string>
+    <string name="prefItemTitleMinPlayersize">Min. Number of players</string>
     <string name="prefItemTitleCountMinus">Minus</string>
     <string name="prefSummaryCountMinus">count negative? </string>
     <string name="prefDialogTitleMaxBoecke">Max.Böcke</string>
     <string name="prefItemTitleMaxBoecke">Number of Böcke</string>
     <string name="prefItemTitleCutBoecke">Cut Böcke?</string>
     <string name="prefSummaryCutBoecke">Cut Böcke</string>
-
-    <string name="titleSessions">Sessions</string>
-    <string name="titleSessionDelete">Delete Session</string>
-    <string name="titleSessionOpen">Open Session</string>
-    <string name="prefItemTitleSaveSessions">Save Sessions</string>
-    <string name="prefSaveSessions">Store Sessions in the database</string>
-	<string name="titlePlayerRename">Rename Player</string>
+    <string name="titlePlayerRename">Rename Player</string>
     <string name="titlePlayerDelete">Delete Player</string>
-     <string name="titleManagePlayers">Manage Players</string>
-      <string name="titleDiagram">Diagram</string>
-    
-	    
-	  <color name="bg1">#cecece</color>
-	  
-	  
+    <string name="titleManagePlayers">Manage Players</string>
+    <string name="titleDiagram">Diagram</string>
+    <string name="settingsUpdated">Settings updated</string>
+    <string name="addResult">Add Result</string>
+    <string name="oneWinnerOnlyQ">Just one winner?</string>
+    <string name="deletePlayerQ">Delete Player? This Sessions will be deletet also:\n</string>
+    <color name="bg1">#cecece</color>
+
 </resources>

@@ -50,11 +50,6 @@
             android:summary="@string/prefSummaryCutBoecke"
             android:title="@string/prefItemTitleCutBoecke" />
         
-        <CheckBoxPreference
-            android:defaultValue="true"
-            android:key="save_Sessions_preference"
-            android:summary="@string/prefSaveSessions"
-            android:title="@string/prefItemTitleSaveSessions" />
            
          <EditTextPreference
             android:dialogTitle="@string/prefDialogTitleDealerPos"
