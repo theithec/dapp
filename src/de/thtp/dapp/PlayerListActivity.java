@@ -5,10 +5,14 @@ import java.util.HashMap;
 import java.util.Set;
 
 import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.AdapterView;
 import android.widget.TextView;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 import de.thtp.dapp.app.Player;
 import de.thtp.dapp.app.PlayerList;
 import de.thtp.dapp.app.Session;
@@ -19,7 +23,6 @@ public class PlayerListActivity extends DappListViewActivity {
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		
 		setTitle(getString(R.string.playersCtrl));
 		map = new HashMap<String, Integer>();
 		PlayerList pl = Session.getKnownPlayers();
@@ -28,10 +31,20 @@ public class PlayerListActivity extends DappListViewActivity {
 		}
 		super.onCreate(savedInstanceState);
 	}
+	@Override
+	public void onCreateContextMenu(ContextMenu menu, View v,
+	    ContextMenuInfo menuInfo) {
+		
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.playerlistoptionsmenu, menu);
+		return;
+	}
 
 	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-
+	public boolean onContextItemSelected(MenuItem item) {
+		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
+		//info.targetView.toString();
+		selectedPlayerName = (String) ((TextView)info.targetView).getText();
 		final int playerId = selectedPlayerName!=null?map.get(selectedPlayerName):-1;
 		switch (item.getItemId()) {
 		

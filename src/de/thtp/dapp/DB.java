@@ -272,8 +272,8 @@ public class DB extends SQLiteOpenHelper implements IDB {
 			Map<String, Integer> namesById = new TreeMap<String, Integer>();
 			SQLiteDatabase rdb = getReadableDatabase();
 			Set<Integer> sessionIds = new HashSet<Integer>();
-			String sessionIdsStr = "";
-			String sep = "(";
+			String sessionIdsStr = "(";
+			String sep = "";
 			Cursor cur = rdb.query(
 					true, //distinct
 					"sessions_players",

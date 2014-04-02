@@ -30,17 +30,6 @@ abstract public class DappListViewActivity extends DappActivity {
 		ArrayAdapter<String> aad = new ArrayAdapter<String>(this,
 				android.R.layout.simple_list_item_1, names);
 		lv.setAdapter(aad);
-		/*
-		lv.setOnItemLongClickListener(new OnItemLongClickListener() {
-			@Override
-			public boolean onItemLongClick(AdapterView<?> parent, View view,
-					int position, long id) {
-				onListItemLongClick(parent, view, position, id);
-				return super.onItemLongClick(parent, view, position, id);
-			}
-		});
-		*/
-		
 		registerForContextMenu(lv);
 		
 		

@@ -18,8 +18,6 @@ import de.thtp.dapp.app.Session;
 public class SessionListActivity extends DappListViewActivity {
 
 	String selectedSession;
-	private static final int MENU_DEL=90;
-	private static final int MENU_OPEN=91;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		map = Session.getSessionIdsByName();
@@ -27,24 +25,6 @@ public class SessionListActivity extends DappListViewActivity {
 		setTitle(R.string.SessionsCtrl);
 	}
 
-	/*
-	@Override
-	public boolean onPrepareOptionsMenu(Menu menu) {
-		if (selectedSession!=null){
-			menu.clear();
-			menu.add(0, MENU_DEL, Menu.NONE, R.string.titleSessionDelete);
-			menu.add(0, MENU_OPEN, Menu.NONE, R.string.titleSessionOpen);
-		}
-		return true;
-		
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		
-		return true; //super.onCreateOptionsMenu(menu);
-	}
-	*/
 	@Override
 	public void onCreateContextMenu(ContextMenu menu, View v,
 	    ContextMenuInfo menuInfo) {
@@ -52,11 +32,6 @@ public class SessionListActivity extends DappListViewActivity {
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.sessionlistoptionsmenu, menu);
 		return;
-		/*
-		menu.clear();
-		menu.add(0, MENU_OPEN, Menu.NONE, R.string.titleSessionOpen);
-		menu.add(0, MENU_DEL, Menu.NONE, R.string.titleSessionDelete);
-		*/
 	}
 
 	@Override
@@ -97,9 +72,4 @@ public class SessionListActivity extends DappListViewActivity {
 		}
 		
 	}
-
-	
-	
-
-	
 }
