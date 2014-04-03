@@ -31,6 +31,7 @@ abstract public class DappActivity extends Activity {
 		switch (item.getItemId()) {
 		case R.id.mainmenu:
 			startActivity(new Intent(this, MainActivity.class));
+			finish();
 
 		default:
 			return super.onOptionsItemSelected(item);

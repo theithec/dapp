@@ -1,5 +1,6 @@
 package de.thtp.dapp;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import de.thtp.dapp.app.PlayerList;
@@ -31,6 +32,8 @@ public class GameResultAddGameActivity extends GameResultActivity {
 	void pickPlayers() {
 		Intent intent  = new Intent(this,GamePlayersAddGameActivity.class);
 		startActivityForResult(intent, PICK_PLAYER_REQUEST);
+		//Object y =((Activity) intent.getComponent()).finish();
+		
 	}
 
 }

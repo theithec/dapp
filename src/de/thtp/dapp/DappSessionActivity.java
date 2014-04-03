@@ -24,12 +24,13 @@ public abstract class DappSessionActivity extends DappActivity{
 		switch (item.getItemId()) {
 		case R.id.mainmenu:
 			startActivity(new Intent(this, MainActivity.class));
-			
+			finish();
 		case R.id.sessionplayers:
 			Intent i = new Intent(this, SessionPlayersActivity.class);
 			i.putExtra(Const.K_SESSION_NAME, Session.getName());
 
 			startActivity(i);
+			finish();
 
 		default:
 			return super.onOptionsItemSelected(item);

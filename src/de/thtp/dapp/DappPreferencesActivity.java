@@ -41,6 +41,7 @@ public class DappPreferencesActivity extends PreferenceActivity implements
 		switch (item.getItemId()) {
 		case R.id.mainmenu:
 			startActivity(new Intent(this, MainActivity.class));
+			finish();
 		default:
 			return super.onOptionsItemSelected(item);
 		}
