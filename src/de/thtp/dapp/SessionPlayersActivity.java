@@ -13,21 +13,24 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import de.thtp.dapp.app.BasePlayer;
 import de.thtp.dapp.app.Player;
 import de.thtp.dapp.app.PlayerList;
 import de.thtp.dapp.app.Session;
 
 public class SessionPlayersActivity extends DappActivity {
 
-	EditText[] playerDiffEditTexts;
 	String sessionName;
 	List<PlayerNamesSpinner> spinners;
 	List <EditText> diffTexts;
+	List<CheckBox> activeCheckBoxes;
+	
 	PlayerList allPlayers;
 	PlayerList sessionPlayers; 
 	List<String> allPlayerNames;
@@ -37,13 +40,18 @@ public class SessionPlayersActivity extends DappActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_sessionplayers);
+		
 		setTitle(R.string.players);
 		allPlayers = Session.getKnownPlayers();
+
+		spinners = new ArrayList<SessionPlayersActivity.PlayerNamesSpinner>();
+		activeCheckBoxes =new ArrayList<CheckBox>();
+		diffTexts = new ArrayList<EditText>();
+		
 		sessionPlayers = Session.getSessionPlayers();
 		allPlayerNames = Session.getKnownPlayers().getNames();
 		allPlayerNames.add(0, "-");
-		diffTexts = new ArrayList<EditText>();
-		spinners = new ArrayList<SessionPlayersActivity.PlayerNamesSpinner>();
+		
 		sessionName = this.getIntent().getExtras()
 				.getString(Const.K_SESSION_NAME);
 
@@ -60,10 +68,13 @@ public class SessionPlayersActivity extends DappActivity {
 	private void loadPlayers() {
 		PlayerList players = Session.getSessionPlayers();
 		for (int i = 0; i < players.size(); i++) {
+			Player p = players.get(i);
 			PlayerNamesSpinner spinner = spinners.get(i);
 			int pos = ((ArrayAdapter<String>) spinner.getAdapter())
-					.getPosition(players.get(i).name);
+					.getPosition(p.name);
 			spinner.setSelection(pos);
+			diffTexts.get(i).setText(p!=null?""+p.diff:"0");
+			activeCheckBoxes.get(i).setChecked(p!=null && p.isActive);
 		}
 	}
 
@@ -85,8 +96,6 @@ public class SessionPlayersActivity extends DappActivity {
 				cntPlayers++;
 			}
 			spinner.setSelection(0);
-			// Log.d("DEBUG", "cpy2: "+ cpy2);
-
 			spinner.update(cpy2);
 		}
 		
@@ -101,24 +110,26 @@ public class SessionPlayersActivity extends DappActivity {
 	}
 
 	public void startSessionWithPlayers(View v) {
-		List<String> names = new ArrayList<String>();
-		List<Integer> diffs = new ArrayList<Integer>();
+		List<BasePlayer> basePlayers =new ArrayList<BasePlayer>();
 		for (int i=0; i<spinners.size(); i++) {
 			PlayerNamesSpinner spinner = spinners.get(i);
 			String name = spinner.getSelectedItem().toString();
 			
 			if (!name.equals("-")) {
-				names.add(name);
-				diffs.add(Integer.parseInt(diffTexts.get(i).getText().toString()));
-				
+				BasePlayer bp = new BasePlayer(
+					name,
+					Integer.parseInt(diffTexts.get(i).getText().toString()),
+					activeCheckBoxes.get(i).isChecked()
+				);
+				basePlayers.add(bp);
 			}
 		}
 		
 		if (!Session.isReady()){
 			Session.setIDB( new DB(this));
-			Session.start( sessionName, names, diffs);
+			Session.start( sessionName, basePlayers);
 		} else {
-			Session.updatePlayers(names,diffs);
+			Session.updatePlayers(basePlayers);
 		}
 		Intent i = new Intent(this, SessionResultActivity.class);
 		startActivity(i);
@@ -134,6 +145,11 @@ public class SessionPlayersActivity extends DappActivity {
 		spinners.add(ps);
 		ps.update(allPlayerNames);
 		tr.addView(ps);
+		
+		CheckBox cb = new CheckBox(this);
+		activeCheckBoxes.add(cb);
+		tr.addView(cb);
+		
 		EditText et = new EditText(this);
 		et.setInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL);
 		Object selItem = ps.getSelectedItem();
@@ -167,10 +183,9 @@ public class SessionPlayersActivity extends DappActivity {
 						Player p = null;
 						if (name !="-"){
 							p =  sessionPlayers.getByName(name);
-							Log.d("dapp player:", ""+p);
 						}
-						Log.d("dapp index", ""+index);
 						diffTexts.get(index).setText(p!=null?""+p.diff:"0");
+						activeCheckBoxes.get(index).setChecked(p!=null?p.isActive:true);
 						//String tv.getT
 						/*String name = selItem!=null?selItem.toString():null;
 						Player foundInSession = name !=null?sessionPlayers.getByName(name):null;

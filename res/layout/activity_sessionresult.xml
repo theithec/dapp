@@ -46,7 +46,6 @@
                 android:id="@+id/textviewBoeckeNextGame"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/newBoeckeToAdd"
                 android:visibility="invisible" >
 
             </TextView>

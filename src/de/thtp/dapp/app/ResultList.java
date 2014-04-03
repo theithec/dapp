@@ -65,7 +65,7 @@ public class ResultList extends ArrayList<Result> {
 
 	public int[][] valuesTable() {
 		int rowSize = size();
-		List<Player> visP = Session.getSessionPlayers();
+		List<Player> visP = Session.getVisibleSessionPlayers();
 		int visPSize = visP.size();
 		int colSize = visPSize + 2;
 		int[][] t = new int[rowSize][colSize];

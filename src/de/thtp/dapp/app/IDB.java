@@ -5,9 +5,9 @@ import java.util.Map;
 
 public interface IDB {
 
-	void insertSession(String sessionName, List<String> names);
+	void insertSession(String sessionName);
 
-	Player updateOrCreatePlayer(String name,  int diff, Session session);
+	Player updateOrCreatePlayer(BasePlayer bp, Session session);
 
 	int writeGame(Game g);
 

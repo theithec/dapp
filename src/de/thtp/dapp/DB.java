@@ -2,7 +2,6 @@ package de.thtp.dapp;
 
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
@@ -12,6 +11,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import de.thtp.dapp.app.BasePlayer;
 import de.thtp.dapp.app.Game;
 import de.thtp.dapp.app.GameList;
 import de.thtp.dapp.app.IDB;
@@ -50,7 +50,7 @@ public class DB extends SQLiteOpenHelper implements IDB {
 					+ "player_id INTEGER NOT NULL,"
 					+ "is_winner BOOLEAN)");
 			db.execSQL("CREATE TABLE sessions_players ( _id INTEGER PRIMARY KEY AUTOINCREMENT,"
-					+ "session_id INTEGER NOT NULL,player_id INTEGER NOT NULL, diff INTEGER default 0,"
+					+ "session_id INTEGER NOT NULL,player_id INTEGER NOT NULL, is_active BOOLEAN, diff INTEGER default 0,"
 					+ " UNIQUE(session_id, player_id) ON CONFLICT REPLACE)");
 		}
 
@@ -74,25 +74,26 @@ public class DB extends SQLiteOpenHelper implements IDB {
 		}
 		
 		@Override
-		public Player updateOrCreatePlayer(String name, int diff, Session session) {
+		public Player updateOrCreatePlayer(BasePlayer bp, Session session) {
 			
-			int id = playerIdFromName(name);
+			int id = playerIdFromName(bp.name);
 
 			ContentValues cv = new ContentValues();
 			SQLiteDatabase wdb = getWritableDatabase();
-			cv.put("name", name);
+			cv.put("name", bp.name);
 			id = (int)wdb.insertWithOnConflict("players", null, cv, SQLiteDatabase.CONFLICT_IGNORE );
-			id = playerIdFromName(name);
+			id = playerIdFromName(bp.name);
 			wdb.close();
 			wdb = getWritableDatabase();
-			Player found = session.players.getByName(name);
+			Player found = session.players.getByName(bp.name);
 			cv = new ContentValues();
-			cv.put("diff", diff);
+			cv.put("diff", bp.diff);
+			cv.put("is_active", bp.isActive);
 			if (found == null){
 				cv.put("session_id", currentSessionID);
 				cv.put("player_id", id);
-				wdb.insertWithOnConflict("sessions_players", null, cv, SQLiteDatabase.CONFLICT_IGNORE);
-				found = new Player(id, name);
+				long r = wdb.insertWithOnConflict("sessions_players", null, cv, SQLiteDatabase.CONFLICT_IGNORE);
+				found = new Player(id, bp);
 				session.players.add(found);
 			}else {
 				//cv = new ContentValues();
@@ -100,12 +101,13 @@ public class DB extends SQLiteOpenHelper implements IDB {
 			}
 			
 			wdb.close();
-			found.diff = diff;
+			found.isActive = bp.isActive;
+			found.diff = bp.diff;
 			return found;
 		}
 
 		@Override
-		public void insertSession(String sessionName, List<String> names) {
+		public void insertSession(String sessionName) {
 			SQLiteDatabase wdb = getWritableDatabase();
 			ContentValues cv = new ContentValues();
 			cv.put("name", sessionName);
@@ -147,7 +149,7 @@ public class DB extends SQLiteOpenHelper implements IDB {
 			boolean any = cur.getCount() > 0;
 			PlayerList pl = new PlayerList();
 			while (any && cur.moveToNext()) {
-				Player p = new Player(cur.getInt(0), cur.getString(1));
+				Player p = new Player(cur.getInt(0), new BasePlayer(cur.getString(1)));
 				pl.add(p);
 				
 			}
@@ -185,7 +187,7 @@ public class DB extends SQLiteOpenHelper implements IDB {
 			currentSessionID = id;
 			cur = rdb.query(
 				"sessions_players",
-				new String[] { "player_id" , "diff"},
+				new String[] { "player_id" , "diff", "is_active"},
 				"session_id=" + id, 
 				null, null, null, null
 			);
@@ -195,8 +197,13 @@ public class DB extends SQLiteOpenHelper implements IDB {
 				Cursor cur2 = rdb.query("players", new String[] { "name" }, "_id="
 						+ pid, null, null, null, null);
 				cur2.moveToFirst();
-				Player p = new Player(pid, cur2.getString(0)); 
-				p.diff = cur.getInt(1);
+				Player p = new Player(
+					pid, 
+					new BasePlayer(cur2.getString(0),
+						cur.getInt(1),
+						cur.getInt(2) == 1
+					)
+				);
 				players.add(p);
 			}
 			

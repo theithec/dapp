@@ -65,7 +65,7 @@ public class SessionResultActivity extends DappSessionActivity {
 			}
 			textViewBoeckeNextGame.setVisibility(View.VISIBLE);
 		}
-		players = Session.getSessionPlayers();
+		players = Session.getVisibleSessionPlayers();
 		setRowSizes(players.size(), DAppPrefs.MAX_BOECKE);
 		TableRow tr = (TableRow) findViewById(R.id.fullresultheaderrow);
 

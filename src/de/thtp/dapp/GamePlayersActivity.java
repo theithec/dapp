@@ -27,7 +27,7 @@ public abstract class GamePlayersActivity extends DappActivity implements
 
 		super.onCreate(savedInstanceState);
 		data = this.getIntent().getExtras();
-		players = Session.getSessionPlayers();
+		players = Session.getVisibleSessionPlayers();
 		PlayerList suggPlayers = getSuggestedPlayers();
 		setTitle(getString(R.string.choosePlayers));
 		ScrollView sv = new ScrollView(this);

@@ -1,14 +1,14 @@
 package de.thtp.dapp.app;
 
 
-public class Player {
+public class Player extends BasePlayer {
 	public int id;
-	public String name;
-	public int diff;
-	public Player(int id, String name){
-		int diff = 0;
+	
+	public Player(int id, BasePlayer bp){
 		this.id = id;
-		this.name = name;
+		this.diff = bp.diff;
+		this.name = bp.name;
+		this.isActive =bp.isActive;
 	}
 	
 	@Override

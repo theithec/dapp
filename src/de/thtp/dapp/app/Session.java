@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import android.util.Log;
+import de.thtp.dapp.DAppPrefs;
 
 public class Session {
 	
@@ -20,10 +21,10 @@ public class Session {
 		this.gameList = new GameList(name);
 	}  
 	
-	public static void start(String name, List<String> names, List<Integer> diffs){
+	public static void start(String name, List<BasePlayer> basePlayers){
 		Session.instance = new Session( name);
-		idb.insertSession(name, names);
-		updatePlayers(names, diffs);
+		idb.insertSession(name);
+		updatePlayers(basePlayers);
 	}
 	
 	public static void load(int id, String name){
@@ -69,13 +70,29 @@ public class Session {
 		return instance.players;
 	}
 	
+	public static PlayerList getVisibleSessionPlayers(){
+		if (DAppPrefs.HIDE_INACTIVE_PLAYERS){
+			return getActivePlayers();
+		}
+		return getSessionPlayers();
+	}
+	
+	private static PlayerList getActivePlayers() {
+		PlayerList actives = new PlayerList();
+		for (Player p: getSessionPlayers()){
+			if (p.isActive){
+				actives.add(p);
+			}
+		}
+		return  actives;
+	}
+
 	public static int getSessionsCount() {
 		return idb.getSessionIdsByName().size();
 	}
 
 	public static ResultList getResultList() {
 		//@todo used cached Resultlist (and check if its clean)
-		Log.d("DAPP IN", ""+instance);
 		return new ResultList(instance.gameList);
 	}
 
@@ -87,12 +104,9 @@ public class Session {
 		
 	}
 
-	public static void updatePlayers(List<String> names, List<Integer> diffs) {
-		//instance.players = new PlayerList();
-		for(int i=0;i<names.size(); i++){
-			String pname = names.get(i);
-			int diff = diffs.get(i);
-			Player p =  idb.updateOrCreatePlayer(pname, diff, instance);
+	public static void updatePlayers(List<BasePlayer> basePlayers) {
+		for(BasePlayer bp:basePlayers){
+			Player p =  idb.updateOrCreatePlayer(bp, instance);
 		}
 	}
 
@@ -162,7 +176,7 @@ public class Session {
 		int gamesSize = instance.gameList.size();
 		if (gamesSize>0){
 			Game lastGame = instance.gameList.get(gamesSize-1);
-			PlayerList players = instance.players;
+			PlayerList players = getVisibleSessionPlayers();
 			for (int i=0;i<players.size(); i++){
 				Player p = players.get(i);
 				if (lastGame.players.contains(p)){

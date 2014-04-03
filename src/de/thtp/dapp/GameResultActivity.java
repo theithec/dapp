@@ -50,7 +50,7 @@ public abstract class GameResultActivity extends DappActivity implements
 		
 	
 
-		PlayerList sessionPlayers = Session.getSessionPlayers();
+		PlayerList sessionPlayers = Session.getVisibleSessionPlayers();
 		if (sessionPlayers.size() > DAppPrefs.MIN_PLAYERS) {
 			pickPlayers();
 
