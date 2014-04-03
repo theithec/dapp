@@ -28,6 +28,7 @@
     <string name="playerDelete">Delete Player</string>
     <string name="winners">Winner</string>
     <string name="points">Points</string>
+    <string name="bock">Bock</string>
     <string name="boecke">Böcke</string>
     <string name="addGame">Add Game</string>
     <string name="ok">OK</string>

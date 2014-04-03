@@ -157,14 +157,14 @@ public abstract class GameResultActivity extends DappActivity implements
 		addGameBtn.setEnabled(isEnabled);
 
 		TextView textViewPoints = (TextView) findViewById(R.id.textviewPoints);
-		String textViewPointsText = "Punkte:";
+		String textViewPointsText = getString(R.string.points) + "";
 
 		if (boeckeForThisGame > 0) {
 			int bp = pint;
 			for (int i = 0; i < boeckeForThisGame; i++) {
 				bp *= 2;
 			}
-			textViewPointsText += " (Bock " + bp + ")";
+			textViewPointsText += " ("+getString(R.string.bock)+ ": " + bp + ")";
 		}
 		textViewPoints.setText(textViewPointsText);
 	}

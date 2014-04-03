@@ -29,6 +29,7 @@ public class SessionPlayersActivity extends DappActivity {
 	List<PlayerNamesSpinner> spinners;
 	List <EditText> diffTexts;
 	PlayerList allPlayers;
+	PlayerList sessionPlayers; 
 	List<String> allPlayerNames;
 	Button okBtn;
 
@@ -38,6 +39,7 @@ public class SessionPlayersActivity extends DappActivity {
 		setContentView(R.layout.activity_sessionplayers);
 		setTitle(R.string.players);
 		allPlayers = Session.getKnownPlayers();
+		sessionPlayers = Session.getSessionPlayers();
 		allPlayerNames = Session.getKnownPlayers().getNames();
 		allPlayerNames.add(0, "-");
 		diffTexts = new ArrayList<EditText>();
@@ -134,7 +136,10 @@ public class SessionPlayersActivity extends DappActivity {
 		tr.addView(ps);
 		EditText et = new EditText(this);
 		et.setInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL);
-		et.setText( allPlayers.size()>index?""+allPlayers.get(index).diff:"0");
+		Object selItem = ps.getSelectedItem();
+		
+
+		et.setText("0"); 
 		diffTexts.add(et);
 		tr.addView(et);
 		
@@ -143,8 +148,11 @@ public class SessionPlayersActivity extends DappActivity {
 
 	class PlayerNamesSpinner extends Spinner {
 
+		private int index;
+
 		public PlayerNamesSpinner(Context context, int index) {
 			super(context);
+			this.index=index;
 			setOnItemSelectedListener();
 		}
 
@@ -156,12 +164,18 @@ public class SessionPlayersActivity extends DappActivity {
 					if (position > 0) {
 						TextView tv = (TextView) selectedItemView;
 						String name =tv.getText().toString();
+						Player p = null;
 						if (name !="-"){
-							Player p =  allPlayers.getByName(name);
-							Log.d("DIFF", ""+p);
+							p =  sessionPlayers.getByName(name);
+							Log.d("dapp player:", ""+p);
 						}
+						Log.d("dapp index", ""+index);
+						diffTexts.get(index).setText(p!=null?""+p.diff:"0");
 						//String tv.getT
-						
+						/*String name = selItem!=null?selItem.toString():null;
+						Player foundInSession = name !=null?sessionPlayers.getByName(name):null;
+						foundInSession !=null?""+foundInSession.diff:"0");
+						*/
 						updateSpinners();
 					}
 				}
