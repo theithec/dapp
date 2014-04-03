@@ -173,4 +173,8 @@ public class Session {
 		}
 		return sug;
 	}
+
+	public static boolean hasGames() {
+		return instance.gameList.size()>0;
+	}
 }

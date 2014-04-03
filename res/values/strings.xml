@@ -29,7 +29,7 @@
     <string name="winners">Winner</string>
     <string name="points">Points</string>
     <string name="bock">Bock</string>
-    <string name="boecke">Böcke</string>
+    <string name="boecke">Boecke</string>
     <string name="addGame">Add Game</string>
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
@@ -38,8 +38,8 @@
     <string name="prefCategoryTitle">Settings</string>
     <string name="prefDialogTitleMaxPlayersize">Max. Players</string>
     <string name="prefItemTitleMaxPlayersize">Max. Number of players</string>
-    <string name="prefDialogTitleMinPlayersize">Min. Players</string>
-    <string name="prefItemTitleMinPlayersize">Min. Number of players</string>
+    <string name="prefDialogTitleMinPlayersize">Number of Players</string>
+    <string name="prefItemTitleMinPlayersize">Number of Players</string>
     <string name="prefItemTitleCountMinus">Minus</string>
     <string name="prefSummaryCountMinus">count negative? </string>
     <string name="prefDialogTitleMaxBoecke">Max.Böcke</string>

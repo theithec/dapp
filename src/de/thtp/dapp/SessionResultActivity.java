@@ -76,9 +76,12 @@ public class SessionResultActivity extends DappSessionActivity {
 		
 		String[] resultFields = null;
 		if (DAppPrefs.MAX_BOECKE > 0){
-			resultFields = new String[] { "Punkte", "Boecke" };
+			resultFields = new String[] { 
+				getString(R.string.points),
+				getString(R.string.boecke),
+			};
 		} else {
-			resultFields = new String[] { "Punkte" };
+			resultFields = new String[] {getString(R.string.points) };
 		}
 		for (String title : resultFields) {
 			text2row(title, tr);
@@ -193,7 +196,7 @@ public class SessionResultActivity extends DappSessionActivity {
 	void rowClick(int rid) {
 		tmp_rid = rid;
 		new DAppActionQuestion(this, new DAppAction(
-				getString(R.string.editGameById, tmp_rid)) {
+				getString(R.string.editGameById, tmp_rid+1)) {
 			@Override
 			void execute() {
 				editGame(tmp_rid);
@@ -229,7 +232,9 @@ public class SessionResultActivity extends DappSessionActivity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		boolean result = super.onCreateOptionsMenu(menu);
-		menu.add(0, MENU_DIA, Menu.NONE, R.string.titleDiagram);
+		if (Session.hasGames()){
+			menu.add(0, MENU_DIA, Menu.NONE, R.string.titleDiagram);
+		}
 		return result;
 	}
 	
@@ -266,5 +271,4 @@ public class SessionResultActivity extends DappSessionActivity {
 				.setEnabled(newBoeckeFromLastGame < DAppPrefs.MAX_BOECKE);
 		bockBtns[bockBtnsRMBtn].setEnabled(hasBoecke);
 	}
-
 }
