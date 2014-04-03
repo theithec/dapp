@@ -55,7 +55,7 @@ public abstract class GameResultActivity extends DappActivity implements
 			pickPlayers();
 
 		} else {
-			players = sessionPlayers;
+			players = new PlayerList(sessionPlayers);
 			initWithPlayers();
 		}
 		

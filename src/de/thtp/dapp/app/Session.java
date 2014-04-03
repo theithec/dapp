@@ -4,6 +4,8 @@ package de.thtp.dapp.app;
 import java.util.List;
 import java.util.Map;
 
+import android.util.Log;
+
 public class Session {
 	
 	private static Session instance;
@@ -18,10 +20,10 @@ public class Session {
 		this.gameList = new GameList(name);
 	}  
 	
-	public static void start(String name, List<String> names){
+	public static void start(String name, List<String> names, List<Integer> diffs){
 		Session.instance = new Session( name);
 		idb.insertSession(name, names);
-		updatePlayers(names);
+		updatePlayers(names, diffs);
 	}
 	
 	public static void load(int id, String name){
@@ -73,6 +75,7 @@ public class Session {
 
 	public static ResultList getResultList() {
 		//@todo used cached Resultlist (and check if its clean)
+		Log.d("DAPP IN", ""+instance);
 		return new ResultList(instance.gameList);
 	}
 
@@ -84,10 +87,12 @@ public class Session {
 		
 	}
 
-	public static void updatePlayers(List<String> names) {
-		instance.players = new PlayerList();
-		for(String pname: names){
-			Player p =  idb.updateOrCreatePlayer(pname, instance);
+	public static void updatePlayers(List<String> names, List<Integer> diffs) {
+		//instance.players = new PlayerList();
+		for(int i=0;i<names.size(); i++){
+			String pname = names.get(i);
+			int diff = diffs.get(i);
+			Player p =  idb.updateOrCreatePlayer(pname, diff, instance);
 		}
 	}
 

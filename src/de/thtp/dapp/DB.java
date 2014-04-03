@@ -74,7 +74,7 @@ public class DB extends SQLiteOpenHelper implements IDB {
 		}
 		
 		@Override
-		public Player updateOrCreatePlayer(String name, Session session) {
+		public Player updateOrCreatePlayer(String name, int diff, Session session) {
 			
 			int id = playerIdFromName(name);
 
@@ -84,19 +84,23 @@ public class DB extends SQLiteOpenHelper implements IDB {
 			id = (int)wdb.insertWithOnConflict("players", null, cv, SQLiteDatabase.CONFLICT_IGNORE );
 			id = playerIdFromName(name);
 			wdb.close();
-			
+			wdb = getWritableDatabase();
 			Player found = session.players.getByName(name);
+			cv = new ContentValues();
+			cv.put("diff", diff);
 			if (found == null){
-				cv = new ContentValues();
 				cv.put("session_id", currentSessionID);
 				cv.put("player_id", id);
-				wdb = getWritableDatabase();
 				wdb.insertWithOnConflict("sessions_players", null, cv, SQLiteDatabase.CONFLICT_IGNORE);
 				found = new Player(id, name);
 				session.players.add(found);
-				
+			}else {
+				//cv = new ContentValues();
+				wdb.update("sessions_players", cv, "player_id="+found.id, null);
 			}
+			
 			wdb.close();
+			found.diff = diff;
 			return found;
 		}
 
@@ -181,7 +185,7 @@ public class DB extends SQLiteOpenHelper implements IDB {
 			currentSessionID = id;
 			cur = rdb.query(
 				"sessions_players",
-				new String[] { "player_id" },
+				new String[] { "player_id" , "diff"},
 				"session_id=" + id, 
 				null, null, null, null
 			);
@@ -192,6 +196,7 @@ public class DB extends SQLiteOpenHelper implements IDB {
 						+ pid, null, null, null, null);
 				cur2.moveToFirst();
 				Player p = new Player(pid, cur2.getString(0)); 
+				p.diff = cur.getInt(1);
 				players.add(p);
 			}
 			

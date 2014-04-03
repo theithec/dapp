@@ -7,6 +7,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -16,6 +18,7 @@ import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import de.thtp.dapp.app.Player;
 import de.thtp.dapp.app.PlayerList;
 import de.thtp.dapp.app.Session;
 
@@ -24,8 +27,9 @@ public class SessionPlayersActivity extends DappActivity {
 	EditText[] playerDiffEditTexts;
 	String sessionName;
 	List<PlayerNamesSpinner> spinners;
-
-	List<String> allPlayers;
+	List <EditText> diffTexts;
+	PlayerList allPlayers;
+	List<String> allPlayerNames;
 	Button okBtn;
 
 	@Override
@@ -33,8 +37,10 @@ public class SessionPlayersActivity extends DappActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_sessionplayers);
 		setTitle(R.string.players);
-		allPlayers = Session.getKnownPlayers().getNames();
-		allPlayers.add(0, "-");
+		allPlayers = Session.getKnownPlayers();
+		allPlayerNames = Session.getKnownPlayers().getNames();
+		allPlayerNames.add(0, "-");
+		diffTexts = new ArrayList<EditText>();
 		spinners = new ArrayList<SessionPlayersActivity.PlayerNamesSpinner>();
 		sessionName = this.getIntent().getExtras()
 				.getString(Const.K_SESSION_NAME);
@@ -60,8 +66,7 @@ public class SessionPlayersActivity extends DappActivity {
 	}
 
 	public void updateSpinners() {
-		// Log.d("DEBUG", "updateSpinners");
-		List<String> cpy = new ArrayList<String>(allPlayers);
+		List<String> cpy = new ArrayList<String>(allPlayerNames);
 		for (PlayerNamesSpinner spinner : spinners) {
 			spinner.setOnItemSelectedListener(null);
 			Object obj = spinner.getSelectedItem();
@@ -95,18 +100,23 @@ public class SessionPlayersActivity extends DappActivity {
 
 	public void startSessionWithPlayers(View v) {
 		List<String> names = new ArrayList<String>();
-		for (PlayerNamesSpinner spinner : spinners) {
+		List<Integer> diffs = new ArrayList<Integer>();
+		for (int i=0; i<spinners.size(); i++) {
+			PlayerNamesSpinner spinner = spinners.get(i);
 			String name = spinner.getSelectedItem().toString();
+			
 			if (!name.equals("-")) {
 				names.add(name);
+				diffs.add(Integer.parseInt(diffTexts.get(i).getText().toString()));
+				
 			}
 		}
 		
 		if (!Session.isReady()){
 			Session.setIDB( new DB(this));
-			Session.start( sessionName, names);
+			Session.start( sessionName, names, diffs);
 		} else {
-			Session.updatePlayers(names);
+			Session.updatePlayers(names,diffs);
 		}
 		Intent i = new Intent(this, SessionResultActivity.class);
 		startActivity(i);
@@ -120,8 +130,14 @@ public class SessionPlayersActivity extends DappActivity {
 		tr.addView(tv);
 		PlayerNamesSpinner ps = new PlayerNamesSpinner(this, index);
 		spinners.add(ps);
-		ps.update(allPlayers);
+		ps.update(allPlayerNames);
 		tr.addView(ps);
+		EditText et = new EditText(this);
+		et.setInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL);
+		et.setText( allPlayers.size()>index?""+allPlayers.get(index).diff:"0");
+		diffTexts.add(et);
+		tr.addView(et);
+		
 		return tr;
 	}
 
@@ -138,6 +154,14 @@ public class SessionPlayersActivity extends DappActivity {
 				public void onItemSelected(AdapterView<?> parentView,
 						View selectedItemView, int position, long id) {
 					if (position > 0) {
+						TextView tv = (TextView) selectedItemView;
+						String name =tv.getText().toString();
+						if (name !="-"){
+							Player p =  allPlayers.getByName(name);
+							Log.d("DIFF", ""+p);
+						}
+						//String tv.getT
+						
 						updateSpinners();
 					}
 				}
@@ -169,7 +193,7 @@ public class SessionPlayersActivity extends DappActivity {
 				@Override
 				public void onClick(DialogInterface dialog, int whichButton) {
 					String name = input.getText().toString();
-					allPlayers.add(name);
+					allPlayerNames.add(name);
 					updateSpinners();
 				}
 			});

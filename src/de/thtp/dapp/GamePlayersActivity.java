@@ -5,10 +5,12 @@ import java.util.List;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import de.thtp.dapp.app.Player;
@@ -51,6 +53,7 @@ public abstract class GamePlayersActivity extends DappActivity implements
 			});
 			cbs.add(cb);
 			ll.addView(cb);
+		
 		}
 		
 		btn.setOnClickListener(new View.OnClickListener() {
