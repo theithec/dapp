@@ -1,10 +1,10 @@
 package de.thtp.dapp.app;
 
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import android.util.Log;
 import de.thtp.dapp.DAppPrefs;
 
 public class Session {
@@ -61,7 +61,6 @@ public class Session {
 		return instance!=null;
 	}
 	
-
 	
 	public static PlayerList getSessionPlayers() {
 		if (null==instance){
@@ -105,9 +104,12 @@ public class Session {
 	}
 
 	public static void updatePlayers(List<BasePlayer> basePlayers) {
+		int cnt = 0;
+		instance.players = new PlayerList();
 		for(BasePlayer bp:basePlayers){
-			Player p =  idb.updateOrCreatePlayer(bp, instance);
+			Player p =  idb.updateOrCreatePlayer(bp, instance, cnt++);
 		}
+		Collections.sort(instance.players);
 	}
 
 	public static void setIDB(IDB db) {
@@ -146,8 +148,6 @@ public class Session {
 		g.winners = winners;
 		g.points = points;
 		g.boeckeCreated = boecke;
-		//Game game = new Game(players, winners, points, boecke, sessionPlayersSize);
-		//instance.gameList.set(gamePos, game);
 		idb.updateGame(g);
 	}
 

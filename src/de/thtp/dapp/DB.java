@@ -50,14 +50,13 @@ public class DB extends SQLiteOpenHelper implements IDB {
 					+ "player_id INTEGER NOT NULL,"
 					+ "is_winner BOOLEAN)");
 			db.execSQL("CREATE TABLE sessions_players ( _id INTEGER PRIMARY KEY AUTOINCREMENT,"
-					+ "session_id INTEGER NOT NULL,player_id INTEGER NOT NULL, is_active BOOLEAN, diff INTEGER default 0,"
+					+ "session_id INTEGER NOT NULL, player_id INTEGER NOT NULL, pos INTEGER NOT NULL, is_active BOOLEAN, diff INTEGER default 0,"
 					+ " UNIQUE(session_id, player_id) ON CONFLICT REPLACE)");
 		}
 
 		@Override
 		public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 			// TODO Auto-generated method stub
-			
 		}
 		
 		private int playerIdFromName(String name){
@@ -74,10 +73,9 @@ public class DB extends SQLiteOpenHelper implements IDB {
 		}
 		
 		@Override
-		public Player updateOrCreatePlayer(BasePlayer bp, Session session) {
+		public Player updateOrCreatePlayer(BasePlayer bp, Session session, int pos) {
 			
 			int id = playerIdFromName(bp.name);
-
 			ContentValues cv = new ContentValues();
 			SQLiteDatabase wdb = getWritableDatabase();
 			cv.put("name", bp.name);
@@ -89,11 +87,12 @@ public class DB extends SQLiteOpenHelper implements IDB {
 			cv = new ContentValues();
 			cv.put("diff", bp.diff);
 			cv.put("is_active", bp.isActive);
+			cv.put("pos", pos);
 			if (found == null){
 				cv.put("session_id", currentSessionID);
 				cv.put("player_id", id);
 				long r = wdb.insertWithOnConflict("sessions_players", null, cv, SQLiteDatabase.CONFLICT_IGNORE);
-				found = new Player(id, bp);
+				found = new Player(id, pos, bp);
 				session.players.add(found);
 			}else {
 				//cv = new ContentValues();
@@ -149,7 +148,7 @@ public class DB extends SQLiteOpenHelper implements IDB {
 			boolean any = cur.getCount() > 0;
 			PlayerList pl = new PlayerList();
 			while (any && cur.moveToNext()) {
-				Player p = new Player(cur.getInt(0), new BasePlayer(cur.getString(1)));
+				Player p = new Player(cur.getInt(0), cur.getInt(1), new BasePlayer(cur.getString(1)));
 				pl.add(p);
 				
 			}
@@ -187,9 +186,9 @@ public class DB extends SQLiteOpenHelper implements IDB {
 			currentSessionID = id;
 			cur = rdb.query(
 				"sessions_players",
-				new String[] { "player_id" , "diff", "is_active"},
+				new String[] { "player_id" , "pos", "diff", "is_active"},
 				"session_id=" + id, 
-				null, null, null, null
+				null, null, null, "pos DESC"
 			);
 			
 			while (cur.moveToNext()) {
@@ -199,9 +198,10 @@ public class DB extends SQLiteOpenHelper implements IDB {
 				cur2.moveToFirst();
 				Player p = new Player(
 					pid, 
+					cur.getInt(1),
 					new BasePlayer(cur2.getString(0),
-						cur.getInt(1),
-						cur.getInt(2) == 1
+						cur.getInt(2),
+						cur.getInt(3) == 1
 					)
 				);
 				players.add(p);

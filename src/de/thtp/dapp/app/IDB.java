@@ -1,13 +1,12 @@
 package de.thtp.dapp.app;
 
-import java.util.List;
 import java.util.Map;
 
 public interface IDB {
 
 	void insertSession(String sessionName);
 
-	Player updateOrCreatePlayer(BasePlayer bp, Session session);
+	Player updateOrCreatePlayer(BasePlayer bp, Session session, int pos);
 
 	int writeGame(Game g);
 
