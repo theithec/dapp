@@ -169,14 +169,14 @@ public class DB extends SQLiteOpenHelper implements IDB {
 
 		@Override
 		public Map<String, Integer> getSessionIdsByName() {
-			return idsByNameFor("sessions", new String[] { "_id", "started" });
+			return idsByNameFor("sessions", new String[] { "_id", "name" });
 		}
 
-		@Override
+/*		@Override
 		public Map<String, Integer> getPlayerIdsByName() {
 			return idsByNameFor("players", new String[] { "_id", "name" });
 		}
-		
+*/		
 		@Override
 		public void loadSession(int id, GameList games, PlayerList players) {
 			SQLiteDatabase rdb = getReadableDatabase();
