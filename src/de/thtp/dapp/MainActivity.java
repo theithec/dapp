@@ -13,15 +13,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import de.thtp.dapp.app.Session;
 
-
-
 public class MainActivity extends DappActivity {
 
-	Button 	btnContinueSession,
-			btnSessionsCtrl,
-			btnPlayersCtrl;
-	
-	
+	Button btnContinueSession, btnSessionsCtrl, btnPlayersCtrl;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -30,31 +25,31 @@ public class MainActivity extends DappActivity {
 		btnSessionsCtrl = (Button) findViewById(R.id.btnSessionsCtrl);
 		btnPlayersCtrl = (Button) findViewById(R.id.btnPlayersCtrl);
 	}
+
 	@Override
 	public void onResume() {
 		super.onResume();
-		btnContinueSession.setEnabled(Session
-				.isReady());
-		btnSessionsCtrl.setEnabled(Session.getSessionsCount()>0);
-		btnPlayersCtrl.setEnabled(Session.getKnownPlayers().size()>0);
+		btnContinueSession.setEnabled(Session.isReady());
+		btnSessionsCtrl.setEnabled(Session.getSessionsCount() > 0);
+		btnPlayersCtrl.setEnabled(Session.getKnownPlayers().size() > 0);
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		return true;
-		
+
 	}
-	
-	public void  continueSession(View v) {
+
+	public void continueSession(View v) {
 		Intent i = new Intent(this, SessionResultActivity.class);
 		startActivity(i);
 	}
-	
+
 	public void startNewSession(View v) {
-		
+
 		final Intent i = new Intent(this, SessionPlayersActivity.class);
 		AlertDialog.Builder alert = new AlertDialog.Builder(this);
-		
+
 		alert.setTitle(R.string.sessionNew);
 		alert.setMessage(R.string.sessionName);
 		final EditText input = new EditText(this);
@@ -82,16 +77,17 @@ public class MainActivity extends DappActivity {
 		alert.show();
 
 	}
-	
+
 	public void settingsClick(View v) {
 		startActivity(new Intent(this, DappPreferencesActivity.class));
 
 	}
+
 	public void SessionsCtrlClick(View v) {
 		startActivity(new Intent(this, SessionListActivity.class));
 	}
-	
-	public void playersCtrlClick(View v){
+
+	public void playersCtrlClick(View v) {
 		startActivity(new Intent(this, PlayerListActivity.class));
 	}
 

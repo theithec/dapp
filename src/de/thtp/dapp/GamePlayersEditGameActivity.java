@@ -1,15 +1,12 @@
 package de.thtp.dapp;
 
-
-
 import android.os.Bundle;
 import de.thtp.dapp.app.PlayerList;
 import de.thtp.dapp.app.Session;
 
-
 public class GamePlayersEditGameActivity extends GamePlayersActivity {
 	int gamePos;
-	
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -20,6 +17,5 @@ public class GamePlayersEditGameActivity extends GamePlayersActivity {
 	protected PlayerList getSuggestedPlayers() {
 		return Session.getGame(gamePos).players;
 	}
-
 
 }

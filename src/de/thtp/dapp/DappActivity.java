@@ -9,11 +9,11 @@ import android.view.MenuItem;
 import de.thtp.dapp.app.Session;
 
 abstract public class DappActivity extends Activity {
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		if (!Session.hasIDB()){
+		if (!Session.hasIDB()) {
 			Session.setIDB(new DB(this));
 		}
 	}
@@ -24,7 +24,7 @@ abstract public class DappActivity extends Activity {
 		inflater.inflate(R.menu.defaultmenu, menu);
 		return true;
 	}
-	
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle item selection
@@ -37,9 +37,5 @@ abstract public class DappActivity extends Activity {
 			return super.onOptionsItemSelected(item);
 		}
 	}
-	
-
-	
-	
 
 }

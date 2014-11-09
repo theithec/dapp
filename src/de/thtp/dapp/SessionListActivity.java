@@ -16,6 +16,7 @@ import de.thtp.dapp.app.Session;
 public class SessionListActivity extends DappListViewActivity {
 
 	String selectedSession;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		map = Session.getSessionIdsByName();
@@ -25,8 +26,8 @@ public class SessionListActivity extends DappListViewActivity {
 
 	@Override
 	public void onCreateContextMenu(ContextMenu menu, View v,
-	    ContextMenuInfo menuInfo) {
-		
+			ContextMenuInfo menuInfo) {
+
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.sessionlistoptionsmenu, menu);
 		return;
@@ -34,9 +35,10 @@ public class SessionListActivity extends DappListViewActivity {
 
 	@Override
 	public boolean onContextItemSelected(MenuItem item) {
-		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
-		//info.targetView.toString();
-		selectedSession = (String) ((TextView)info.targetView).getText();
+		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item
+				.getMenuInfo();
+		// info.targetView.toString();
+		selectedSession = (String) ((TextView) info.targetView).getText();
 		final int sessionID = map.get(selectedSession);
 		final Activity a = this;
 		switch (item.getItemId()) {
@@ -68,6 +70,6 @@ public class SessionListActivity extends DappListViewActivity {
 		default:
 			return super.onOptionsItemSelected(item);
 		}
-		
+
 	}
 }

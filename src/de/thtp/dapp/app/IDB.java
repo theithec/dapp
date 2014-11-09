@@ -4,7 +4,7 @@ import java.util.Map;
 
 public interface IDB {
 
-	void insertSession(String sessionName);
+	int insertSession(String sessionName);
 
 	Player updateOrCreatePlayer(BasePlayer bp, Session session, int pos);
 
@@ -14,8 +14,7 @@ public interface IDB {
 
 	Map<String, Integer> getSessionIdsByName();
 
-	Map<String, Integer> getPlayerIdsByName();
-
+	// Map<String, Integer> getPlayerIdsByName();
 
 	void loadSession(int id, GameList games, PlayerList players);
 

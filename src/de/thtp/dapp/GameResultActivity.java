@@ -37,9 +37,8 @@ public abstract class GameResultActivity extends DappActivity implements
 	int boeckeForThisGame;
 
 	Bundle data;
-	
-	protected static final int PICK_PLAYER_REQUEST = 1;
 
+	protected static final int PICK_PLAYER_REQUEST = 1;
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -47,8 +46,6 @@ public abstract class GameResultActivity extends DappActivity implements
 		setTitle(getString(R.string.addResult));
 		initialPoints = 0;
 		data = this.getIntent().getExtras();
-		
-	
 
 		PlayerList sessionPlayers = Session.getVisibleSessionPlayers();
 		if (sessionPlayers.size() > DAppPrefs.MIN_PLAYERS) {
@@ -58,7 +55,7 @@ public abstract class GameResultActivity extends DappActivity implements
 			players = new PlayerList(sessionPlayers);
 			initWithPlayers();
 		}
-		
+
 	}
 
 	void initWithPlayers() {
@@ -112,12 +109,12 @@ public abstract class GameResultActivity extends DappActivity implements
 		}
 		addGameBtn = (Button) findViewById(R.id.addGameBtn);
 		addGameBtn.setOnClickListener(new View.OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				putGame();
-				//finish();
-				
+				// finish();
+
 			}
 		});
 
@@ -129,10 +126,11 @@ public abstract class GameResultActivity extends DappActivity implements
 
 		editTexts[0].setText("" + initialPoints);
 		editTexts[1].setText("" + suggBoecke);
-		
-		if (DAppPrefs.MAX_BOECKE>0){
-			int[] ids = new int[]{R.id.editBoecke, R.id.bockPlusBtn, R.id.bockMinusBtn, R.id.lblBoecke};
-			for (int i:ids){
+
+		if (DAppPrefs.MAX_BOECKE > 0) {
+			int[] ids = new int[] { R.id.editBoecke, R.id.bockPlusBtn,
+					R.id.bockMinusBtn, R.id.lblBoecke };
+			for (int i : ids) {
 				findViewById(i).setVisibility(View.VISIBLE);
 			}
 		}
@@ -164,7 +162,8 @@ public abstract class GameResultActivity extends DappActivity implements
 			for (int i = 0; i < boeckeForThisGame; i++) {
 				bp *= 2;
 			}
-			textViewPointsText += " ("+getString(R.string.bock)+ ": " + bp + ")";
+			textViewPointsText += " (" + getString(R.string.bock) + ": " + bp
+					+ ")";
 		}
 		textViewPoints.setText(textViewPointsText);
 	}
@@ -176,8 +175,8 @@ public abstract class GameResultActivity extends DappActivity implements
 				winners.add(pcb.player);
 			}
 		}
-		final int points = Integer.parseInt(editTexts[editTextsPoints].getText()
-				.toString());
+		final int points = Integer.parseInt(editTexts[editTextsPoints]
+				.getText().toString());
 		String bstr = editTexts[editTextsBoecke].getText().toString();
 		final int boecke = bstr == "" ? 0 : Integer.parseInt(bstr);
 		if (winners.size() == 1) {
@@ -187,7 +186,8 @@ public abstract class GameResultActivity extends DappActivity implements
 				@Override
 				void execute() {
 					putGameToData(winners, points, boecke);
-					startActivity(new Intent(thiscpy, SessionResultActivity.class));
+					startActivity(new Intent(thiscpy,
+							SessionResultActivity.class));
 					finish();
 				}
 			});
@@ -245,11 +245,8 @@ public abstract class GameResultActivity extends DappActivity implements
 		}
 	}
 
-
 	abstract void pickPlayers();
 
 	abstract void putGameToData(PlayerList winners, int points, int boecke);
-		
-	
 
 }

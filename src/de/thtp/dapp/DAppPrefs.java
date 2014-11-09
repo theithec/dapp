@@ -13,7 +13,7 @@ public class DAppPrefs {
 	public static int DEALER_POS_DIFF = 0;
 
 	public static void updateDroikoSettings(SharedPreferences prefs) {
-		
+
 		DAppPrefs.MAX_BOECKE = Integer.parseInt(prefs.getString(
 				"maxboecke_preference", "" + DAppPrefs.MAX_BOECKE));
 		DAppPrefs.MAX_PLAYERS = Integer.parseInt(prefs.getString(
@@ -28,11 +28,12 @@ public class DAppPrefs {
 				"hide_inactive_players_preference",
 				DAppPrefs.HIDE_INACTIVE_PLAYERS);
 		int dealer_pos_diff = 0;
-		try{
+		try {
 			dealer_pos_diff = Integer.parseInt(prefs.getString(
-					"dealer_pos_diff_preference", "" + DAppPrefs.DEALER_POS_DIFF));
-		} catch (NumberFormatException e){
-			
+					"dealer_pos_diff_preference", ""
+							+ DAppPrefs.DEALER_POS_DIFF));
+		} catch (NumberFormatException e) {
+
 		}
 		DAppPrefs.DEALER_POS_DIFF = dealer_pos_diff;
 	}

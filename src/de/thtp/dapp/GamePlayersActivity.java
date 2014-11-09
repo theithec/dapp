@@ -38,7 +38,7 @@ public abstract class GamePlayersActivity extends DappActivity implements
 
 		btn = new Button(this);
 		btn.setText(getString(R.string.btnContinueInsertGame));
-	
+
 		for (Player p : players) {
 			PlayerCheckBox cb = new PlayerCheckBox(this, p);
 			cb.setChecked(suggPlayers.contains(p));
@@ -51,32 +51,30 @@ public abstract class GamePlayersActivity extends DappActivity implements
 			});
 			cbs.add(cb);
 			ll.addView(cb);
-		
+
 		}
-		
+
 		btn.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				Bundle data = new Bundle();
-			    ArrayList<Integer> ids = new ArrayList<Integer>();
-			    for (PlayerCheckBox cb: cbs){
-			    	if (cb.isChecked()){
-			    		ids.add(cb.player.id);
-			    	}
-			    }
-			    data.putIntegerArrayList(Const.K_PICKED_PLAYERS, ids);
-			    Intent intent = new Intent();
-			    intent.putExtras(data);
-			    setResult(RESULT_OK, intent);
-			    finish();
+				ArrayList<Integer> ids = new ArrayList<Integer>();
+				for (PlayerCheckBox cb : cbs) {
+					if (cb.isChecked()) {
+						ids.add(cb.player.id);
+					}
+				}
+				data.putIntegerArrayList(Const.K_PICKED_PLAYERS, ids);
+				Intent intent = new Intent();
+				intent.putExtras(data);
+				setResult(RESULT_OK, intent);
+				finish();
 			}
 		});
 		ll.addView(btn);
 		setContentView(sv);
 		checkChecked();
 	}
-
-
 
 	@Override
 	public void checkChecked() {

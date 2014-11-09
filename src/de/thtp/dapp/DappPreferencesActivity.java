@@ -24,9 +24,9 @@ public class DappPreferencesActivity extends PreferenceActivity implements
 	@Override
 	public void onSharedPreferenceChanged(SharedPreferences prefs, String arg1) {
 		DAppPrefs.updateDroikoSettings(prefs);
-		Toast.makeText(this, getText(R.string.settingsUpdated), Toast.LENGTH_LONG).show();
+		Toast.makeText(this, getText(R.string.settingsUpdated),
+				Toast.LENGTH_LONG).show();
 	}
-
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -34,8 +34,7 @@ public class DappPreferencesActivity extends PreferenceActivity implements
 		inflater.inflate(R.menu.defaultmenu, menu);
 		return true;
 	}
-	
-	
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {

@@ -7,7 +7,6 @@ public abstract class DAppAction {
 		this.question = question;
 	}
 
-	
 	void execute() {
 	}
 }

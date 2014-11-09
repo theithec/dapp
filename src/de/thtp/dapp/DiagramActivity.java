@@ -14,7 +14,6 @@ import de.thtp.dapp.app.Player;
 import de.thtp.dapp.app.ResultList;
 import de.thtp.dapp.app.Session;
 
-
 class DiagramView extends View {
 	static final int[] PLAYER_COLORS = new int[] { Color.RED, Color.CYAN,
 			Color.BLUE, Color.GREEN, Color.MAGENTA, Color.GRAY, Color.YELLOW };
@@ -25,7 +24,6 @@ class DiagramView extends View {
 		super(context);
 
 	}
-
 
 	private void initDraw() {
 		pointsDiff = highestLinePoints - lowestLinePoints;
@@ -48,7 +46,7 @@ class DiagramView extends View {
 	}
 
 	protected void onDraw(Canvas canvas) {
-		ResultList rl =    Session.getResultList();
+		ResultList rl = Session.getResultList();
 		int[][] table = rl.valuesTable();
 		int[] peaks = rl.resultPeaks();
 		int minPoints = peaks[0];

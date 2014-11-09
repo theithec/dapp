@@ -21,7 +21,6 @@ import de.thtp.dapp.app.PlayerList;
 import de.thtp.dapp.app.ResultList;
 import de.thtp.dapp.app.Session;
 
-
 public class SessionResultActivity extends DappSessionActivity {
 
 	private PlayerList players;
@@ -40,7 +39,7 @@ public class SessionResultActivity extends DappSessionActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_sessionresult);
-	
+
 		setTitle(R.string.SessionResults);
 		Button btnAddGame = (Button) findViewById(R.id.btnAddGame);
 		textViewBoeckeNextGame = (TextView) findViewById(R.id.textviewBoeckeNextGame);
@@ -73,22 +72,21 @@ public class SessionResultActivity extends DappSessionActivity {
 		for (Player p : players) {
 			text2row(p.name, tr);
 		}
-		
+
 		String[] resultFields = null;
-		if (DAppPrefs.MAX_BOECKE > 0){
-			resultFields = new String[] { 
-				getString(R.string.points),
-				getString(R.string.boecke),
-			};
+		if (DAppPrefs.MAX_BOECKE > 0) {
+			resultFields = new String[] { getString(R.string.points),
+					getString(R.string.boecke), };
 		} else {
-			resultFields = new String[] {getString(R.string.points) };
+			resultFields = new String[] { getString(R.string.points) };
 		}
 		for (String title : resultFields) {
 			text2row(title, tr);
 		}
 
 		TableLayout tl = (TableLayout) findViewById(R.id.fullresulttablelayoutcontent);
-		ResultList results = Session.getResultList(); //new ResultList(Session.getCurrentSession());
+		ResultList results = Session.getResultList(); // new
+														// ResultList(Session.getCurrentSession());
 		int[][] rsts = results.valuesTable();
 		int rID;
 		int cnt = 0;
@@ -115,7 +113,7 @@ public class SessionResultActivity extends DappSessionActivity {
 				pointsWithBoecke = "" + points;
 			}
 			text2row("" + pointsWithBoecke, tr);
-			if (DAppPrefs.MAX_BOECKE > 0){
+			if (DAppPrefs.MAX_BOECKE > 0) {
 				text2row("" + boecke, tr);
 			}
 			tl.addView(tr);
@@ -124,7 +122,8 @@ public class SessionResultActivity extends DappSessionActivity {
 		int[] outStandingBoecke = results.getOutstandingBoecke();
 		int additionalRows = outStandingBoecke.length > 0 ? outStandingBoecke.length
 				: 1;
-		boeckeForNextGame =  outStandingBoecke.length>0 ? outStandingBoecke[0] : 0;
+		boeckeForNextGame = outStandingBoecke.length > 0 ? outStandingBoecke[0]
+				: 0;
 		for (int i = 0; i < additionalRows; i++) {
 			tr = new TableRow(this);
 			text2row("", tr); // +(rID+i+1), tr);
@@ -137,30 +136,28 @@ public class SessionResultActivity extends DappSessionActivity {
 				}
 				text2row(s, tr);
 			}
-			
+
 			text2row("", tr);
-			if (DAppPrefs.MAX_BOECKE>0){
-			String bockStr = i < outStandingBoecke.length ? ""
-					+ outStandingBoecke[i] : "";
-			text2row(bockStr, tr);
+			if (DAppPrefs.MAX_BOECKE > 0) {
+				String bockStr = i < outStandingBoecke.length ? ""
+						+ outStandingBoecke[i] : "";
+				text2row(bockStr, tr);
 			}
 
 			tl.addView(tr);
 		}
 	}
 
-	
 	protected void startAddGameActivity() {
 		Intent intent = new Intent(this, GameResultAddGameActivity.class);
 		intent.putExtra(Const.K_BOECKE_FOR_THIS_GAME, boeckeForNextGame);
 		intent.putExtra(Const.K_SUGG_BOECKE, newBoeckeFromLastGame);
 		startActivity(intent);
 		finish();
-
 	}
 
 	private void setRowSizes(int playersLength, int maxBoecke) {
-		int columns = playersLength + (DAppPrefs.MAX_BOECKE>0?3:2);
+		int columns = playersLength + (DAppPrefs.MAX_BOECKE > 0 ? 3 : 2);
 		Display display = ((WindowManager) getSystemService(Context.WINDOW_SERVICE))
 				.getDefaultDisplay();
 		int width = display.getWidth();
@@ -195,15 +192,14 @@ public class SessionResultActivity extends DappSessionActivity {
 
 	void rowClick(int rid) {
 		tmp_rid = rid;
-		new DAppActionQuestion(this, new DAppAction(
-				getString(R.string.editGameById, tmp_rid+1)) {
+		new DAppActionQuestion(this, new DAppAction(getString(
+				R.string.editGameById, tmp_rid + 1)) {
 			@Override
 			void execute() {
 				editGame(tmp_rid);
 			}
 		});
-		
-		
+
 	}
 
 	protected void editGame(int gamePos) {
@@ -211,7 +207,7 @@ public class SessionResultActivity extends DappSessionActivity {
 		intent.putExtra(Const.K_GAME_POS, gamePos);
 		startActivity(intent);
 		finish();
-		
+
 	}
 
 	class GameRowClickListener implements View.OnClickListener {
@@ -232,12 +228,12 @@ public class SessionResultActivity extends DappSessionActivity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		boolean result = super.onCreateOptionsMenu(menu);
-		if (Session.hasGames()){
+		if (Session.hasGames()) {
 			menu.add(0, MENU_DIA, Menu.NONE, R.string.titleDiagram);
 		}
 		return result;
 	}
-	
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
@@ -262,11 +258,11 @@ public class SessionResultActivity extends DappSessionActivity {
 
 		}
 	}
-	
+
 	public void checkBockBtns() {
 		boolean hasBoecke = newBoeckeFromLastGame > 0;
-		textViewBoeckeNextGame.setText(
-				hasBoecke ? getString(R.string.newBoeckeToAdd, newBoeckeFromLastGame) : "");
+		textViewBoeckeNextGame.setText(hasBoecke ? getString(
+				R.string.newBoeckeToAdd, newBoeckeFromLastGame) : "");
 		bockBtns[bockBtnsAddBtn]
 				.setEnabled(newBoeckeFromLastGame < DAppPrefs.MAX_BOECKE);
 		bockBtns[bockBtnsRMBtn].setEnabled(hasBoecke);

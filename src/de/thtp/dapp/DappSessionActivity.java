@@ -6,18 +6,14 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import de.thtp.dapp.app.Session;
 
-public abstract class DappSessionActivity extends DappActivity{
+public abstract class DappSessionActivity extends DappActivity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.sessionmenu, menu);
 		return true;
 	}
-	
-	
-	
-	
-	
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle item selection
@@ -36,6 +32,5 @@ public abstract class DappSessionActivity extends DappActivity{
 			return super.onOptionsItemSelected(item);
 		}
 	}
-
 
 }

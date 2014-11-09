@@ -36,7 +36,7 @@ public class ResultList extends ArrayList<Result> {
 
 	public int gamesWithBoecke() {
 		int bSize = boeckeForGames.size();
-		int gSize =games.size();
+		int gSize = games.size();
 		while (bSize > gSize && boeckeForGames.get(bSize - 1) == 0) {
 			bSize--;
 		}

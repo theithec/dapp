@@ -28,9 +28,7 @@ abstract public class DappListViewActivity extends DappActivity {
 				android.R.layout.simple_list_item_1, names);
 		lv.setAdapter(aad);
 		registerForContextMenu(lv);
-		
-		
-		
+
 	}
 
 	protected void endclick() {
@@ -38,6 +36,6 @@ abstract public class DappListViewActivity extends DappActivity {
 		finish();
 	}
 
-	//abstract protected boolean onListItemLongClick(AdapterView l, View v,
-	//		int position, long id);
+	// abstract protected boolean onListItemLongClick(AdapterView l, View v,
+	// int position, long id);
 }
