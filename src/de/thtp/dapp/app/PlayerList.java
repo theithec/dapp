@@ -40,5 +40,13 @@ public class PlayerList extends ArrayList<Player> {
 		}
 		return null;
 	}
+	
+	public String toString(){
+		String str = "";
+		for (Player p : this) {
+			str += " " + p.name;
+		}
+		return str;
+	}
 
 }

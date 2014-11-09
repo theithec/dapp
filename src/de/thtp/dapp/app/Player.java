@@ -1,15 +1,24 @@
 package de.thtp.dapp.app;
 
-public class Player extends BasePlayer implements Comparable<Player> {
+import android.R.bool;
+
+public class Player  implements Comparable<Player> {
+	public String name;
 	public int id;
 	public int pos;
+	public int diff;
+	public boolean isActive;
+	
 
-	public Player(int id, int pos, BasePlayer bp) {
-		this.id = id;
+	public Player(String name, int pos, int diff, boolean isActive) {
 		this.pos = pos;
-		this.diff = bp.diff;
-		this.name = bp.name;
-		this.isActive = bp.isActive;
+		this.diff = diff;
+		this.name = name;
+		this.isActive = isActive;
+	}
+
+	public Player(String name) {
+		this.name = name;
 	}
 
 	@Override

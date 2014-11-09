@@ -18,6 +18,11 @@
             android:entryValues="@array/entries_list_playersize_list_preference"
             android:key="min_playersize_list_preference" />
         
+       <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="hide_inactive_players_preference"
+            android:summary="@string/prefSummaryHideInactive"
+            android:title="@string/prefItemHideInactive" />
 
         <EditTextPreference
             android:dialogTitle="@string/prefDialogTitleMaxBoecke"
@@ -27,6 +32,7 @@
             android:title="@string/prefItemTitleMaxBoecke" />
 
         <CheckBoxPreference
+            android:defaultValue="true"
             android:key="count_minus_preference"
             android:summary="@string/prefSummaryCountMinus"
             android:title="@string/prefItemTitleCountMinus" />

@@ -6,7 +6,7 @@ public interface IDB {
 
 	int insertSession(String sessionName);
 
-	Player updateOrCreatePlayer(BasePlayer bp, Session session, int pos);
+	Player updateOrCreatePlayer(Player p, Session session);
 
 	int writeGame(Game g);
 

@@ -21,7 +21,7 @@ public class Session {
 		this.gameList = new GameList(name);
 	}
 
-	public static void start(String name, List<BasePlayer> basePlayers) {
+	public static void start(String name, List<Player> basePlayers) {
 		Session.instance = new Session(name);
 		Session.instance.id = idb.insertSession(name);
 		updatePlayers(basePlayers);
@@ -102,11 +102,11 @@ public class Session {
 
 	}
 
-	public static void updatePlayers(List<BasePlayer> basePlayers) {
+	public static void updatePlayers(List<Player> basePlayers) {
 		int cnt = 0;
 		instance.players = new PlayerList();
-		for (BasePlayer bp : basePlayers) {
-			idb.updateOrCreatePlayer(bp, instance, cnt++);
+		for (Player bp : basePlayers) {
+			idb.updateOrCreatePlayer(bp, instance);
 		}
 		Collections.sort(instance.players);
 	}

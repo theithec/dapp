@@ -11,7 +11,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import de.thtp.dapp.app.BasePlayer;
 import de.thtp.dapp.app.Game;
 import de.thtp.dapp.app.GameList;
 import de.thtp.dapp.app.IDB;
@@ -72,35 +71,35 @@ public class DB extends SQLiteOpenHelper implements IDB {
 	}
 
 	@Override
-	public Player updateOrCreatePlayer(BasePlayer bp, Session session, int pos) {
+	public Player updateOrCreatePlayer(Player bp, Session session) {
 
-		int id = playerIdFromName(bp.name);
 		ContentValues cv = new ContentValues();
 		SQLiteDatabase wdb = getWritableDatabase();
 		cv.put("name", bp.name);
-		id = (int) wdb.insertWithOnConflict("players", null, cv,
+		wdb.insertWithOnConflict("players", null, cv,
 				SQLiteDatabase.CONFLICT_IGNORE);
-		id = playerIdFromName(bp.name);
+		int id = playerIdFromName(bp.name);
 		wdb.close();
 		wdb = getWritableDatabase();
 		Player found = session.players.getByName(bp.name);
 		cv = new ContentValues();
 		cv.put("diff", bp.diff);
 		cv.put("is_active", bp.isActive);
-		cv.put("pos", pos);
+		cv.put("pos", bp.pos);
 		if (found == null) {
 			cv.put("session_id", currentSessionID);
 			cv.put("player_id", id);
 			wdb.insert("sessions_players", null, cv);
-			found = new Player(id, pos, bp);
+			found = bp; //new Player(bp.name, bp.pos, bp.diff, isActive);
 			session.players.add(found);
 		} else {
 			wdb.update("sessions_players", cv, "player_id=" + found.id, null);
+			found.isActive = bp.isActive;
+			found.diff = bp.diff;
+			found.pos = bp.pos;
 		}
-
+		found.id = id;
 		wdb.close();
-		found.isActive = bp.isActive;
-		found.diff = bp.diff;
 		return found;
 	}
 
@@ -135,7 +134,6 @@ public class DB extends SQLiteOpenHelper implements IDB {
 			cv.put("game_id", gameId);
 			wdb.insert("games_players", null, cv);
 		}
-
 		wdb.close();
 		return gameId;
 	}
@@ -144,14 +142,13 @@ public class DB extends SQLiteOpenHelper implements IDB {
 	public PlayerList getKnownPlayers() {
 		SQLiteDatabase rdb = getReadableDatabase();
 		Cursor cur = rdb.query("players", new String[] { "_id", "name" }, null,
-				null, null, null, null);
+				null, null, null, "name ASC");
 		boolean any = cur.getCount() > 0;
 		PlayerList pl = new PlayerList();
 		while (any && cur.moveToNext()) {
-			Player p = new Player(cur.getInt(0), cur.getInt(1), new BasePlayer(
-					cur.getString(1)));
+			Player p = new Player(cur.getString(1));
+			p.id = cur.getInt(0);
 			pl.add(p);
-
 		}
 		return pl;
 	}
@@ -189,8 +186,8 @@ public class DB extends SQLiteOpenHelper implements IDB {
 			Cursor cur2 = rdb.query("players", new String[] { "name" }, "_id="
 					+ pid, null, null, null, null);
 			cur2.moveToFirst();
-			Player p = new Player(pid, cur.getInt(1), new BasePlayer(
-					cur2.getString(0), cur.getInt(2), cur.getInt(3) == 1));
+			Player p = new Player(cur2.getString(0), cur.getInt(1), cur.getInt(2), cur.getInt(3) == 1);
+			p.id = pid;
 			players.add(p);
 		}
 

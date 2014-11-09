@@ -18,7 +18,6 @@ import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-import de.thtp.dapp.app.BasePlayer;
 import de.thtp.dapp.app.Player;
 import de.thtp.dapp.app.PlayerList;
 import de.thtp.dapp.app.Session;
@@ -108,15 +107,17 @@ public class SessionPlayersActivity extends DappActivity {
 	}
 
 	public void startSessionWithPlayers(View v) {
-		List<BasePlayer> basePlayers = new ArrayList<BasePlayer>();
+		List<Player> basePlayers = new ArrayList<Player>();
 		for (int i = 0; i < spinners.size(); i++) {
 			PlayerNamesSpinner spinner = spinners.get(i);
 			String name = spinner.getSelectedItem().toString();
 
 			if (!name.equals("-")) {
-				BasePlayer bp = new BasePlayer(name, Integer.parseInt(diffTexts
-						.get(i).getText().toString()), activeCheckBoxes.get(i)
-						.isChecked());
+				Player bp = new Player(
+						name, 
+						i,
+						Integer.parseInt(diffTexts.get(i).getText().toString()), 
+						activeCheckBoxes.get(i).isChecked());
 				basePlayers.add(bp);
 			}
 		}

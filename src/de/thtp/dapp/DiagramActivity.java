@@ -75,7 +75,9 @@ class DiagramView extends View {
 		Paint paint = new Paint();
 		Map<Player, Integer> playerColors = new HashMap<Player, Integer>();
 		int gameWidth = width / table.length;
-		for (Player p : Session.getSessionPlayers()) {
+		//for (Player p : Session.getSessionPlayers()) {
+		for (Player p : Session.getVisibleSessionPlayers()) {
+
 			playerColors.put(p, PLAYER_COLORS[cnt]);
 			paint.setColor(playerColors.get(p));
 			String txt = p.name;

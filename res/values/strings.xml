@@ -21,7 +21,6 @@
     <string name="btnAddGame">Add Game</string>
     <string name="btnAddBockForNextGame">+Bock</string>
     <string name="btnRmBockForNextGame">-Bock</string>
-    <string name="menu_settings">menusettings</string>
     <string name="SessionOpen">Open Session</string>
     <string name="SessionDelete">Delete Session</string>
     <string name="playerRename">Rename Player</string>
@@ -42,6 +41,8 @@
     <string name="prefItemTitleMinPlayersize">Number of Players</string>
     <string name="prefItemTitleCountMinus">Minus</string>
     <string name="prefSummaryCountMinus">count negative? </string>
+    <string name="prefItemHideInactive">Hide inactive players</string>
+    <string name="prefSummaryHideInactive">hide? </string>
     <string name="prefDialogTitleMaxBoecke">Max.Böcke</string>
     <string name="prefItemTitleMaxBoecke">Number of Böcke</string>
     <string name="prefItemTitleCutBoecke">Cut Böcke?</string>

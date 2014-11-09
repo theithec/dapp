@@ -1,16 +1,16 @@
 package de.thtp.dapp;
 
-import java.util.HashMap;
 import java.util.Set;
+import java.util.TreeMap;
 
 import android.os.Bundle;
 import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ContextMenu.ContextMenuInfo;
-import android.widget.TextView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
+import android.widget.TextView;
 import de.thtp.dapp.app.Player;
 import de.thtp.dapp.app.PlayerList;
 import de.thtp.dapp.app.Session;
@@ -22,7 +22,7 @@ public class PlayerListActivity extends DappListViewActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		setTitle(getString(R.string.playersCtrl));
-		map = new HashMap<String, Integer>();
+		map = new TreeMap<String, Integer>();
 		PlayerList pl = Session.getKnownPlayers();
 		for (Player p : pl) {
 			map.put(p.name, p.id);
