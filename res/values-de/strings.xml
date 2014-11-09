@@ -40,6 +40,8 @@
     <string name="prefItemTitleMinPlayersize">Anzahl Spieler</string>
     <string name="prefItemTitleCountMinus">Minus</string>
     <string name="prefSummaryCountMinus">Miese aufschreiben? </string>
+    <string name="prefItemHideInactive">Inaktive Spieler verbergen</string>
+    <string name="prefSummaryHideInactive">verbergen? </string>
     <string name="prefDialogTitleMaxBoecke">Max.Böcke</string>
     <string name="prefItemTitleMaxBoecke">Anzahl Böcke</string>
     <string name="prefItemTitleCutBoecke">Böcke abschneiden</string>
