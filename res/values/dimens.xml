@@ -6,5 +6,7 @@
     
     
     <dimen name="default_margin">4px</dimen>
+    <dimen name="list_text_size">16sp</dimen>
+    <dimen name="list_item_height">48dip</dimen>
 
 </resources>

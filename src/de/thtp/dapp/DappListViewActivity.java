@@ -17,6 +17,7 @@ abstract public class DappListViewActivity extends DappActivity {
 		setListAdapter();
 	}
 
+
 	protected void setListAdapter() {
 
 		ArrayList<String> names = new ArrayList<String>();
