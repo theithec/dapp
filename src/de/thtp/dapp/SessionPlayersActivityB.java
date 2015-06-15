@@ -217,7 +217,7 @@ public class SessionPlayersActivityB extends DappActivity {
                     //Collections.sort(availPlayerNames);
 
                     //Session.a
-                    //knownPlayerNames.add(name);
+                    //availPlayerNames.add(name);
                     //updateSpinners();
                 }
             });

@@ -25,13 +25,8 @@ public class PlayerList extends ArrayList<Player> {
 	public Player getByName(String name) {
 		Player found = null;
 		for (Player p : this) {
-			System.out.println("PPP " + p.name + ", " + name);
 			if (name.equals(p.name)) {
-				System.out.println("==" +  p.name + ", " + name);
 				found = p;
-			}else {
-
-				System.out.println("!=" +  p.name + ", " + name);
 			}
 		}
 

@@ -1,6 +1,7 @@
 package de.thtp.dapp;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -24,6 +25,7 @@ import de.thtp.dapp.app.Session;
 public class SessionPlayersActivity extends DappActivity {
     ArrayAdapter playernamesAdapter;
     Spinner playernamesSpinner;
+    ArrayList<String> availPlayerNames;
     PlayerList selectedPlayers;
     ArrayList<PlayerRow> playerRows;
     TableLayout tableLayout;
@@ -47,12 +49,13 @@ public class SessionPlayersActivity extends DappActivity {
         }
         positions = new ArrayList<>();
         fillPositionsArray();
+        availPlayerNames = Session.getKnownPlayers().getNames();
         playernamesAdapter = new ArrayAdapter<>(
-                this, android.R.layout.simple_spinner_item,  Session.getKnownPlayers().getNames());
+                this, android.R.layout.simple_spinner_item, availPlayerNames);
         updateAvailPlayerNames();
         playernamesSpinner = (Spinner) findViewById(R.id.playernamesSpinner);
         playernamesSpinner.setAdapter(playernamesAdapter);
-        setOnNamesItemSelectedListener();
+        setOnNamesItemSelectedListener(this);
         for (Player p: selectedPlayers){
             PlayerRow pr = new PlayerRow(this, p);
             pr.spinner.setSelection(selectedPlayers.indexOf(selectedPlayers.getByName(p.name)));
@@ -78,31 +81,65 @@ public class SessionPlayersActivity extends DappActivity {
 
 
     private void addSessionPlayer(String name) {
-        Player p = new Player(name);
-        p.isActive = true;
-        selectedPlayers.add(p);
-        fillPositionsArray();
-        playerRows.add(new PlayerRow(this, p));
-        updateAvailPlayerNames();
+        if( selectedPlayers.getByName(name) == null) {
+            Player p = new Player(name);
+            p.isActive = true;
+            selectedPlayers.add(p);
+            Session.updatePlayers(selectedPlayers);
+            fillPositionsArray();
+            playerRows.add(new PlayerRow(this, p));
+            updateAvailPlayerNames();
+            playernamesSpinner.setSelection(0);
+        }
     }
 
-    public void setOnNamesItemSelectedListener() {
+
+
+    private ArrayList<String> updateAvailPlayerNames() {
+        PlayerList availPlayers = Session.getKnownPlayers();
+        for (Player sessionPlayer : selectedPlayers) {
+            Player found = availPlayers.getByName(sessionPlayer.name);
+            if (null != found) {
+                availPlayers.remove(found);
+            }
+        }
+
+        availPlayerNames.clear();
+        availPlayerNames.addAll(availPlayers.getNames());
+        availPlayerNames.add(0, "+");
+        availPlayerNames.add(0, "choose");
+        if (null != playernamesAdapter) {
+
+            playernamesAdapter.notifyDataSetChanged();
+        }
+
+        btnSessionPlayersDone.setEnabled(selectedPlayers.size() >= DAppPrefs.MIN_PLAYERS &&
+                selectedPlayers.size() <= DAppPrefs.MAX_PLAYERS);
+        return availPlayerNames;
+    }
+    public void setOnNamesItemSelectedListener(final SessionPlayersActivity _activity) {
+
         playernamesSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            boolean firstTime = true;
+            final SessionPlayersActivity activity = _activity;
+
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
                 TextView tv = (TextView) view;
                 String txt = tv.getText().toString();
-                switch (txt) {
-                    case "-":
-                        playernamesAdapter.remove(txt);
-                        playernamesAdapter.notifyDataSetChanged();
-                        break;
-                    case "+":
-                        //              new PlayerNameAddDialog(_this).show();
-                        break;
-                    default:
-                        addSessionPlayer(txt);
+                if (!firstTime) {
+                    switch (txt) {
+                        case "choose":
+                            break;
+                        case "+":
+                            new PlayerNameAddDialog(activity).show();
+                            break;
+                        default:
+                            addSessionPlayer(txt);
+                    }
                 }
+                firstTime = false;
             }
 
             @Override
@@ -110,27 +147,6 @@ public class SessionPlayersActivity extends DappActivity {
 
             }
         });
-    }
-
-    private ArrayList<String> updateAvailPlayerNames() {
-        PlayerList availPlayers = (PlayerList) Session.getKnownPlayers();
-        for (Player sessionPlayer : selectedPlayers) {
-            Player found = availPlayers.getByName(sessionPlayer.name);
-            if (null != found) {
-                playernamesAdapter.remove(found.name);
-            }
-        }
-        ArrayList<String> availPlayerNames = availPlayers.getNames();
-        availPlayerNames.add(0, "+");
-        availPlayerNames.add(0, "-"); // dummy to be rm'd -> "layout event"
-        if (null != playernamesAdapter) {
-
-            playernamesAdapter.notifyDataSetChanged();
-        }
-
-        btnSessionPlayersDone.setEnabled(selectedPlayers.size() >=  DAppPrefs.MIN_PLAYERS &&
-        selectedPlayers.size() <= DAppPrefs.MAX_PLAYERS);
-        return availPlayerNames;
     }
 
     public void setOnNumItemsSelectedListener(final PlayerRow _playerRow) {
@@ -147,8 +163,10 @@ public class SessionPlayersActivity extends DappActivity {
                         if (!firstTime) {
                             int pos1 = Integer.parseInt(playerRow.spinner.getSelectedItem().toString());
                             //playerRow.remove();
+                            selectedPlayers.remove(playerRow.player);
                             playerRows.remove(playerRow);
                             playerRows.add(pos1 - 1, playerRow);
+                            selectedPlayers.add(pos1-1, playerRow.player);
                             for(PlayerRow pr: playerRows){
                                 tableLayout.removeView(pr.row);
                             }
@@ -157,6 +175,7 @@ public class SessionPlayersActivity extends DappActivity {
                             for(PlayerRow pr: playerRows){
                                 //pr.add();
                                 tableLayout.addView(pr.row);
+                                //pr
                                 pr.spinner.setSelection(i++);
                             }
                         }
@@ -178,19 +197,44 @@ public class SessionPlayersActivity extends DappActivity {
         Spinner spinner;
         TextView nameView;
         ArrayAdapter spinnerAdapter;
+        Player player;
         public PlayerRow(Context context, Player player){
             row = new TableRow(context);
             spinner = new Spinner(context);
             nameView = new TextView(context);
+            this.player = player;
             nameView.setText(player.name);
             spinnerAdapter = new ArrayAdapter(context, android.R.layout.simple_spinner_item, positions);
             spinner.setAdapter(spinnerAdapter);
             row.addView(spinner);
             row.addView(nameView);
             tableLayout.addView(row);
+
             spinner.setSelection(positions.size() - 1);
             setOnNumItemsSelectedListener(this);
 
+        }
+    }
+
+    class PlayerNameAddDialog extends PlayerNameDialog {
+
+        public PlayerNameAddDialog(final SessionPlayersActivity dappActivity) {
+            super(dappActivity, "Add Player", "");
+            setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int whichButton) {
+                    String name = input.getText().toString();
+                    //Player p = new Player(name);
+
+                    //selectedPlayers.add(p);
+                    addSessionPlayer(name);
+                    //Session.updatePlayers(selectedPlayers);
+
+                    //Session.a
+                    //availPlayerNames.add(name);
+                    //updateSpinners();
+                }
+            });
         }
     }
 

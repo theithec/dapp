@@ -107,6 +107,7 @@ public class Session {
 		int cnt = 0;
 		//instance.players = new PlayerList();
 		for (Player bp : basePlayers) {
+			bp.pos = cnt++;
 			idb.updateOrCreatePlayer(bp, instance);
 		}
 		//Collections.sort(basePlayers);

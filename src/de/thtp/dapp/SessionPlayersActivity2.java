@@ -32,7 +32,7 @@ public class SessionPlayersActivity2 extends DappActivity {
 
 	PlayerList knownPlayers;
 	PlayerList sessionPlayers;
-	//List<String> knownPlayerNames;
+	//List<String> availPlayerNames;
 	Button okBtn;
 
 	@Override
@@ -48,8 +48,8 @@ public class SessionPlayersActivity2 extends DappActivity {
 		diffTexts = new ArrayList<EditText>();
 
 		sessionPlayers = Session.getSessionPlayers();
-		ArrayList<String> knownPlayerNames = Session.getKnownPlayers().getNames();
-		knownPlayerNames.add(0, "-");
+		ArrayList<String> availPlayerNames = Session.getKnownPlayers().getNames();
+		availPlayerNames.add(0, "-");
 
 		sessionName = this.getIntent().getExtras()
 				.getString(Const.K_SESSION_NAME);
@@ -79,7 +79,7 @@ public class SessionPlayersActivity2 extends DappActivity {
 	public void updateSpinners() {
 		return;
 		/*
-		List<String> cpy = new ArrayList<String>(knownPlayerNames);
+		List<String> cpy = new ArrayList<String>(availPlayerNames);
 		for (PlayerNumSpinner spinner : spinners) {
 			spinner.setOnItemSelectedListener(null);
 			Object obj = spinner.getSelectedItem();
@@ -240,7 +240,7 @@ public class SessionPlayersActivity2 extends DappActivity {
 				public void onClick(DialogInterface dialog, int whichButton) {
 					String name = input.getText().toString();
 					//Session.a
-					//knownPlayerNames.add(name);
+					//availPlayerNames.add(name);
 					updateSpinners();
 				}
 			});
