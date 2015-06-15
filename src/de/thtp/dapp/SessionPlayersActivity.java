@@ -1,231 +1,198 @@
 package de.thtp.dapp;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.InputType;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+
 import de.thtp.dapp.app.Player;
 import de.thtp.dapp.app.PlayerList;
 import de.thtp.dapp.app.Session;
 
+/**
+ * Created by lotek on 14.06.15.
+ */
 public class SessionPlayersActivity extends DappActivity {
+    ArrayAdapter playernamesAdapter;
+    Spinner playernamesSpinner;
+    PlayerList selectedPlayers;
+    ArrayList<PlayerRow> playerRows;
+    TableLayout tableLayout;
+    ArrayList<String> positions;
+    Button btnSessionPlayersDone;
+    String sessionName;
 
-	String sessionName;
-	List<PlayerNamesSpinner> spinners;
-	List<EditText> diffTexts;
-	List<CheckBox> activeCheckBoxes;
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_sessionplayers);
+        tableLayout = (TableLayout) findViewById(R.id.playerstablelayout);
+        btnSessionPlayersDone = (Button) findViewById(R.id.btnSessionPlayersDone);
+        playerRows = new ArrayList<>();
+        selectedPlayers = Session.getSessionPlayers();
+        sessionName = this.getIntent().getExtras()
+                .getString(Const.K_SESSION_NAME);
+        if (!Session.isReady()) {
+            Session.setIDB(new DB(this));
+            Session.start(sessionName, selectedPlayers);
+        }
+        positions = new ArrayList<>();
+        fillPositionsArray();
+        playernamesAdapter = new ArrayAdapter<>(
+                this, android.R.layout.simple_spinner_item,  Session.getKnownPlayers().getNames());
+        updateAvailPlayerNames();
+        playernamesSpinner = (Spinner) findViewById(R.id.playernamesSpinner);
+        playernamesSpinner.setAdapter(playernamesAdapter);
+        setOnNamesItemSelectedListener();
+        for (Player p: selectedPlayers){
+            PlayerRow pr = new PlayerRow(this, p);
+            pr.spinner.setSelection(selectedPlayers.indexOf(selectedPlayers.getByName(p.name)));
+            playerRows.add(pr);
+        }
+    }
 
-	PlayerList allPlayers;
-	PlayerList sessionPlayers;
-	List<String> allPlayerNames;
-	Button okBtn;
+    public void startSessionWithPlayers(View v) {
+        Session.updatePlayers(selectedPlayers);
+        Intent i = new Intent(this, SessionResultActivity.class);
+        startActivity(i);
+        finish();
+    }
 
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_sessionplayers);
 
-		setTitle(R.string.players);
-		allPlayers = Session.getKnownPlayers();
+    private void fillPositionsArray(){
+        positions.clear();
+        for (int i=0; i<selectedPlayers.size(); i++){
+            positions.add("" +(i+1));
+        }
+    }
 
-		spinners = new ArrayList<SessionPlayersActivity.PlayerNamesSpinner>();
-		activeCheckBoxes = new ArrayList<CheckBox>();
-		diffTexts = new ArrayList<EditText>();
 
-		sessionPlayers = Session.getSessionPlayers();
-		allPlayerNames = Session.getKnownPlayers().getNames();
-		allPlayerNames.add(0, "-");
 
-		sessionName = this.getIntent().getExtras()
-				.getString(Const.K_SESSION_NAME);
+    private void addSessionPlayer(String name) {
+        Player p = new Player(name);
+        p.isActive = true;
+        selectedPlayers.add(p);
+        fillPositionsArray();
+        playerRows.add(new PlayerRow(this, p));
+        updateAvailPlayerNames();
+    }
 
-		TableLayout tl = (TableLayout) findViewById(R.id.playerstablelayout);
-		for (int i = 0; i < DAppPrefs.MAX_PLAYERS; i++) {
-			tl.addView(getPlayerRow(i));
-		}
-		loadPlayers();
-		okBtn = (Button) findViewById(R.id.btnSessionPlayersDone);
+    public void setOnNamesItemSelectedListener() {
+        playernamesSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                TextView tv = (TextView) view;
+                String txt = tv.getText().toString();
+                switch (txt) {
+                    case "-":
+                        playernamesAdapter.remove(txt);
+                        playernamesAdapter.notifyDataSetChanged();
+                        break;
+                    case "+":
+                        //              new PlayerNameAddDialog(_this).show();
+                        break;
+                    default:
+                        addSessionPlayer(txt);
+                }
+            }
 
-	}
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
 
-	private void loadPlayers() {
-		PlayerList players = Session.getSessionPlayers();
-		for (int i = 0; i < players.size(); i++) {
-			Player p = players.get(i);
-			PlayerNamesSpinner spinner = spinners.get(i);
-			int pos = ((ArrayAdapter<String>) spinner.getAdapter())
-					.getPosition(p.name);
-			spinner.setSelection(pos);
-			diffTexts.get(i).setText(p != null ? "" + p.diff : "0");
-			activeCheckBoxes.get(i).setChecked(p != null && p.isActive);
-		}
-	}
+            }
+        });
+    }
 
-	public void updateSpinners() {
-		List<String> cpy = new ArrayList<String>(allPlayerNames);
-		for (PlayerNamesSpinner spinner : spinners) {
-			spinner.setOnItemSelectedListener(null);
-			Object obj = spinner.getSelectedItem();
-			if (obj != null && obj != "-") {
-				cpy.remove(obj);
-			}
-		}
-		int cntPlayers = 0;
-		for (PlayerNamesSpinner spinner : spinners) {
-			Object obj = spinner.getSelectedItem();
-			List<String> cpy2 = new ArrayList<String>(cpy);
-			if (obj != "-") {
-				cpy2.add(0, obj.toString());
-				cntPlayers++;
-			}
-			spinner.setSelection(0);
-			spinner.update(cpy2);
-		}
+    private ArrayList<String> updateAvailPlayerNames() {
+        PlayerList availPlayers = (PlayerList) Session.getKnownPlayers();
+        for (Player sessionPlayer : selectedPlayers) {
+            Player found = availPlayers.getByName(sessionPlayer.name);
+            if (null != found) {
+                playernamesAdapter.remove(found.name);
+            }
+        }
+        ArrayList<String> availPlayerNames = availPlayers.getNames();
+        availPlayerNames.add(0, "+");
+        availPlayerNames.add(0, "-"); // dummy to be rm'd -> "layout event"
+        if (null != playernamesAdapter) {
 
-		for (PlayerNamesSpinner spinner : spinners) {
-			spinner.setOnItemSelectedListener();
-		}
-		okBtn.setEnabled(cntPlayers >= DAppPrefs.MIN_PLAYERS);
-	}
+            playernamesAdapter.notifyDataSetChanged();
+        }
 
-	public void addSessionPlayerName(View v) {
-		new PlayerNameAddDialog(this).show();
-	}
+        btnSessionPlayersDone.setEnabled(selectedPlayers.size() >=  DAppPrefs.MIN_PLAYERS &&
+        selectedPlayers.size() <= DAppPrefs.MAX_PLAYERS);
+        return availPlayerNames;
+    }
 
-	public void startSessionWithPlayers(View v) {
-		List<Player> basePlayers = new ArrayList<Player>();
-		for (int i = 0; i < spinners.size(); i++) {
-			PlayerNamesSpinner spinner = spinners.get(i);
-			String name = spinner.getSelectedItem().toString();
+    public void setOnNumItemsSelectedListener(final PlayerRow _playerRow) {
 
-			if (!name.equals("-")) {
-				Player bp = new Player(
-						name, 
-						i,
-						Integer.parseInt(diffTexts.get(i).getText().toString()), 
-						activeCheckBoxes.get(i).isChecked());
-				basePlayers.add(bp);
-			}
-		}
+        _playerRow.spinner.setOnItemSelectedListener(
+                new AdapterView.OnItemSelectedListener() {
+                    //Spinner spinner = fs;
+                    boolean firstTime = true;
+                    PlayerRow playerRow = _playerRow;
 
-		if (!Session.isReady()) {
-			Session.setIDB(new DB(this));
-			Session.start(sessionName, basePlayers);
-		} else {
-			Session.updatePlayers(basePlayers);
-		}
-		Intent i = new Intent(this, SessionResultActivity.class);
-		startActivity(i);
-		finish();
-	}
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        TextView tv = (TextView) view;
+                        if (!firstTime) {
+                            int pos1 = Integer.parseInt(playerRow.spinner.getSelectedItem().toString());
+                            //playerRow.remove();
+                            playerRows.remove(playerRow);
+                            playerRows.add(pos1 - 1, playerRow);
+                            for(PlayerRow pr: playerRows){
+                                tableLayout.removeView(pr.row);
+                            }
+                            fillPositionsArray();
+                            int i = 0;
+                            for(PlayerRow pr: playerRows){
+                                //pr.add();
+                                tableLayout.addView(pr.row);
+                                pr.spinner.setSelection(i++);
+                            }
+                        }
+                        firstTime = false;
+                    }
 
-	private View getPlayerRow(int index) {
-		TableRow tr = new TableRow(this);
-		TextView tv = new TextView(this);
-		tv.setText("" + (index + 1));
-		tr.addView(tv);
-		PlayerNamesSpinner ps = new PlayerNamesSpinner(this, index);
-		spinners.add(ps);
-		ps.update(allPlayerNames);
-		tr.addView(ps);
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
 
-		CheckBox cb = new CheckBox(this);
-		activeCheckBoxes.add(cb);
-		tr.addView(cb);
+                    }
+                }
 
-		EditText et = new EditText(this);
-		et.setInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL);
-		// Object selItem = ps.getSelectedItem();
+        );
 
-		et.setText("0");
-		diffTexts.add(et);
-		tr.addView(et);
+    }
 
-		return tr;
-	}
+    class PlayerRow {
+        TableRow row;
+        Spinner spinner;
+        TextView nameView;
+        ArrayAdapter spinnerAdapter;
+        public PlayerRow(Context context, Player player){
+            row = new TableRow(context);
+            spinner = new Spinner(context);
+            nameView = new TextView(context);
+            nameView.setText(player.name);
+            spinnerAdapter = new ArrayAdapter(context, android.R.layout.simple_spinner_item, positions);
+            spinner.setAdapter(spinnerAdapter);
+            row.addView(spinner);
+            row.addView(nameView);
+            tableLayout.addView(row);
+            spinner.setSelection(positions.size() - 1);
+            setOnNumItemsSelectedListener(this);
 
-	class PlayerNamesSpinner extends Spinner {
+        }
+    }
 
-		private int index;
 
-		public PlayerNamesSpinner(Context context, int index) {
-			super(context);
-			this.index = index;
-			setOnItemSelectedListener();
-		}
-
-		public void setOnItemSelectedListener() {
-			this.setOnItemSelectedListener(new OnItemSelectedListener() {
-				@Override
-				public void onItemSelected(AdapterView<?> parentView,
-						View selectedItemView, int position, long id) {
-					if (position > 0) {
-						TextView tv = (TextView) selectedItemView;
-						String name = tv.getText().toString();
-						Player p = null;
-						if (name != "-") {
-							p = sessionPlayers.getByName(name);
-						}
-						diffTexts.get(index).setText(
-								p != null ? "" + p.diff : "0");
-						activeCheckBoxes.get(index).setChecked(
-								p != null ? p.isActive : true);
-						// String tv.getT
-						/*
-						 * String name = selItem!=null?selItem.toString():null;
-						 * Player foundInSession = name
-						 * !=null?sessionPlayers.getByName(name):null;
-						 * foundInSession !=null?""+foundInSession.diff:"0");
-						 */
-						updateSpinners();
-					}
-				}
-
-				@Override
-				public void onNothingSelected(AdapterView<?> parentView) {
-				}
-			});
-		}
-
-		public void update(List<String> playerNames) {
-			int position = this.getSelectedItemPosition();
-			ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-					this.getContext(), android.R.layout.simple_spinner_item,
-					playerNames);
-			adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-			this.setAdapter(adapter);
-			this.setSelection(position);
-
-		}
-
-	}
-
-	class PlayerNameAddDialog extends PlayerNameDialog {
-
-		public PlayerNameAddDialog(final SessionPlayersActivity dappActivity) {
-			super(dappActivity, "Add Player", "");
-			setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-				@Override
-				public void onClick(DialogInterface dialog, int whichButton) {
-					String name = input.getText().toString();
-					allPlayerNames.add(name);
-					updateSpinners();
-				}
-			});
-		}
-	}
 }

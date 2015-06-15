@@ -14,8 +14,8 @@ public class PlayerList extends ArrayList<Player> {
 		super(players);
 	}
 
-	public List<String> getNames() {
-		List<String> names = new ArrayList<String>();
+	public ArrayList<String> getNames() {
+		ArrayList<String> names = new ArrayList<String>();
 		for (Player p : this) {
 			names.add(p.name);
 		}
@@ -23,13 +23,31 @@ public class PlayerList extends ArrayList<Player> {
 	}
 
 	public Player getByName(String name) {
+		Player found = null;
 		for (Player p : this) {
-			if (name.toString().equals(p.name.toString())) {
-				return p;
+			System.out.println("PPP " + p.name + ", " + name);
+			if (name.equals(p.name)) {
+				System.out.println("==" +  p.name + ", " + name);
+				found = p;
+			}else {
+
+				System.out.println("!=" +  p.name + ", " + name);
 			}
 		}
 
-		return null;
+		return found;
+	}
+
+	public int indexOf(Player p){
+		int index = -1;
+		for (int i=0;i<this.size();i++){
+			Player o = this.get(i);
+			if (o.equals(p)){
+				index = i;
+			}
+		}
+		return index;
+
 	}
 
 	public Player getById(int id) {

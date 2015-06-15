@@ -80,6 +80,10 @@ public class DB extends SQLiteOpenHelper implements IDB {
 				SQLiteDatabase.CONFLICT_IGNORE);
 		int id = playerIdFromName(bp.name);
 		wdb.close();
+		if (null == session){
+			bp.id = id;
+			return bp;
+		}
 		wdb = getWritableDatabase();
 		Player found = session.players.getByName(bp.name);
 		cv = new ContentValues();

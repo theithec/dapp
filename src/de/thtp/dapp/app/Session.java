@@ -1,5 +1,6 @@
 package de.thtp.dapp.app;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -21,7 +22,7 @@ public class Session {
 		this.gameList = new GameList(name);
 	}
 
-	public static void start(String name, List<Player> basePlayers) {
+	public static void start(String name, PlayerList basePlayers) {
 		Session.instance = new Session(name);
 		Session.instance.id = idb.insertSession(name);
 		updatePlayers(basePlayers);
@@ -63,7 +64,7 @@ public class Session {
 
 	public static PlayerList getSessionPlayers() {
 		if (null == instance) {
-			return EMPTY_PLAYERLIST;
+			return new PlayerList();
 		}
 		return instance.players;
 	}
@@ -102,13 +103,14 @@ public class Session {
 
 	}
 
-	public static void updatePlayers(List<Player> basePlayers) {
+	public static void updatePlayers(PlayerList basePlayers) {
 		int cnt = 0;
-		instance.players = new PlayerList();
+		//instance.players = new PlayerList();
 		for (Player bp : basePlayers) {
 			idb.updateOrCreatePlayer(bp, instance);
 		}
-		Collections.sort(instance.players);
+		//Collections.sort(basePlayers);
+		instance.players = basePlayers;
 	}
 
 	public static void setIDB(IDB db) {

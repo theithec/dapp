@@ -5,7 +5,7 @@
     android:versionName="0.1" >  
 
     <uses-sdk
-        android:minSdkVersion="8"
+        android:minSdkVersion="11"
         android:targetSdkVersion="19" />
 
     <application
@@ -32,6 +32,7 @@
         <activity android:name="de.thtp.dapp.GamePlayersAddGameActivity"></activity>
         <activity android:name="de.thtp.dapp.GameResultEditGameActivity"></activity>
         <activity android:name="de.thtp.dapp.GamePlayersEditGameActivity"></activity>
+        <activity android:name=".SessionPlayersActivity" />
     </application>
 
 </manifest>
