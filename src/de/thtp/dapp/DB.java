@@ -80,31 +80,31 @@ public class DB extends SQLiteOpenHelper implements IDB {
 				SQLiteDatabase.CONFLICT_IGNORE);
 		int id = playerIdFromName(bp.name);
 		wdb.close();
-		if (null == session){
-			bp.id = id;
-			return bp;
-		}
 		wdb = getWritableDatabase();
-		Player found = session.players.getByName(bp.name);
+		//Player found = session.players.getByName(bp.name); //hm, now player is here always already insession ...
 		cv = new ContentValues();
 		cv.put("diff", bp.diff);
 		cv.put("is_active", bp.isActive);
 		cv.put("pos", bp.pos);
-		if (found == null) {
+		//int idFromDB = playerIdFromName(bp.name);
+		Cursor cur2 = wdb.query(
+				"sessions_players",
+				new String[] { "player_id"},
+				"player_id=" + id + " AND session_id=" + currentSessionID, null, null,
+				null, null);
+		boolean any = cur2.getCount() > 0;
+		if (!any) {
 			cv.put("session_id", currentSessionID);
 			cv.put("player_id", id);
 			wdb.insert("sessions_players", null, cv);
-			found = bp; //new Player(bp.name, bp.pos, bp.diff, isActive);
-			session.players.add(found);
+
 		} else {
-			wdb.update("sessions_players", cv, "player_id=" + found.id, null);
-			found.isActive = bp.isActive;
-			found.diff = bp.diff;
-			found.pos = bp.pos;
+			wdb.update("sessions_players", cv, "player_id=" + id, null);
+
 		}
-		found.id = id;
+		bp.id = id;
 		wdb.close();
-		return found;
+		return bp;
 	}
 
 	@Override

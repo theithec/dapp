@@ -56,7 +56,7 @@
     <string name="oneWinnerOnlyQ">Just one winner?</string>
     <string name="deletePlayerQ">Delete Player? This Sessions will be deletet also:\n</string>
     <string name="editGameById">Edit Game %1$d?"</string>
-    <string name="newBoeckeToAdd">B: %1$d</string>
+    <string name="newBoeckeToAdd">Boecke: %1$d</string>
     <color name="bg1">#cecece</color>
 
 </resources>

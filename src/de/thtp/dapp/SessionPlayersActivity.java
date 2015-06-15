@@ -52,13 +52,15 @@ public class SessionPlayersActivity extends DappActivity {
         availPlayerNames = Session.getKnownPlayers().getNames();
         playernamesAdapter = new ArrayAdapter<>(
                 this, android.R.layout.simple_spinner_item, availPlayerNames);
+        playernamesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
         updateAvailPlayerNames();
         playernamesSpinner = (Spinner) findViewById(R.id.playernamesSpinner);
         playernamesSpinner.setAdapter(playernamesAdapter);
         setOnNamesItemSelectedListener(this);
         for (Player p: selectedPlayers){
             PlayerRow pr = new PlayerRow(this, p);
-            pr.spinner.setSelection(selectedPlayers.indexOf(selectedPlayers.getByName(p.name)));
+            //pr.spinner.setSelection(selectedPlayers.indexOf(selectedPlayers.getByName(p.name)));
             playerRows.add(pr);
         }
     }
@@ -167,9 +169,10 @@ public class SessionPlayersActivity extends DappActivity {
                             if (txt.equals("-")) {
                                 playerRow.player.isActive = false;
                                 selectedPlayers.getByName(playerRow.player.name).isActive = false;
-                                Session.updatePlayers(selectedPlayers);
+
                                 //selectedPlayers.
                             } else {
+                                playerRow.player.isActive = true;
                                 int pos1 = Integer.parseInt(txt);
                                 selectedPlayers.remove(playerRow.player);
                                 playerRows.remove(playerRow);
@@ -187,6 +190,7 @@ public class SessionPlayersActivity extends DappActivity {
                                     pr.spinner.setSelection(i++);
                                 }
                             }
+                            Session.updatePlayers(selectedPlayers);
                         }
                         firstTime = false;
                     }
@@ -214,11 +218,13 @@ public class SessionPlayersActivity extends DappActivity {
             this.player = player;
             nameView.setText(player.name);
             spinnerAdapter = new ArrayAdapter(context, android.R.layout.simple_spinner_item, positions);
+            spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
             spinner.setAdapter(spinnerAdapter);
             row.addView(spinner);
             row.addView(nameView);
             tableLayout.addView(row);
-            int selection = positions.size() - 2;
+            int selection = Session.getActivePlayers().indexOf(selectedPlayers.getByName(player.name));// positions.size() - 2;
             if (!player.isActive) {
                 selection = positions.size()-1;
             }

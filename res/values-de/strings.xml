@@ -17,7 +17,7 @@
     <string name="title_activity_main">Dapp</string>
     <string name="dappSettings">Einstellungen</string>
     <string name="playersCtrl">Spieler</string>
-    <string name="btnAddGame">Spiel hinzufügen</string>
+    <string name="btnAddGame">+ Spiel</string>
     <string name="btnAddBockForNextGame">+</string>
     <string name="btnRmBockForNextGame">-</string>
     <string name="SessionOpen">Sitzung öffnen</string>
@@ -51,11 +51,11 @@
     <string name="titleManagePlayers">Spieler verwalten</string>
     <string name="titleDiagram">Diagram</string>
     <string name="settingsUpdated">Settings updated</string>
-    <string name="addResult">Ergebniss hinzufügen</string>
+    <string name="addResult">Ergebnis hinzufügen</string>
     <string name="oneWinnerOnlyQ">Nur ein Gewinner?</string>
     <string name="deletePlayerQ">Delete Player? This Sessions will be deletet also:\n</string>
     <string name="editGameById">Spiel bearbeiten %1$d?"</string>
-    <string name="newBoeckeToAdd">B: %1$d</string>
+    <string name="newBoeckeToAdd">Böcke: %1$d</string>
     <color name="bg1">#cecece</color>
 
 </resources>

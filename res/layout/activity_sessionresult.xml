@@ -26,7 +26,16 @@
 
 
 
+            <TextView
+                android:id="@+id/textviewBoeckeNextGame"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="invisible"
 
+                >
+
+
+            </TextView>
 
             <Button
                 android:id="@+id/btnAddBockForNextGame"
@@ -38,16 +47,7 @@
 
             </Button>
 
-            <TextView
-                android:id="@+id/textviewBoeckeNextGame"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:visibility="invisible"
 
-                >
-
-
-            </TextView>
 
 
             <Button

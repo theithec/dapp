@@ -32,7 +32,7 @@ public class Session {
 		Session.instance = new Session(name);
 		idb.loadSession(id, instance.gameList, instance.players);
 		Session.instance.id = id;
-		Collections.sort(instance.players);
+		//Collections.sort(instance.players);
 
 	}
 
