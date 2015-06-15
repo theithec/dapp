@@ -3,9 +3,12 @@ package de.thtp.dapp;
 import java.util.Date;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.format.DateFormat;
 import android.view.Menu;
 import android.view.View;
@@ -24,6 +27,9 @@ public class MainActivity extends DappActivity {
 		btnContinueSession = (Button) findViewById(R.id.btnContinueSession);
 		btnSessionsCtrl = (Button) findViewById(R.id.btnSessionsCtrl);
 		btnPlayersCtrl = (Button) findViewById(R.id.btnPlayersCtrl);
+		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+		DAppPrefs.updateDroikoSettings(preferences);
+
 	}
 
 	@Override
