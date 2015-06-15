@@ -19,8 +19,8 @@
     <string name="dappSettings">settings</string>
     <string name="playersCtrl">Players</string>
     <string name="btnAddGame">Add Game</string>
-    <string name="btnAddBockForNextGame">+Bock</string>
-    <string name="btnRmBockForNextGame">-Bock</string>
+    <string name="btnAddBockForNextGame">+</string>
+    <string name="btnRmBockForNextGame">-</string>
     <string name="SessionOpen">Open Session</string>
     <string name="SessionDelete">Delete Session</string>
     <string name="playerRename">Rename Player</string>
@@ -56,7 +56,7 @@
     <string name="oneWinnerOnlyQ">Just one winner?</string>
     <string name="deletePlayerQ">Delete Player? This Sessions will be deletet also:\n</string>
     <string name="editGameById">Edit Game %1$d?"</string>
-    <string name="newBoeckeToAdd">New Boecke: %1$d</string>
+    <string name="newBoeckeToAdd">B: %1$d</string>
     <color name="bg1">#cecece</color>
 
 </resources>

@@ -76,6 +76,7 @@ public class SessionPlayersActivity extends DappActivity {
         for (int i=0; i<selectedPlayers.size(); i++){
             positions.add("" +(i+1));
         }
+        positions.add("-");
     }
 
 
@@ -113,8 +114,9 @@ public class SessionPlayersActivity extends DappActivity {
             playernamesAdapter.notifyDataSetChanged();
         }
 
-        btnSessionPlayersDone.setEnabled(selectedPlayers.size() >= DAppPrefs.MIN_PLAYERS &&
-                selectedPlayers.size() <= DAppPrefs.MAX_PLAYERS);
+        int activePlayersSize = Session.getActivePlayers().size();
+        btnSessionPlayersDone.setEnabled(activePlayersSize >= DAppPrefs.MIN_PLAYERS &&
+                activePlayersSize <= DAppPrefs.MAX_PLAYERS);
         return availPlayerNames;
     }
     public void setOnNamesItemSelectedListener(final SessionPlayersActivity _activity) {
@@ -159,24 +161,31 @@ public class SessionPlayersActivity extends DappActivity {
 
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                        TextView tv = (TextView) view;
                         if (!firstTime) {
-                            int pos1 = Integer.parseInt(playerRow.spinner.getSelectedItem().toString());
-                            //playerRow.remove();
-                            selectedPlayers.remove(playerRow.player);
-                            playerRows.remove(playerRow);
-                            playerRows.add(pos1 - 1, playerRow);
-                            selectedPlayers.add(pos1-1, playerRow.player);
-                            for(PlayerRow pr: playerRows){
-                                tableLayout.removeView(pr.row);
-                            }
-                            fillPositionsArray();
-                            int i = 0;
-                            for(PlayerRow pr: playerRows){
-                                //pr.add();
-                                tableLayout.addView(pr.row);
-                                //pr
-                                pr.spinner.setSelection(i++);
+                            TextView tv = (TextView) view;
+                            String txt = playerRow.spinner.getSelectedItem().toString();
+                            if (txt.equals("-")) {
+                                playerRow.player.isActive = false;
+                                selectedPlayers.getByName(playerRow.player.name).isActive = false;
+                                Session.updatePlayers(selectedPlayers);
+                                //selectedPlayers.
+                            } else {
+                                int pos1 = Integer.parseInt(txt);
+                                selectedPlayers.remove(playerRow.player);
+                                playerRows.remove(playerRow);
+                                playerRows.add(pos1 - 1, playerRow);
+                                selectedPlayers.add(pos1 - 1, playerRow.player);
+                                for (PlayerRow pr : playerRows) {
+                                    tableLayout.removeView(pr.row);
+                                }
+                                fillPositionsArray();
+                                int i = 0;
+                                for (PlayerRow pr : playerRows) {
+                                    //pr.add();
+                                    tableLayout.addView(pr.row);
+                                    //pr
+                                    pr.spinner.setSelection(i++);
+                                }
                             }
                         }
                         firstTime = false;
@@ -209,8 +218,11 @@ public class SessionPlayersActivity extends DappActivity {
             row.addView(spinner);
             row.addView(nameView);
             tableLayout.addView(row);
-
-            spinner.setSelection(positions.size() - 1);
+            int selection = positions.size() - 2;
+            if (!player.isActive) {
+                selection = positions.size()-1;
+            }
+            spinner.setSelection(selection);
             setOnNumItemsSelectedListener(this);
 
         }
@@ -224,15 +236,7 @@ public class SessionPlayersActivity extends DappActivity {
                 @Override
                 public void onClick(DialogInterface dialog, int whichButton) {
                     String name = input.getText().toString();
-                    //Player p = new Player(name);
-
-                    //selectedPlayers.add(p);
                     addSessionPlayer(name);
-                    //Session.updatePlayers(selectedPlayers);
-
-                    //Session.a
-                    //availPlayerNames.add(name);
-                    //updateSpinners();
                 }
             });
         }

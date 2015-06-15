@@ -18,8 +18,8 @@
     <string name="dappSettings">Einstellungen</string>
     <string name="playersCtrl">Spieler</string>
     <string name="btnAddGame">Spiel hinzufügen</string>
-    <string name="btnAddBockForNextGame">+Bock</string>
-    <string name="btnRmBockForNextGame">-Bock</string>
+    <string name="btnAddBockForNextGame">+</string>
+    <string name="btnRmBockForNextGame">-</string>
     <string name="SessionOpen">Sitzung öffnen</string>
     <string name="SessionDelete">Sitzung löschen</string>
     <string name="playerRename">Spieler umbenennen</string>
@@ -55,7 +55,7 @@
     <string name="oneWinnerOnlyQ">Nur ein Gewinner?</string>
     <string name="deletePlayerQ">Delete Player? This Sessions will be deletet also:\n</string>
     <string name="editGameById">Spiel bearbeiten %1$d?"</string>
-    <string name="newBoeckeToAdd">Neue Böcke: %1$d</string>
+    <string name="newBoeckeToAdd">B: %1$d</string>
     <color name="bg1">#cecece</color>
 
 </resources>

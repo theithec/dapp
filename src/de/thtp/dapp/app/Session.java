@@ -76,7 +76,7 @@ public class Session {
 		return getSessionPlayers();
 	}
 
-	private static PlayerList getActivePlayers() {
+	public static PlayerList getActivePlayers() {
 		PlayerList actives = new PlayerList();
 		for (Player p : getSessionPlayers()) {
 			if (p.isActive) {

@@ -17,8 +17,6 @@ import de.thtp.dapp.app.Player;
 import de.thtp.dapp.app.PlayerList;
 import de.thtp.dapp.app.Session;
 
-import de.thtp.dapp.Const;
-
 public abstract class GameResultActivity extends DappActivity implements
 		PlayerCheckBoxCheckable {
 
@@ -192,6 +190,7 @@ public abstract class GameResultActivity extends DappActivity implements
 				}
 			});
 		} else {
+			SessionResultActivity.newBoeckeFromGame = 0;
 			putGameToData(winners, points, boecke);
 			startActivity(new Intent(this, SessionResultActivity.class));
 			finish();

@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TableRow.LayoutParams;
@@ -27,7 +28,7 @@ public class SessionResultActivity extends DappSessionActivity {
 	private int rowcnt = 0;
 	private int tmp_rid = -1;
 	private int[] columWidths;
-	private int newBoeckeFromLastGame = 0;
+	public  static int newBoeckeFromGame = 0;
 	private Button[] bockBtns;
 	private static final int bockBtnsAddBtn = 0;
 	private static final int bockBtnsRMBtn = 1;
@@ -63,6 +64,8 @@ public class SessionResultActivity extends DappSessionActivity {
 				btn.setOnClickListener(new BockClickListener(bockBtnParams[i]));
 			}
 			textViewBoeckeNextGame.setVisibility(View.VISIBLE);
+
+
 		}
 		players = Session.getVisibleSessionPlayers();
 		setRowSizes(players.size(), DAppPrefs.MAX_BOECKE);
@@ -146,12 +149,16 @@ public class SessionResultActivity extends DappSessionActivity {
 
 			tl.addView(tr);
 		}
+		if (DAppPrefs.MAX_BOECKE > 0) {
+			checkBockBtns();
+		}
 	}
+
 
 	protected void startAddGameActivity() {
 		Intent intent = new Intent(this, GameResultAddGameActivity.class);
 		intent.putExtra(Const.K_BOECKE_FOR_THIS_GAME, boeckeForNextGame);
-		intent.putExtra(Const.K_SUGG_BOECKE, newBoeckeFromLastGame);
+		intent.putExtra(Const.K_SUGG_BOECKE, newBoeckeFromGame);
 		startActivity(intent);
 		finish();
 	}
@@ -253,18 +260,18 @@ public class SessionResultActivity extends DappSessionActivity {
 
 		@Override
 		public void onClick(View v) {
-			newBoeckeFromLastGame += val;
+			newBoeckeFromGame += val;
 			checkBockBtns();
 
 		}
 	}
 
 	public void checkBockBtns() {
-		boolean hasBoecke = newBoeckeFromLastGame > 0;
-		textViewBoeckeNextGame.setText(hasBoecke ? getString(
-				R.string.newBoeckeToAdd, newBoeckeFromLastGame) : "");
+		boolean hasBoecke = newBoeckeFromGame > 0;
+		textViewBoeckeNextGame.setText(getString(
+				R.string.newBoeckeToAdd, newBoeckeFromGame) );
 		bockBtns[bockBtnsAddBtn]
-				.setEnabled(newBoeckeFromLastGame < DAppPrefs.MAX_BOECKE);
+				.setEnabled(newBoeckeFromGame < DAppPrefs.MAX_BOECKE);
 		bockBtns[bockBtnsRMBtn].setEnabled(hasBoecke);
 	}
 }
