@@ -1,6 +1,5 @@
 package de.thtp.dapp.app;
 
-import android.R.bool;
 
 public class Player  implements Comparable<Player> {
 	public String name;

@@ -23,8 +23,10 @@ class DiagramView extends View {
 	private int width;
 	private int pointsDiff;
 	private double sizeF;
+	private Paint paint;// = new Paint();
+    private Rect b; // = new Rect();
 
-	public DiagramView(Context context) {
+    public DiagramView(Context context) {
 		super(context);
 
 	}
@@ -34,6 +36,9 @@ class DiagramView extends View {
 		diaHeight = getHeight() - 34;
 		width = getWidth();
 		sizeF = diaHeight / (double) (pointsDiff == -1 ? 1 : pointsDiff + 1);
+		paint = new Paint();
+        b = new Rect();
+
 	}
 
 	private int vpos(int points) {
@@ -42,7 +47,6 @@ class DiagramView extends View {
 
 	private void drawPointLine(Canvas canvas, int points) {
 		int h = vpos(points);
-		Paint paint = new Paint();
 		paint.setColor(Color.LTGRAY);
 		canvas.drawLine(0, h, width, h, paint);
 		paint.setColor(Color.BLACK);
@@ -76,7 +80,7 @@ class DiagramView extends View {
 		}
 		int leftPos = 8;
 		int cnt = 0;
-		Paint paint = new Paint();
+
 		Map<Player, Integer> playerColors = new HashMap<Player, Integer>();
 		int gameWidth = width / table.length;
 		//for (Player p : Session.getSessionPlayers()) {
@@ -86,7 +90,6 @@ class DiagramView extends View {
 			paint.setColor(playerColors.get(p));
 			String txt = p.name;
 			canvas.drawText(txt, leftPos, 16, paint);
-			Rect b = new Rect();
 			paint.getTextBounds(txt, 0, txt.length(), b);
 			leftPos += b.width() + 8;
 

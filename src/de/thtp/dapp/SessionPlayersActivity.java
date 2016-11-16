@@ -60,7 +60,6 @@ public class SessionPlayersActivity extends DappActivity {
         setOnNamesItemSelectedListener(this);
         for (Player p: selectedPlayers){
             PlayerRow pr = new PlayerRow(this, p);
-            //pr.spinner.setSelection(selectedPlayers.indexOf(selectedPlayers.getByName(p.name)));
             playerRows.add(pr);
         }
     }
