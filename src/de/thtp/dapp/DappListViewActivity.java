@@ -18,7 +18,7 @@ abstract public class DappListViewActivity extends DappActivity {
 	}
 
 
-	protected void setListAdapter() {
+	void setListAdapter() {
 
 		ArrayList<String> names = new ArrayList<String>();
 		for (String name : map.keySet()) {
@@ -32,7 +32,7 @@ abstract public class DappListViewActivity extends DappActivity {
 
 	}
 
-	protected void endclick() {
+	void endclick() {
 		startActivity(getIntent());
 		finish();
 	}

@@ -32,7 +32,7 @@ public class PlayerCheckBox extends CheckBox {
 
 	}
 
-	public void setPlayer(Player player) {
+	private void setPlayer(Player player) {
 		this.player = player;
 		setText(player.name);
 	}

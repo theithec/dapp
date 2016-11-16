@@ -6,10 +6,11 @@ import de.thtp.dapp.app.PlayerList;
 import de.thtp.dapp.app.Session;
 
 public class GameResultAddGameActivity extends GameResultActivity {
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-	}
+
+	//@Override
+	//protected void onCreate(Bundle savedInstanceState) {
+	//	super.onCreate(savedInstanceState);
+	//}
 
 	@Override
 	void putGameToData(PlayerList winners, int points, int boecke) {

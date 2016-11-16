@@ -76,7 +76,7 @@ public class SessionResultActivity extends DappSessionActivity {
 			text2row(p.name, tr);
 		}
 
-		String[] resultFields = null;
+		String[] resultFields;
 		if (DAppPrefs.MAX_BOECKE > 0) {
 			resultFields = new String[] { getString(R.string.points),
 					getString(R.string.boecke), };
@@ -103,7 +103,7 @@ public class SessionResultActivity extends DappSessionActivity {
 				text2row("" + rsts[rID][cID], tr);
 			}
 
-			String pointsWithBoecke = "";
+			String pointsWithBoecke;
 			int points = rsts[rID][cID++];
 			int boecke = rsts[rID][cID];
 			if (boecke != 0) {
@@ -155,7 +155,7 @@ public class SessionResultActivity extends DappSessionActivity {
 	}
 
 
-	protected void startAddGameActivity() {
+	private void startAddGameActivity() {
 		Intent intent = new Intent(this, GameResultAddGameActivity.class);
 		intent.putExtra(Const.K_BOECKE_FOR_THIS_GAME, boeckeForNextGame);
 		intent.putExtra(Const.K_SUGG_BOECKE, newBoeckeFromGame);
@@ -186,7 +186,7 @@ public class SessionResultActivity extends DappSessionActivity {
 		tv.setText(txt);
 		tv.setLayoutParams(lp);
 		tv.setPadding(1, 1, 5, 1);
-		tv.setGravity(Gravity.RIGHT);
+		tv.setGravity(Gravity.END);
 		tv.setBackgroundColor(cc % 2 == 0 ? Color.parseColor("#343434") : Color
 				.parseColor("#454545"));
 		tv.setTextColor(Color.parseColor("#EFEFEF"));
@@ -197,7 +197,7 @@ public class SessionResultActivity extends DappSessionActivity {
 		return tv;
 	}
 
-	void rowClick(int rid) {
+	private void rowClick(int rid) {
 		tmp_rid = rid;
 		new DAppActionQuestion(this, new DAppAction(getString(
 				R.string.editGameById, tmp_rid + 1)) {
@@ -209,7 +209,7 @@ public class SessionResultActivity extends DappSessionActivity {
 
 	}
 
-	protected void editGame(int gamePos) {
+	private void editGame(int gamePos) {
 		Intent intent = new Intent(this, GameResultEditGameActivity.class);
 		intent.putExtra(Const.K_GAME_POS, gamePos);
 		startActivity(intent);
@@ -218,7 +218,7 @@ public class SessionResultActivity extends DappSessionActivity {
 	}
 
 	class GameRowClickListener implements View.OnClickListener {
-		int rid;
+		final int rid;
 
 		public GameRowClickListener(int rid) {
 			this.rid = rid;
@@ -252,7 +252,7 @@ public class SessionResultActivity extends DappSessionActivity {
 	}
 
 	class BockClickListener implements OnClickListener {
-		int val;
+		final int val;
 
 		public BockClickListener(int val) {
 			this.val = val;
@@ -266,7 +266,7 @@ public class SessionResultActivity extends DappSessionActivity {
 		}
 	}
 
-	public void checkBockBtns() {
+	private void checkBockBtns() {
 		boolean hasBoecke = newBoeckeFromGame > 0;
 		textViewBoeckeNextGame.setText(getString(
 				R.string.newBoeckeToAdd, newBoeckeFromGame) );

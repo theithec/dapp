@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
-    <item android:id="@+id/itemPlayerRename" android:title="@string/playerRename"></item>
-    <item android:id="@+id/itemPlayerDelete" android:title="@string/playerDelete"></item>
+    <item
+        android:id="@+id/itemPlayerRename"
+        android:title="@string/playerRename" />
+    <item
+        android:id="@+id/itemPlayerDelete"
+        android:title="@string/playerDelete" />
     
 
 </menu>

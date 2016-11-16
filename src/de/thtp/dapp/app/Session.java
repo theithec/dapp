@@ -11,10 +11,10 @@ public class Session {
 
 	private static Session instance;
 	public static final PlayerList EMPTY_PLAYERLIST = new PlayerList();
-	private GameList gameList;
-	public PlayerList players;
-	static IDB idb;
-	int id;
+	private final GameList gameList;
+	private PlayerList players;
+	private static IDB idb;
+	private int id;
 
 	private Session(String name) {
 		Session.instance = this;

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class GameList extends ArrayList<Game> {
 
 	private static GameList instance;
-	public String name;
+	public final String name;
 
 	public GameList(String name) {
 		GameList.instance = this;

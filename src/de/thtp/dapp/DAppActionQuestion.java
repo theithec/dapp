@@ -5,8 +5,8 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 
-public class DAppActionQuestion {
-	DAppAction _action;
+class DAppActionQuestion {
+	final DAppAction _action;
 	boolean confirmed = false;
 
 	public DAppActionQuestion(Context context, DAppAction action) {

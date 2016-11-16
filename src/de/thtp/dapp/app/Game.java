@@ -11,7 +11,7 @@ public class Game {
 	public int points;
 	public int boeckeCreated;
 
-	public int currentPlayersSize;
+	public final int currentPlayersSize;
 	public int id;
 
 	public Game(PlayerList players, PlayerList winners, int points,

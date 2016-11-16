@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
-    <item android:id="@+id/itemSessionOpen" android:title="@string/SessionOpen"></item>
-    <item android:id="@+id/itemSessionDelete" android:title="@string/SessionDelete"></item>
+    <item
+        android:id="@+id/itemSessionOpen"
+        android:title="@string/SessionOpen" />
+    <item
+        android:id="@+id/itemSessionDelete"
+        android:title="@string/SessionDelete" />
     
 
 </menu>

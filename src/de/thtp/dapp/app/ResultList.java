@@ -6,12 +6,12 @@ import java.util.List;
 public class ResultList extends ArrayList<Result> {
 
 	private static final long serialVersionUID = 1L;
-	private ArrayList<Integer> boeckeForGames;
-	private GameList games;
-	private PlayerList players;
+	private final ArrayList<Integer> boeckeForGames;
+	private final GameList games;
+	private final PlayerList players;
 
-	int lowest;
-	int highest;
+	private int lowest;
+	private int highest;
 
 	public ResultList(GameList games) {// DApp dApp){
 		this.players = Session.getSessionPlayers();

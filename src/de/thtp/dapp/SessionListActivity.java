@@ -15,7 +15,7 @@ import de.thtp.dapp.app.Session;
 
 public class SessionListActivity extends DappListViewActivity {
 
-	String selectedSession;
+	private String selectedSession;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -30,7 +30,6 @@ public class SessionListActivity extends DappListViewActivity {
 
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.sessionlistoptionsmenu, menu);
-		return;
 	}
 
 	@Override

@@ -23,15 +23,15 @@ import de.thtp.dapp.app.Session;
  * Created by lotek on 14.06.15.
  */
 public class SessionPlayersActivity extends DappActivity {
-    ArrayAdapter playernamesAdapter;
-    Spinner playernamesSpinner;
-    ArrayList<String> availPlayerNames;
-    PlayerList selectedPlayers;
-    ArrayList<PlayerRow> playerRows;
-    TableLayout tableLayout;
-    ArrayList<String> positions;
-    Button btnSessionPlayersDone;
-    String sessionName;
+    private ArrayAdapter playernamesAdapter;
+    private Spinner playernamesSpinner;
+    private ArrayList<String> availPlayerNames;
+    private PlayerList selectedPlayers;
+    private ArrayList<PlayerRow> playerRows;
+    private TableLayout tableLayout;
+    private ArrayList<String> positions;
+    private Button btnSessionPlayersDone;
+    private String sessionName;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -121,7 +121,7 @@ public class SessionPlayersActivity extends DappActivity {
                 activePlayersSize <= DAppPrefs.MAX_PLAYERS);
         return availPlayerNames;
     }
-    public void setOnNamesItemSelectedListener(final SessionPlayersActivity _activity) {
+    private void setOnNamesItemSelectedListener(final SessionPlayersActivity _activity) {
 
         playernamesSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             boolean firstTime = true;
@@ -153,18 +153,18 @@ public class SessionPlayersActivity extends DappActivity {
         });
     }
 
-    public void setOnNumItemsSelectedListener(final PlayerRow _playerRow) {
+    private void setOnNumItemsSelectedListener(final PlayerRow _playerRow) {
 
         _playerRow.spinner.setOnItemSelectedListener(
                 new AdapterView.OnItemSelectedListener() {
                     //Spinner spinner = fs;
                     boolean firstTime = true;
-                    PlayerRow playerRow = _playerRow;
+                    final PlayerRow playerRow = _playerRow;
 
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                         if (!firstTime) {
-                            TextView tv = (TextView) view;
+                            //TextView tv = (TextView) view;
                             String txt = playerRow.spinner.getSelectedItem().toString();
                             if (txt.equals("-")) {
                                 playerRow.player.isActive = false;
@@ -206,11 +206,11 @@ public class SessionPlayersActivity extends DappActivity {
     }
 
     class PlayerRow {
-        TableRow row;
-        Spinner spinner;
-        TextView nameView;
-        ArrayAdapter spinnerAdapter;
-        Player player;
+        final TableRow row;
+        final Spinner spinner;
+        final TextView nameView;
+        final ArrayAdapter spinnerAdapter;
+        final Player player;
         public PlayerRow(Context context, Player player){
             row = new TableRow(context);
             spinner = new Spinner(context);

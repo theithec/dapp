@@ -5,7 +5,7 @@ import de.thtp.dapp.app.PlayerList;
 import de.thtp.dapp.app.Session;
 
 public class GamePlayersEditGameActivity extends GamePlayersActivity {
-	int gamePos;
+	private int gamePos;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {

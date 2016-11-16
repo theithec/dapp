@@ -21,12 +21,12 @@ public abstract class GameResultActivity extends DappActivity implements
 		PlayerCheckBoxCheckable {
 
 	PlayerCheckBox[] playerCheckBoxes;
-	Button addGameBtn;// , addGameAsBtn;
+	private Button addGameBtn;// , addGameAsBtn;
 	Button PointPlusBtn, PointMinusBtn;
 	Button bockPlusBtn, bockMinusBtn;
 	EditText[] editTexts;
-	int editTextsPoints = 0;
-	int editTextsBoecke = 1;
+	final int editTextsPoints = 0;
+	final int editTextsBoecke = 1;
 	PlayerList players;
 
 	int initialPoints;
@@ -36,7 +36,7 @@ public abstract class GameResultActivity extends DappActivity implements
 
 	Bundle data;
 
-	protected static final int PICK_PLAYER_REQUEST = 1;
+	static final int PICK_PLAYER_REQUEST = 1;
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -220,11 +220,11 @@ public abstract class GameResultActivity extends DappActivity implements
 			this.players = Session.getPlayersbyIDs(playerIDs);
 			initWithPlayers();
 		}
-	};
+	}
 
 	class PMButtonClickListener implements OnClickListener {
-		EditText et;
-		int incr;
+		final EditText et;
+		final int incr;
 
 		public PMButtonClickListener(EditText et, int incr) {
 			this.et = et;

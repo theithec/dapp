@@ -10,9 +10,9 @@ import de.thtp.dapp.app.Session;
 
 public class GameResultEditGameActivity extends GameResultActivity {
 
-	PlayerList suggWinners;
-	int gamePos;
-	Game game;
+	private PlayerList suggWinners;
+	private int gamePos;
+	private Game game;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

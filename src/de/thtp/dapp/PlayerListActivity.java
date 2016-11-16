@@ -17,7 +17,7 @@ import de.thtp.dapp.app.Session;
 
 public class PlayerListActivity extends DappListViewActivity {
 
-	String selectedPlayerName;
+	private String selectedPlayerName;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -36,7 +36,6 @@ public class PlayerListActivity extends DappListViewActivity {
 
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.playerlistoptionsmenu, menu);
-		return;
 	}
 
 	@Override

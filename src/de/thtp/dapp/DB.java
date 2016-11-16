@@ -67,6 +67,7 @@ public class DB extends SQLiteOpenHelper implements IDB {
 			id = cur.getInt(0);
 		}
 		rdb.close();
+		cur.close();
 		return id;
 	}
 
@@ -104,6 +105,7 @@ public class DB extends SQLiteOpenHelper implements IDB {
 		}
 		bp.id = id;
 		wdb.close();
+		cur2.close();
 		return bp;
 	}
 
@@ -154,6 +156,7 @@ public class DB extends SQLiteOpenHelper implements IDB {
 			p.id = cur.getInt(0);
 			pl.add(p);
 		}
+		cur.close();
 		return pl;
 	}
 
@@ -193,6 +196,7 @@ public class DB extends SQLiteOpenHelper implements IDB {
 			Player p = new Player(cur2.getString(0), cur.getInt(1), cur.getInt(2), cur.getInt(3) == 1);
 			p.id = pid;
 			players.add(p);
+			cur2.close();
 		}
 
 		cur = rdb.query("games", new String[] { "_id", "points",
@@ -218,7 +222,9 @@ public class DB extends SQLiteOpenHelper implements IDB {
 			Game g = new Game(cur.getInt(0), gPlayers, winners, cur.getInt(1),
 					cur.getInt(2), cur.getInt(3));
 			games.add(g);
+			cur2.close();
 		}
+		cur.close();
 	}
 
 	@Override
@@ -234,7 +240,7 @@ public class DB extends SQLiteOpenHelper implements IDB {
 		}
 		wdb.delete("games", "session_id" + "=" + sessionId, null);
 		wdb.delete("sessions_players", "session_id" + "=" + sessionId, null);
-
+		cur.close();
 		return delSession;
 	}
 
@@ -294,6 +300,7 @@ public class DB extends SQLiteOpenHelper implements IDB {
 		while (any && cur.moveToNext()) {
 			namesById.put(cur.getString(1), cur.getInt(0));
 		}
+		cur.close();
 		rdb.close();
 		return namesById;
 	}

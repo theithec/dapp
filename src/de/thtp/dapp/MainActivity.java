@@ -18,7 +18,9 @@ import de.thtp.dapp.app.Session;
 
 public class MainActivity extends DappActivity {
 
-	Button btnContinueSession, btnSessionsCtrl, btnPlayersCtrl;
+	private Button btnContinueSession;
+	private Button btnSessionsCtrl;
+	private Button btnPlayersCtrl;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

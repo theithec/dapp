@@ -17,9 +17,9 @@ import de.thtp.dapp.app.Session;
 
 public abstract class GamePlayersActivity extends DappActivity implements
 		PlayerCheckBoxCheckable {
-	List<PlayerCheckBox> cbs;
-	Button btn;
-	PlayerList players;
+	private List<PlayerCheckBox> cbs;
+	private Button btn;
+	private PlayerList players;
 	Bundle data;
 
 	@Override

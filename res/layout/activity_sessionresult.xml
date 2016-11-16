@@ -9,7 +9,7 @@
         android:id="@+id/fullresulttablebtns"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="right" >
+        android:gravity="end" >
 
         <LinearLayout
             android:id="@+id/btnswrapper"

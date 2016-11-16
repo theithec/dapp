@@ -15,10 +15,14 @@ import de.thtp.dapp.app.ResultList;
 import de.thtp.dapp.app.Session;
 
 class DiagramView extends View {
-	static final int[] PLAYER_COLORS = new int[] { Color.RED, Color.CYAN,
+	private static final int[] PLAYER_COLORS = new int[] { Color.RED, Color.CYAN,
 			Color.BLUE, Color.GREEN, Color.MAGENTA, Color.GRAY, Color.YELLOW };
-	int lowestLinePoints, highestLinePoints, diaHeight, width, pointsDiff;
-	double sizeF;
+	private int lowestLinePoints;
+	private int highestLinePoints;
+	private int diaHeight;
+	private int width;
+	private int pointsDiff;
+	private double sizeF;
 
 	public DiagramView(Context context) {
 		super(context);
@@ -103,7 +107,7 @@ class DiagramView extends View {
 }
 
 public class DiagramActivity extends DappActivity {
-	DiagramView dView;
+	private DiagramView dView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

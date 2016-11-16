@@ -5,9 +5,9 @@ import android.content.DialogInterface;
 import android.widget.EditText;
 import de.thtp.dapp.app.Session;
 
-public class PlayerNameDialog extends Builder {
-	EditText input;
-	DappActivity dappActivity;
+class PlayerNameDialog extends Builder {
+	final EditText input;
+	private final DappActivity dappActivity;
 
 	public PlayerNameDialog(DappActivity dappActivity, String title, String name) {
 		super(dappActivity);

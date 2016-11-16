@@ -9,11 +9,11 @@ import de.thtp.dapp.DAppPrefs;
 
 public class Result extends HashMap<Player, Integer> {
 
-	int points = 0;
-	int boeckeInThisGame = 0;
+	private int points = 0;
+	private int boeckeInThisGame = 0;
 
-	int lowest;
-	int highest;
+	private int lowest;
+	private int highest;
 
 	public Result(PlayerList playerList) {
 		lowest = 0;
@@ -59,11 +59,11 @@ public class Result extends HashMap<Player, Integer> {
 		}
 	}
 
-	protected int getLowest() {
+	int getLowest() {
 		return lowest;
 	}
 
-	protected int getHighest() {
+	int getHighest() {
 		return highest;
 	}
 
