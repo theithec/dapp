@@ -4,17 +4,12 @@
     <string name="continueSession">Fortsetzen</string>
     <string name="startNewSession">Neue Sitzung</string>
     <string name="SessionResults">Ergebnisse</string>
-    <string name="titleSessions">Sitzungen</string>
-    <string name="titleSessionDelete">Sitzung löschen</string>
-    <string name="titleSessionOpen">Sizung öffnen</string>
     <string name="sessionNew">Neue Sitzung</string>
     <string name="sessionName">Name</string>
     <string name="sessionCantDeleteCurrent">Kann nicht die laufende Sitzung löschen</string>
     <string name="app_name">Dapp</string>
-    <string name="players">Spieler</string>
     <string name="choosePlayers">Spieler auswählen</string>
     <string name="btnContinueInsertGame">Weiter</string>
-    <string name="title_activity_main">Dapp</string>
     <string name="dappSettings">Einstellungen</string>
     <string name="playersCtrl">Spieler</string>
     <string name="btnAddGame">+ Spiel</string>
@@ -28,7 +23,6 @@
     <string name="points">Punkte</string>
     <string name="bock">Bock</string>
     <string name="boecke">Böcke</string>
-    <string name="addGame">Spiel hinzufügen</string>
     <string name="ok">OK</string>
     <string name="cancel">Abbrechen</string>
     <string name="prefDialogTitleDealerPos">Dealer Position Difference</string>
@@ -46,9 +40,6 @@
     <string name="prefItemTitleMaxBoecke">Anzahl Böcke</string>
     <string name="prefItemTitleCutBoecke">Böcke abschneiden</string>
     <string name="prefSummaryCutBoecke">Böcke abschneiden</string>
-    <string name="titlePlayerRename">Spieler umbenennen</string>
-    <string name="titlePlayerDelete">Spieler löschen</string>
-    <string name="titleManagePlayers">Spieler verwalten</string>
     <string name="titleDiagram">Diagram</string>
     <string name="settingsUpdated">Settings updated</string>
     <string name="addResult">Ergebnis hinzufügen</string>

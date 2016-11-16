@@ -1,22 +1,17 @@
 <resources>
 
     <string name="SessionsCtrl">Sessions</string>
-    <string name="continueSession">continue</string>
-    <string name="startNewSession">start new Session</string>
+    <string name="continueSession">Continue</string>
+    <string name="startNewSession">Start new Session</string>
     <string name="SessionResults">Results</string>
-    <string name="titleSessions">Sessions</string>
-    <string name="titleSessionDelete">Delete Session</string>
-    <string name="titleSessionOpen">Open Session</string>
     <string name="sessionNew">New Session</string>
     <string name="sessionName">Name</string>
      <string name="sessionCantDeleteCurrent">Can\'t delete current session</string>
 
     <string name="app_name">Dapp</string>
-    <string name="players">Players</string>
     <string name="choosePlayers">Choose Players</string>
     <string name="btnContinueInsertGame">Continue</string>
-    <string name="title_activity_main">DappActivity</string>
-    <string name="dappSettings">settings</string>
+    <string name="dappSettings">Settings</string>
     <string name="playersCtrl">Players</string>
     <string name="btnAddGame">Add Game</string>
     <string name="btnAddBockForNextGame">+</string>
@@ -29,7 +24,6 @@
     <string name="points">Points</string>
     <string name="bock">Bock</string>
     <string name="boecke">Boecke</string>
-    <string name="addGame">Add Game</string>
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
     <string name="prefDialogTitleDealerPos">Dealer Position Difference</string>
@@ -47,9 +41,6 @@
     <string name="prefItemTitleMaxBoecke">Number of Böcke</string>
     <string name="prefItemTitleCutBoecke">Cut Böcke?</string>
     <string name="prefSummaryCutBoecke">Cut Böcke</string>
-    <string name="titlePlayerRename">Rename Player</string>
-    <string name="titlePlayerDelete">Delete Player</string>
-    <string name="titleManagePlayers">Manage Players</string>
     <string name="titleDiagram">Diagram</string>
     <string name="settingsUpdated">Settings updated</string>
     <string name="addResult">Add Result</string>
