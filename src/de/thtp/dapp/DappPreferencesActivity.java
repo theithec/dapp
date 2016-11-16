@@ -23,7 +23,7 @@ public class DappPreferencesActivity extends PreferenceActivity implements
 
 	@Override
 	public void onSharedPreferenceChanged(SharedPreferences prefs, String arg1) {
-		DAppPrefs.updateDroikoSettings(prefs);
+		DAppPrefs.updateDappSettings(prefs);
 		Toast.makeText(this, getText(R.string.settingsUpdated),
 				Toast.LENGTH_LONG).show();
 	}
@@ -38,7 +38,7 @@ public class DappPreferencesActivity extends PreferenceActivity implements
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-		case R.id.mainmenu:
+		case R.id.main_menu:
 			startActivity(new Intent(this, MainActivity.class));
 			finish();
 		default:

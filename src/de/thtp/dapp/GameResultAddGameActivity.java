@@ -1,7 +1,7 @@
 package de.thtp.dapp;
 
 import android.content.Intent;
-import android.os.Bundle;
+
 import de.thtp.dapp.app.PlayerList;
 import de.thtp.dapp.app.Session;
 
@@ -19,8 +19,8 @@ public class GameResultAddGameActivity extends GameResultActivity {
 
 	@Override
 	void initWithPlayers() {
-		this.suggBoecke = null != data && data.containsKey(Const.K_SUGG_BOECKE) ? data
-				.getInt(Const.K_SUGG_BOECKE) : 0;
+		this.suggestedBoecke = null != data && data.containsKey(Const.K_SUGGESTED_BOECKE) ? data
+				.getInt(Const.K_SUGGESTED_BOECKE) : 0;
 		boeckeForThisGame = null != data
 				&& data.containsKey(Const.K_BOECKE_FOR_THIS_GAME) ? data
 				.getInt(Const.K_BOECKE_FOR_THIS_GAME) : 0;

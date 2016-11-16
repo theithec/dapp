@@ -6,8 +6,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 
 class DAppActionQuestion {
-	final DAppAction _action;
-	boolean confirmed = false;
+	private final DAppAction _action;
+	private boolean confirmed = false;
 
 	public DAppActionQuestion(Context context, DAppAction action) {
 		this._action = action;

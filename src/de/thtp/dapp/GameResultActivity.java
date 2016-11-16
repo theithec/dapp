@@ -30,7 +30,7 @@ public abstract class GameResultActivity extends DappActivity implements
 	PlayerList players;
 
 	int initialPoints;
-	int suggBoecke;
+	int suggestedBoecke;
 
 	int boeckeForThisGame;
 
@@ -63,7 +63,7 @@ public abstract class GameResultActivity extends DappActivity implements
 
 		int[] editIds = new int[] { R.id.editPoints, R.id.editBoecke };
 		editTexts = new EditText[editIds.length];
-		int[][] bothPMbtnIds = new int[][] {
+		int[][] PlusMinusButtonIds = new int[][] {
 				{ R.id.pointPlusBtn, R.id.pointMinusBtn },
 				{ R.id.bockPlusBtn, R.id.bockMinusBtn } };
 		EditText et;
@@ -99,7 +99,7 @@ public abstract class GameResultActivity extends DappActivity implements
 				}
 			});
 			editTexts[i] = et;
-			int[] pmBtnIds = bothPMbtnIds[i];
+			int[] pmBtnIds = PlusMinusButtonIds[i];
 			Button pBtn = (Button) findViewById(pmBtnIds[0]);
 			pBtn.setOnClickListener(new PMButtonClickListener(et, 1));
 			Button mBtn = (Button) findViewById(pmBtnIds[1]);
@@ -123,7 +123,7 @@ public abstract class GameResultActivity extends DappActivity implements
 		}
 
 		editTexts[0].setText("" + initialPoints);
-		editTexts[1].setText("" + suggBoecke);
+		editTexts[1].setText("" + suggestedBoecke);
 
 		if (DAppPrefs.MAX_BOECKE > 0) {
 			int[] ids = new int[] { R.id.editBoecke, R.id.bockPlusBtn,
@@ -143,16 +143,16 @@ public abstract class GameResultActivity extends DappActivity implements
 			}
 		}
 		EditText pointsEdit = editTexts[editTextsPoints];
-		String pstr = pointsEdit.getText().toString();
+		String strPoints = pointsEdit.getText().toString();
 		int pint = -1;
-		if (!pstr.equals("")) {
-			pint = Integer.parseInt(pstr);
+		if (!strPoints.equals("")) {
+			pint = Integer.parseInt(strPoints);
 		}
 		boolean isEnabled = cnt > 0 && cnt < DAppPrefs.MIN_PLAYERS && pint > 0
 				|| cnt == DAppPrefs.MIN_PLAYERS && pint == 0;
 		addGameBtn.setEnabled(isEnabled);
 
-		TextView textViewPoints = (TextView) findViewById(R.id.textviewPoints);
+		TextView textViewPoints = (TextView) findViewById(R.id.text_viewPoints);
 		String textViewPointsText = getString(R.string.points) + "";
 
 		if (boeckeForThisGame > 0) {
@@ -175,16 +175,16 @@ public abstract class GameResultActivity extends DappActivity implements
 		}
 		final int points = Integer.parseInt(editTexts[editTextsPoints]
 				.getText().toString());
-		String bstr = editTexts[editTextsBoecke].getText().toString();
-		final int boecke = bstr == "" ? 0 : Integer.parseInt(bstr);
+		String strBoecke = editTexts[editTextsBoecke].getText().toString();
+		final int boecke = strBoecke.equals("") ? 0 : Integer.parseInt(strBoecke);
 		if (winners.size() == 1) {
-			final GameResultActivity thiscpy = this;
+			final GameResultActivity copyThis = this;
 			new DAppActionQuestion(this, new DAppAction(
 					getString(R.string.oneWinnerOnlyQ)) {
 				@Override
 				void execute() {
 					putGameToData(winners, points, boecke);
-					startActivity(new Intent(thiscpy,
+					startActivity(new Intent(copyThis,
 							SessionResultActivity.class));
 					finish();
 				}
@@ -224,11 +224,11 @@ public abstract class GameResultActivity extends DappActivity implements
 
 	class PMButtonClickListener implements OnClickListener {
 		final EditText et;
-		final int incr;
+		final int diff;
 
 		public PMButtonClickListener(EditText et, int incr) {
 			this.et = et;
-			this.incr = incr;
+			this.diff = incr;
 		}
 
 		@Override
@@ -239,7 +239,7 @@ public abstract class GameResultActivity extends DappActivity implements
 			} catch (Exception e) {
 				//
 			}
-			et.setText("" + (val + incr));
+			et.setText("" + (val + diff));
 			checkChecked();
 		}
 	}

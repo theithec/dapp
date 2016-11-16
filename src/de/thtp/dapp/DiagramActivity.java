@@ -41,12 +41,12 @@ class DiagramView extends View {
 
 	}
 
-	private int vpos(int points) {
+	private int verticalPosition(int points) {
 		return (int) (diaHeight - (points - lowestLinePoints) * sizeF) + 20;
 	}
 
 	private void drawPointLine(Canvas canvas, int points) {
-		int h = vpos(points);
+		int h = verticalPosition(points);
 		paint.setColor(Color.LTGRAY);
 		canvas.drawLine(0, h, width, h, paint);
 		paint.setColor(Color.BLACK);
@@ -96,9 +96,9 @@ class DiagramView extends View {
 			int oldPoints = 0;
 			for (int gamePos = 0; gamePos < table.length; gamePos++) {
 				int points = table[gamePos][cnt];
-				int vold = vpos(oldPoints);
-				int vp = vpos(points);
-				canvas.drawLine(gamePos * gameWidth, vold + cnt, (gamePos + 1)
+				int oldVerticalPosition = verticalPosition(oldPoints);
+				int vp = verticalPosition(points);
+				canvas.drawLine(gamePos * gameWidth, oldVerticalPosition + cnt, (gamePos + 1)
 						* gameWidth, vp + cnt, paint);
 				oldPoints = points;
 			}
@@ -110,12 +110,11 @@ class DiagramView extends View {
 }
 
 public class DiagramActivity extends DappActivity {
-	private DiagramView dView;
 
-	@Override
+    @Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		dView = new DiagramView(this);
+        DiagramView dView = new DiagramView(this);
 		setContentView(dView);
 	}
 }

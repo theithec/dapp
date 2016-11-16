@@ -12,10 +12,6 @@ public class GameList extends ArrayList<Game> {
 		this.name = name;
 	}
 
-	public static GameList getInstance() {
-		return GameList.instance;
-	}
-
 	@Override
 	public boolean add(Game g) {
 		return super.add(g);

@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TableRow.LayoutParams;
@@ -24,14 +23,13 @@ import de.thtp.dapp.app.Session;
 
 public class SessionResultActivity extends DappSessionActivity {
 
-	private PlayerList players;
-	private int rowcnt = 0;
+	private int rowCount = 0;
 	private int tmp_rid = -1;
-	private int[] columWidths;
+	private int[] columnWidths;
 	public  static int newBoeckeFromGame = 0;
-	private Button[] bockBtns;
-	private static final int bockBtnsAddBtn = 0;
-	private static final int bockBtnsRMBtn = 1;
+	private Button[] bockButtons;
+	private static final int bockButtonsAddBtn = 0;
+	private static final int bockButtonsRMBtn = 1;
 	private TextView textViewBoeckeNextGame;
 	private int boeckeForNextGame;
 	private static final int MENU_DIA = 99;
@@ -43,7 +41,7 @@ public class SessionResultActivity extends DappSessionActivity {
 
 		setTitle(R.string.SessionResults);
 		Button btnAddGame = (Button) findViewById(R.id.btnAddGame);
-		textViewBoeckeNextGame = (TextView) findViewById(R.id.textviewBoeckeNextGame);
+		textViewBoeckeNextGame = (TextView) findViewById(R.id.text_view_boecke_next_game);
 		btnAddGame.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -56,20 +54,20 @@ public class SessionResultActivity extends DappSessionActivity {
 			int[] bockBtnIds = new int[] { R.id.btnAddBockForNextGame,
 					R.id.btnRMBockForNextGame };
 			final int[] bockBtnParams = new int[] { 1, -1 };
-			bockBtns = new Button[2];
+			bockButtons = new Button[2];
 			for (int i = 0; i < 2; i++) {
 				Button btn = (Button) findViewById(bockBtnIds[i]);
 				btn.setVisibility(View.VISIBLE);
-				bockBtns[i] = btn;
+				bockButtons[i] = btn;
 				btn.setOnClickListener(new BockClickListener(bockBtnParams[i]));
 			}
 			textViewBoeckeNextGame.setVisibility(View.VISIBLE);
 
 
 		}
-		players = Session.getVisibleSessionPlayers();
-		setRowSizes(players.size(), DAppPrefs.MAX_BOECKE);
-		TableRow tr = (TableRow) findViewById(R.id.fullresultheaderrow);
+		PlayerList players = Session.getVisibleSessionPlayers();
+		setRowSizes(players.size());
+		TableRow tr = (TableRow) findViewById(R.id.full_result_header_row);
 
 		text2row("", tr);
 		for (Player p : players) {
@@ -87,25 +85,25 @@ public class SessionResultActivity extends DappSessionActivity {
 			text2row(title, tr);
 		}
 
-		TableLayout tl = (TableLayout) findViewById(R.id.fullresulttablelayoutcontent);
+		TableLayout tl = (TableLayout) findViewById(R.id.full_result_table_layout);
 		ResultList results = Session.getResultList(); // new
 														// ResultList(Session.getCurrentSession());
-		int[][] rsts = results.valuesTable();
+		int[][] values = results.valuesTable();
 		int rID;
 		int cnt = 0;
-		for (rID = 0; rID < rsts.length; rID++) {
+		for (rID = 0; rID < values.length; rID++) {
 			tr = new TableRow(this);
 			text2row("" + (cnt + 1), tr).setOnClickListener(
-					new GameRowClickListener(rowcnt++));
+					new GameRowClickListener(rowCount++));
 
 			int cID;
-			for (cID = 0; cID < rsts[rID].length - 2; cID++) {
-				text2row("" + rsts[rID][cID], tr);
+			for (cID = 0; cID < values[rID].length - 2; cID++) {
+				text2row("" + values[rID][cID], tr);
 			}
 
 			String pointsWithBoecke;
-			int points = rsts[rID][cID++];
-			int boecke = rsts[rID][cID];
+			int points = values[rID][cID++];
+			int boecke = values[rID][cID];
 			if (boecke != 0) {
 				int bockPoints = points;
 				for (int i = 0; i < boecke; i++) {
@@ -150,7 +148,7 @@ public class SessionResultActivity extends DappSessionActivity {
 			tl.addView(tr);
 		}
 		if (DAppPrefs.MAX_BOECKE > 0) {
-			checkBockBtns();
+			checkBockButtons();
 		}
 	}
 
@@ -158,21 +156,21 @@ public class SessionResultActivity extends DappSessionActivity {
 	private void startAddGameActivity() {
 		Intent intent = new Intent(this, GameResultAddGameActivity.class);
 		intent.putExtra(Const.K_BOECKE_FOR_THIS_GAME, boeckeForNextGame);
-		intent.putExtra(Const.K_SUGG_BOECKE, newBoeckeFromGame);
+		intent.putExtra(Const.K_SUGGESTED_BOECKE, newBoeckeFromGame);
 		startActivity(intent);
 		finish();
 	}
 
-	private void setRowSizes(int playersLength, int maxBoecke) {
+	private void setRowSizes(int playersLength) {
 		int columns = playersLength + (DAppPrefs.MAX_BOECKE > 0 ? 3 : 2);
 		Display display = ((WindowManager) getSystemService(Context.WINDOW_SERVICE))
 				.getDefaultDisplay();
 		int width = display.getWidth();
 		int avW = width / columns;
-		columWidths = new int[columns];
-		columWidths[0] = avW / 2;
+		columnWidths = new int[columns];
+		columnWidths[0] = avW / 2;
 		for (int i = 1; i < columns; i++) {
-			columWidths[i] = avW;
+			columnWidths[i] = avW;
 		}
 	}
 
@@ -190,9 +188,9 @@ public class SessionResultActivity extends DappSessionActivity {
 		tv.setBackgroundColor(cc % 2 == 0 ? Color.parseColor("#343434") : Color
 				.parseColor("#454545"));
 		tv.setTextColor(Color.parseColor("#EFEFEF"));
-		int trcc = tr.getChildCount();
-		tv.setMinWidth(columWidths[trcc]);
-		tv.setMaxWidth(columWidths[trcc]);
+		int childCount = tr.getChildCount();
+		tv.setMinWidth(columnWidths[childCount]);
+		tv.setMaxWidth(columnWidths[childCount]);
 		tr.addView(tv);
 		return tv;
 	}
@@ -261,17 +259,17 @@ public class SessionResultActivity extends DappSessionActivity {
 		@Override
 		public void onClick(View v) {
 			newBoeckeFromGame += val;
-			checkBockBtns();
+			checkBockButtons();
 
 		}
 	}
 
-	private void checkBockBtns() {
+	private void checkBockButtons() {
 		boolean hasBoecke = newBoeckeFromGame > 0;
 		textViewBoeckeNextGame.setText(getString(
 				R.string.newBoeckeToAdd, newBoeckeFromGame) );
-		bockBtns[bockBtnsAddBtn]
+		bockButtons[bockButtonsAddBtn]
 				.setEnabled(newBoeckeFromGame < DAppPrefs.MAX_BOECKE);
-		bockBtns[bockBtnsRMBtn].setEnabled(hasBoecke);
+		bockButtons[bockButtonsRMBtn].setEnabled(hasBoecke);
 	}
 }

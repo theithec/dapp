@@ -62,7 +62,7 @@ public class SessionListActivity extends DappListViewActivity {
 						Toast.makeText(a, R.string.sessionCantDeleteCurrent,
 								Toast.LENGTH_LONG).show();
 					}
-					endclick();
+					done();
 				}
 			});
 			return true;

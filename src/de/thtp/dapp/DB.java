@@ -19,9 +19,8 @@ import de.thtp.dapp.app.PlayerList;
 import de.thtp.dapp.app.Session;
 
 public class DB extends SQLiteOpenHelper implements IDB {
-	public static final PlayerList EMPTY_PLAYER_LIST = null;
 
-	private static final String DATABASE_NAME = "Dapp2DB";
+    private static final String DATABASE_NAME = "Dapp2DB";
 	private static final int DATABASE_VERSION = 1;
 
 	private int currentSessionID = 0;
@@ -82,7 +81,6 @@ public class DB extends SQLiteOpenHelper implements IDB {
 		int id = playerIdFromName(bp.name);
 		wdb.close();
 		wdb = getWritableDatabase();
-		//Player found = session.players.getByName(bp.name); //hm, now player is here always already insession ...
 		cv = new ContentValues();
 		cv.put("diff", bp.diff);
 		cv.put("is_active", bp.isActive);
@@ -280,7 +278,6 @@ public class DB extends SQLiteOpenHelper implements IDB {
 	public Map<String, Integer> getSessionIdsByNamesWithPlayer(int playerId) {
 		Map<String, Integer> namesById = new TreeMap<String, Integer>();
 		SQLiteDatabase rdb = getReadableDatabase();
-		Set<Integer> sessionIds = new HashSet<Integer>();
 		String sessionIdsStr = "(";
 		String sep = "";
 		Cursor cur = rdb.query(true, // distinct
@@ -289,7 +286,6 @@ public class DB extends SQLiteOpenHelper implements IDB {
 		boolean any = cur.getCount() > 0;
 		while (any && cur.moveToNext()) {
 			int id = cur.getInt(0);
-			sessionIds.add(id);
 			sessionIdsStr += sep + id;
 			sep = ",";
 		}
@@ -310,8 +306,8 @@ public class DB extends SQLiteOpenHelper implements IDB {
 		Map<String, Integer> sessions = getSessionIdsByNamesWithPlayer(playerId);
 		String sessionsWhere = "(";
 		String sep = "";
-		for (String sname : sessions.keySet()) {
-			int sessionId = sessions.get(sname);
+		for (String sessionName : sessions.keySet()) {
+			int sessionId = sessions.get(sessionName);
 			sessionsWhere += sep + sessionId;
 			sep = ",";
 		}

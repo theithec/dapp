@@ -1,7 +1,6 @@
 package de.thtp.dapp.app;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class PlayerList extends ArrayList<Player> {
 

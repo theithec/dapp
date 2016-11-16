@@ -17,8 +17,6 @@ import de.thtp.dapp.app.Session;
 
 public class PlayerListActivity extends DappListViewActivity {
 
-	private String selectedPlayerName;
-
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		setTitle(getString(R.string.playersCtrl));
@@ -43,7 +41,7 @@ public class PlayerListActivity extends DappListViewActivity {
 		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item
 				.getMenuInfo();
 		// info.targetView.toString();
-		selectedPlayerName = (String) ((TextView) info.targetView).getText();
+		String selectedPlayerName = (String) ((TextView) info.targetView).getText();
 		final int playerId = selectedPlayerName != null ? map
 				.get(selectedPlayerName) : -1;
 		switch (item.getItemId()) {
@@ -66,19 +64,13 @@ public class PlayerListActivity extends DappListViewActivity {
 				@Override
 				void execute() {
 					Session.deletePlayer(playerId);
-					endclick();
+					done();
 				}
 			});
-			// endclick();
+			// done();
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);
 		}
 	}
-
-	/*
-	 * @Override protected boolean onListItemLongClick(AdapterView l, View v,
-	 * int position, long id) { selectedPlayerName = ((TextView)
-	 * v).getText().toString(); return true; //openOptionsMenu(); }
-	 */
 }

@@ -1,6 +1,6 @@
 package de.thtp.dapp;
 
-public abstract class DAppAction {
+abstract class DAppAction {
 	final String question;
 
 	public DAppAction(String question) {

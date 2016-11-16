@@ -3,7 +3,6 @@ package de.thtp.dapp;
 import java.util.Date;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -30,7 +29,7 @@ public class MainActivity extends DappActivity {
 		btnSessionsCtrl = (Button) findViewById(R.id.btnSessionsCtrl);
 		btnPlayersCtrl = (Button) findViewById(R.id.btnPlayersCtrl);
 		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-		DAppPrefs.updateDroikoSettings(preferences);
+		DAppPrefs.updateDappSettings(preferences);
 
 	}
 

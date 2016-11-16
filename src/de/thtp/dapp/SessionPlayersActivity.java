@@ -31,17 +31,16 @@ public class SessionPlayersActivity extends DappActivity {
     private TableLayout tableLayout;
     private ArrayList<String> positions;
     private Button btnSessionPlayersDone;
-    private String sessionName;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sessionplayers);
-        tableLayout = (TableLayout) findViewById(R.id.playerstablelayout);
+        tableLayout = (TableLayout) findViewById(R.id.players_table_layout);
         btnSessionPlayersDone = (Button) findViewById(R.id.btnSessionPlayersDone);
         playerRows = new ArrayList<>();
         selectedPlayers = Session.getSessionPlayers();
-        sessionName = this.getIntent().getExtras()
+        String sessionName = this.getIntent().getExtras()
                 .getString(Const.K_SESSION_NAME);
         if (!Session.isReady()) {
             Session.setIDB(new DB(this));
@@ -55,7 +54,7 @@ public class SessionPlayersActivity extends DappActivity {
         playernamesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         updateAvailPlayerNames();
-        playernamesSpinner = (Spinner) findViewById(R.id.playernamesSpinner);
+        playernamesSpinner = (Spinner) findViewById(R.id.player_names_spinner);
         playernamesSpinner.setAdapter(playernamesAdapter);
         setOnNamesItemSelectedListener(this);
         for (Player p: selectedPlayers){
@@ -97,7 +96,7 @@ public class SessionPlayersActivity extends DappActivity {
 
 
 
-    private ArrayList<String> updateAvailPlayerNames() {
+    private void updateAvailPlayerNames() {
         PlayerList availPlayers = Session.getKnownPlayers();
         for (Player sessionPlayer : selectedPlayers) {
             Player found = availPlayers.getByName(sessionPlayer.name);
@@ -118,8 +117,8 @@ public class SessionPlayersActivity extends DappActivity {
         int activePlayersSize = Session.getActivePlayers().size();
         btnSessionPlayersDone.setEnabled(activePlayersSize >= DAppPrefs.MIN_PLAYERS &&
                 activePlayersSize <= DAppPrefs.MAX_PLAYERS);
-        return availPlayerNames;
     }
+
     private void setOnNamesItemSelectedListener(final SessionPlayersActivity _activity) {
 
         playernamesSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -216,7 +215,7 @@ public class SessionPlayersActivity extends DappActivity {
             nameView = new TextView(context);
             this.player = player;
             nameView.setText(player.name);
-            spinnerAdapter = new ArrayAdapter(context, android.R.layout.simple_spinner_item, positions);
+            spinnerAdapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, positions);
             spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
             spinner.setAdapter(spinnerAdapter);

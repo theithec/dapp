@@ -29,7 +29,7 @@ abstract public class DappActivity extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle item selection
 		switch (item.getItemId()) {
-		case R.id.mainmenu:
+		case R.id.main_menu:
 			startActivity(new Intent(this, MainActivity.class));
 			finish();
 

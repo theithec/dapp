@@ -1,7 +1,5 @@
 package de.thtp.dapp.app;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -10,7 +8,6 @@ import de.thtp.dapp.DAppPrefs;
 public class Session {
 
 	private static Session instance;
-	public static final PlayerList EMPTY_PLAYERLIST = new PlayerList();
 	private final GameList gameList;
 	private PlayerList players;
 	private static IDB idb;
@@ -128,10 +125,7 @@ public class Session {
 	}
 
 	public static boolean deleteSession(int sessionID) {
-		if (sessionID == Session.instance.id) {
-			return false;
-		}
-		return idb.deleteSession(sessionID);
+		return sessionID != Session.instance.id && idb.deleteSession(sessionID);
 	}
 
 	public static void clear() {

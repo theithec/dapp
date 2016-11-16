@@ -8,13 +8,12 @@ public class ResultList extends ArrayList<Result> {
 	private static final long serialVersionUID = 1L;
 	private final ArrayList<Integer> boeckeForGames;
 	private final GameList games;
-	private final PlayerList players;
 
 	private int lowest;
 	private int highest;
 
 	public ResultList(GameList games) {// DApp dApp){
-		this.players = Session.getSessionPlayers();
+		PlayerList players = Session.getSessionPlayers();
 		boeckeForGames = new ArrayList<Integer>();
 		lowest = 0;
 		highest = 0;
@@ -34,15 +33,6 @@ public class ResultList extends ArrayList<Result> {
 		}
 	}
 
-	public int gamesWithBoecke() {
-		int bSize = boeckeForGames.size();
-		int gSize = games.size();
-		while (bSize > gSize && boeckeForGames.get(bSize - 1) == 0) {
-			bSize--;
-		}
-		return bSize;
-	}
-
 	public int[] getOutstandingBoecke() {
 		int gs = games.size();
 		int bs = boeckeForGames.size();
@@ -53,14 +43,6 @@ public class ResultList extends ArrayList<Result> {
 			ob[i] = boeckeForGames.get(i + gs);
 		}
 		return ob;
-	}
-
-	public int boeckeForGame(int id) {
-		int b = 0;
-		if (id > -1 && id < boeckeForGames.size()) {
-			b = boeckeForGames.get(id);
-		}
-		return b;
 	}
 
 	public int[][] valuesTable() {
@@ -79,10 +61,6 @@ public class ResultList extends ArrayList<Result> {
 			t[rID][++pID] = res.getBoecke();
 		}
 		return t;
-	}
-
-	public Result last() {
-		return get(size() - 1);
 	}
 
 	public int[] resultPeaks() {

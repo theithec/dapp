@@ -18,10 +18,10 @@ public abstract class DappSessionActivity extends DappActivity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle item selection
 		switch (item.getItemId()) {
-		case R.id.mainmenu:
+		case R.id.main_menu:
 			startActivity(new Intent(this, MainActivity.class));
 			finish();
-		case R.id.sessionplayers:
+		case R.id.session_players:
 			Intent i = new Intent(this, SessionPlayersActivity.class);
 			i.putExtra(Const.K_SESSION_NAME, Session.getName());
 

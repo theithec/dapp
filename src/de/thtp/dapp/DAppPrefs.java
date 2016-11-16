@@ -12,14 +12,14 @@ public class DAppPrefs {
 	public static boolean CUT_BOECKE = true;
 	public static int DEALER_POS_DIFF = 0;
 
-	public static void updateDroikoSettings(SharedPreferences prefs) {
+	public static void updateDappSettings(SharedPreferences prefs) {
 
 		DAppPrefs.MAX_BOECKE = Integer.parseInt(prefs.getString(
-				"maxboecke_preference", "" + DAppPrefs.MAX_BOECKE));
+				"max_boecke_preference", "" + DAppPrefs.MAX_BOECKE));
 		DAppPrefs.MAX_PLAYERS = Integer.parseInt(prefs.getString(
-				"playersize_list_preference", "" + DAppPrefs.MAX_PLAYERS));
+				"player_size_list_preference", "" + DAppPrefs.MAX_PLAYERS));
 		DAppPrefs.MIN_PLAYERS = Integer.parseInt(prefs.getString(
-				"min_playersize_list_preference", "" + DAppPrefs.MIN_PLAYERS));
+				"min_player_size_list_preference", "" + DAppPrefs.MIN_PLAYERS));
 		DAppPrefs.COUNT_MINUS = prefs.getBoolean("count_minus_preference",
 				DAppPrefs.COUNT_MINUS);
 		DAppPrefs.CUT_BOECKE = prefs.getBoolean("cut_boecke_preference",

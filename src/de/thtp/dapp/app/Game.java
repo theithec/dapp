@@ -31,21 +31,22 @@ public class Game {
 
 	public Map<Player, Integer> gameResult(int boeckeInThisGame) {
 		Map<Player, Integer> res = new HashMap<Player, Integer>();
-		int wpoints = points;
+		int winnerPoints = points;
 		for (int i = 0; i < boeckeInThisGame; i++) {
-			wpoints *= 2;
+			winnerPoints *= 2;
 		}
-		int lpoints = DAppPrefs.COUNT_MINUS ? -wpoints : 0;
+		int looserPoints = DAppPrefs.COUNT_MINUS ? -winnerPoints : 0;
 
-		int wsize = winners.size();
-		if (wsize == 1) {
-			wpoints *= 3;
-		} else if (wsize == 3) {
-			lpoints *= 3;
+
+		int winnersSize = winners.size();
+		if (winnersSize == 1) {
+			winnerPoints *= 3;
+		} else if (winnersSize == 3) {
+			looserPoints *= 3;
 		}
 		for (Player p : players) {
-			int ppoints = winners.contains(p) ? wpoints : lpoints;
-			res.put(p, ppoints);
+			int playerPoints = winners.contains(p) ? winnerPoints : looserPoints;
+			res.put(p, playerPoints);
 		}
 		return res;
 	}

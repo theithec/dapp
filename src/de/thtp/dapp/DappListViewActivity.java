@@ -17,14 +17,13 @@ abstract public class DappListViewActivity extends DappActivity {
 		setListAdapter();
 	}
 
-
 	void setListAdapter() {
 
 		ArrayList<String> names = new ArrayList<String>();
 		for (String name : map.keySet()) {
 			names.add(name);
 		}
-		ListView lv = (ListView) this.findViewById(R.id.objectlist);
+		ListView lv = (ListView) this.findViewById(R.id.object_list);
 		ArrayAdapter<String> aad = new ArrayAdapter<String>(this,
 				android.R.layout.simple_list_item_1, names);
 		lv.setAdapter(aad);
@@ -32,11 +31,8 @@ abstract public class DappListViewActivity extends DappActivity {
 
 	}
 
-	void endclick() {
+	void done() {
 		startActivity(getIntent());
 		finish();
 	}
-
-	// abstract protected boolean onListItemLongClick(AdapterView l, View v,
-	// int position, long id);
 }

@@ -9,10 +9,7 @@ import de.thtp.dapp.app.ResultList;
 import de.thtp.dapp.app.Session;
 
 public class GameResultEditGameActivity extends GameResultActivity {
-
-	private PlayerList suggWinners;
 	private int gamePos;
-	private Game game;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -22,14 +19,14 @@ public class GameResultEditGameActivity extends GameResultActivity {
 
 	@Override
 	void initWithPlayers() {
-		game = Session.getGame(gamePos);
+		Game game = Session.getGame(gamePos);
 		ResultList rl = Session.getResultList();
 		boeckeForThisGame = rl.get(gamePos).getBoecke();
-		suggWinners = game.winners;
+		PlayerList suggestedWinners = game.winners;
 		initialPoints = game.points;
 		super.initWithPlayers();
-		for (PlayerCheckBox pbox : playerCheckBoxes) {
-			pbox.setChecked(suggWinners.contains(pbox.player));
+		for (PlayerCheckBox playerCheckBox : playerCheckBoxes) {
+			playerCheckBox.setChecked(suggestedWinners.contains(playerCheckBox.player));
 		}
 		this.editTexts[editTextsPoints].setText("" + game.points);
 		this.editTexts[editTextsBoecke].setText("" + game.boeckeCreated);
@@ -39,6 +36,8 @@ public class GameResultEditGameActivity extends GameResultActivity {
 	@Override
 	void pickPlayers() {
 		Intent intent = new Intent(this, GamePlayersEditGameActivity.class);
+
+		gamePos = data.getInt(Const.K_GAME_POS);
 		intent.putExtra(Const.K_GAME_POS, gamePos);
 		startActivityForResult(intent, PICK_PLAYER_REQUEST);
 	}

@@ -7,11 +7,10 @@ import de.thtp.dapp.app.Session;
 
 class PlayerNameDialog extends Builder {
 	final EditText input;
-	private final DappActivity dappActivity;
 
 	public PlayerNameDialog(DappActivity dappActivity, String title, String name) {
 		super(dappActivity);
-		this.dappActivity = dappActivity;
+		DappActivity dappActivity1 = dappActivity;
 		setTitle(title);
 		setMessage("Name");
 		// final String val;
@@ -46,5 +45,4 @@ class PlayerNameEditDialog extends PlayerNameDialog {
 			}
 		});
 	}
-
 }
