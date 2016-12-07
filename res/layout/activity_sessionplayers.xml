@@ -6,7 +6,7 @@
 
 
     <TableLayout
-        android:id="@+id/playerstablelayout"
+        android:id="@+id/players_table_layout"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:stretchColumns="1" >
@@ -25,7 +25,7 @@
             <Spinner
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/playernamesSpinner" />
+                android:id="@+id/player_names_spinner" />
 
         </TableRow>
     </TableLayout>

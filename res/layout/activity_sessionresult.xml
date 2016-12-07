@@ -24,7 +24,7 @@
 
 
             <TextView
-                android:id="@+id/textviewBoeckeNextGame"
+                android:id="@+id/text_view_boecke_next_game"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:visibility="invisible"
@@ -67,7 +67,7 @@
         android:stretchColumns="1" >
 
         <TableRow
-            android:id="@+id/fullresultheaderrow"
+            android:id="@+id/full_result_header_row"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content" >
         </TableRow>
@@ -79,7 +79,7 @@
         android:scrollbars="vertical" >
 
         <TableLayout
-            android:id="@+id/fullresulttablelayoutcontent"
+            android:id="@+id/full_result_table_layout"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:stretchColumns="1" >

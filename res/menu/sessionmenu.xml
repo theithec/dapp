@@ -2,11 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <item
-        android:id="@+id/mainmenu"
+        android:id="@+id/main_menu"
         android:title="Menu">
     </item>
     <item
-        android:id="@+id/sessionplayers"
+        android:id="@+id/session_players"
         android:title="Players">
     </item>
 
