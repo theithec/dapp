@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -60,10 +61,15 @@ public class SessionPlayersActivity extends DappActivity {
         for (Player p: selectedPlayers){
             PlayerRow pr = new PlayerRow(this, p);
             playerRows.add(pr);
+
         }
     }
 
     public void startSessionWithPlayers(View v) {
+        for (PlayerRow playerRow: playerRows) {
+            int diff = Integer.parseInt("" +playerRow.diffView.getText());
+            playerRow.player.diff = diff;
+        }
         Session.updatePlayers(selectedPlayers);
         Intent i = new Intent(this, SessionResultActivity.class);
         startActivity(i);
@@ -208,11 +214,15 @@ public class SessionPlayersActivity extends DappActivity {
         final Spinner spinner;
         final TextView nameView;
         final ArrayAdapter spinnerAdapter;
+        final EditText diffView;
         final Player player;
         public PlayerRow(Context context, Player player){
             row = new TableRow(context);
             spinner = new Spinner(context);
             nameView = new TextView(context);
+            diffView = new EditText(context);
+            diffView.setText("" + player.diff);
+            diffView.setMinEms(3);
             this.player = player;
             nameView.setText(player.name);
             spinnerAdapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, positions);
@@ -221,7 +231,9 @@ public class SessionPlayersActivity extends DappActivity {
             spinner.setAdapter(spinnerAdapter);
             row.addView(spinner);
             row.addView(nameView);
+            row.addView(diffView);
             tableLayout.addView(row);
+
             int selection = Session.getActivePlayers().indexOf(selectedPlayers.getByName(player.name));// positions.size() - 2;
             if (!player.isActive) {
                 selection = positions.size()-1;
